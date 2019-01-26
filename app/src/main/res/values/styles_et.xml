@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="BaseEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColorHint">@color/accent</item>
+        <item name="android:fontFamily">@font/fonts</item>
+    </style>
+</resources>

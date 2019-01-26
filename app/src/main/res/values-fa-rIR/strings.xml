@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">سامانه ارتباط با انجمن مدرسه</string>
+    <string name="degree_of_education">مدرک تحصیلی</string>
+    <string name="first_name">نام</string>
+    <string name="last_name">نام خانوادگی</string>
+    <string name="name">نام</string>
+    <string name="nid_no">شماره ملّی</string>
+    <string name="st_no_child">شماره دانش آموزی فرزند</string>
+    <string name="name_Of_child">نام فرزند</string>
+    <string name="phone_number">شماره تماس</string>
+    <string name="username">نام کاربری</string>
+    <string name="password">رمز عبور</string>
+    <string name="signup">ثبت نام</string>
+    <string name="login">ورود</string>
+    <string name="send">فرستادن</string>
+    <string name="text">متن</string>
+</resources>

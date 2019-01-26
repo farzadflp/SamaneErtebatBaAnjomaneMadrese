@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="FlatButton" parent="Base.Widget.AppCompat.Button">
+        <item name="pb_colorNormal">@color/primary</item>
+        <item name="pb_colorPressed">@color/accent</item>
+        <item name="pb_cornerRadius">10dp</item>
+        <item name="android:fontFamily">@font/fonts</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/secondary_text</item>
+    </style>
+    <style name="Sendbtn" parent="Base.Widget.AppCompat.Button">
+        <item name="pb_colorNormal">@color/accent</item>
+        <item name="pb_colorPressed">@color/primary_light</item>
+        <item name="pb_cornerRadius">10dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">#ffffff</item>
+    </style>
+</resources>
