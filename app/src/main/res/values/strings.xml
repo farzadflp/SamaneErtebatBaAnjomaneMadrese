@@ -15,4 +15,11 @@
     <string name="login">Login</string>
     <string name="send">Send</string>
     <string name="text">Text</string>
+    <string name="search">Search</string>
+    <string name="chatlist">ChatList</string>
+    <string name="gender">Gender</string>
+    <string name="male">Male</string>
+    <string name="femail">Femail</string>
+    <string name="testdate">1397/08/08</string>
+    <string name="testtime">22:22</string>
 </resources>

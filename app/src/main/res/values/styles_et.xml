@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="BaseEditText" parent="Widget.AppCompat.EditText">
-        <item name="android:textColorHint">@color/accent</item>
-        <item name="android:fontFamily">@font/fonts</item>
+        <item name="android:textColorHint">@color/primary_light</item>
+        <item name="android:textColor">@color/primary</item>
+    </style>
+    <style name="ChatActivityEditText" parent="Widget.AppCompat.EditText">
+        <item name="android:textColorHint">@color/primary_text</item>
+        <item name="android:textColor">@color/primary_text</item>
     </style>
 </resources>

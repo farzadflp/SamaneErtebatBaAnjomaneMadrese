@@ -15,4 +15,11 @@
     <string name="login">ورود</string>
     <string name="send">فرستادن</string>
     <string name="text">متن</string>
+    <string name="search">جست و جو</string>
+    <string name="chatlist">لیست چت</string>
+    <string name="gender">جنسیت</string>
+    <string name="femail">مؤنث</string>
+    <string name="male">مذکر</string>
+    <string name="testtime">۲۲:۲۲</string>
+    <string name="testdate">۱۳۹۷/۰۸/۰۸</string>
 </resources>

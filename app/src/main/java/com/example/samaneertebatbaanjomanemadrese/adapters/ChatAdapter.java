@@ -54,7 +54,7 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         }
         public void bind(Message message){
             msg.setText(message.getMsg());
-            avatar.setImageResource(R.drawable.circle );
+            avatar.setImageResource(R.drawable.user);
 
         }
     }

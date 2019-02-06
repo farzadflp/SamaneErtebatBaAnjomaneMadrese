@@ -5,6 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary_text"
     tools:context=".LoginActivity"
     tools:layout_editor_absoluteX="51dp"
     tools:layout_editor_absoluteY="81dp">
@@ -37,7 +38,7 @@
                 android:layout_weight="1"
                 android:padding="6dp"
                 android:scaleType="fitXY"
-                android:src="@color/primary_light" />
+                app:srcCompat="@drawable/egitim" />
         </LinearLayout>
 
         <LinearLayout

@@ -54,10 +54,18 @@ public class LoginActivity extends AppCompatActivity {
                 return false;
             }
         });
-        menu.add("ChatList").setOnMenuItemClickListener(new OnMenuItemClickListener() {
+        menu.add("Inbox").setOnMenuItemClickListener(new OnMenuItemClickListener() {
                     @Override
                     public boolean onMenuItemClick(MenuItem item) {
-                        Intent  intent = new Intent(LoginActivity.this  , ChatListActivity.class);
+                        Intent  intent = new Intent(LoginActivity.this  , InboxActivity.class);
+                        startActivity(intent);
+                        return false;
+                    }
+                });
+        menu.add("profile").setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+                        Intent  intent = new Intent(LoginActivity.this  , ProfileActivity.class);
                         startActivity(intent);
                         return false;
                     }
