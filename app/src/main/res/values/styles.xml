@@ -17,6 +17,7 @@
 
 
 
+
     <style name="TextOfRecyclerView" parent="TextAppearance.AppCompat.Widget.TextView.SpinnerItem">
         <item name="android:textSize">16dp</item>
         <item name="android:textColor">@color/secondary_text</item>
@@ -36,6 +37,16 @@
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">@font/fonts</item>
         <item name="android:textColor">@color/primary_text</item>
+    </style>
+    <style name="BaseSpinner" parent="Base.Widget.AppCompat.Spinner">
+        <item name="android:color">@color/primary_text</item>
+        <item name="android:background">@drawable/circle</item>
+        <item name="android:layout_gravity">center_horizontal|center</item>
+        <item name="android:gravity">center_horizontal|center</item>
+        <item name="android:paddingRight">30dp</item>
+        <item name="android:layout_marginTop">5dp</item>
+
+
     </style>
 
 </resources>

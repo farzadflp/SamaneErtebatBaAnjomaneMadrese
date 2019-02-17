@@ -1,5 +1,8 @@
 package com.example.samaneertebatbaanjomanemadrese.adapters;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
@@ -10,12 +13,18 @@ import android.view.ViewGroup;
 
 import com.example.samaneertebatbaanjomanemadrese.R;
 import com.example.samaneertebatbaanjomanemadrese.model.Inbox;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
 public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHolder> {
     private List<Inbox> inboxList;
+    private int selectedPosition=-1;
 
 
     public InboxAdapter(@NonNull List<Inbox> inboxList) {
@@ -38,6 +47,19 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
     @Override
     public void onBindViewHolder(@NonNull InboxViewHolder holder, int position) {
         holder.bind(inboxList.get(position));
+        if(selectedPosition==position)
+            holder.itemView.setBackgroundColor(Color.parseColor("#ffa800"));
+        else
+            holder.itemView.setBackgroundColor(Color.parseColor("#ECF0F1"));
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                selectedPosition=position;
+                notifyDataSetChanged();
+
+            }
+        });
 
     }
 
@@ -57,7 +79,9 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
         }
         public void bind(Inbox inbox){
             username.setText(inbox.getUsername());
-            avatar.setImageResource(R.drawable.user);
+            avatar.setImageBitmap(inbox.getBitmap());
+
+           // Picasso.get().load(inbox.getAvatarPath()).into(avatar);
         }
     }
 }

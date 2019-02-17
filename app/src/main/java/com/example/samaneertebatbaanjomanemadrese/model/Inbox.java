@@ -1,15 +1,19 @@
 package com.example.samaneertebatbaanjomanemadrese.model;
 
-import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.AppCompatTextView;
+import android.graphics.Bitmap;
 
 public class Inbox {
-    private String username;
-    private AppCompatImageView avatar;
+    private String username , avatarPath;
+    private Bitmap bitmap;
 
-    public Inbox(String username, AppCompatImageView avatar) {
+
+    public Inbox() {
+        this("","");
+    }
+
+    public Inbox(String username, String avatarPath) {
         this.username = username;
-        this.avatar = avatar;
+        this.avatarPath = avatarPath;
     }
 
     public String getUsername() {
@@ -20,11 +24,19 @@ public class Inbox {
         this.username = username;
     }
 
-    public AppCompatImageView getAvatar() {
-        return avatar;
+    public String getAvatarPath() {
+        return avatarPath;
     }
 
-    public void setAvatar(AppCompatImageView avatar) {
-        this.avatar = avatar;
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
+    }
+
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
+
+    public void setBitmap(Bitmap bitmap) {
+        this.bitmap = bitmap;
     }
 }
