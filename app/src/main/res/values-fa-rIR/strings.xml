@@ -26,7 +26,7 @@
     <string name="turn_on_wifi">روشن کردن وای فای</string>
     <string name="turn_on_mobile_data">روشن کردن داده همراه</string>
     <string name="retry">دوباره امتحان کن</string>
-    <string name="loading">بارگذاری</string>
+    <string name="loading">بارگذاری...</string>
     <string name="you_are_offline">شما آفلاین هستید</string>
     <string name="no_internet_access">بدون دسترسی به اینترنت</string>
     <string name="warning_fistname_length">نام باید حداقل ۳ حرف باشد</string>
@@ -39,4 +39,10 @@
     <string name="inbox">صندوق</string>
     <string name="profile">پروفایل</string>
     <string name="request_text">متن درخواست</string>
+    <string name="refresh">تازه سازی</string>
+    <string name="error">خطایی رخ داد لطفا دوباره تلاش کنید.</string>
+    <string name="username_duplicated">نام کاربری تکراری است.</string>
+    <string name="to">به</string>
+    <string name="topic">موضوع</string>
+    <string name="success">موفقیت آمیز</string>
 </resources>

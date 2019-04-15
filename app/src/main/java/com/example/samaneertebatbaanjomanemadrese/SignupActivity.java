@@ -2,6 +2,8 @@ package com.example.samaneertebatbaanjomanemadrese;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
@@ -10,19 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.dd.processbutton.FlatButton;
+import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.samaneertebatbaanjomanemadrese.helper.LocaleHelper;
 import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
 import com.example.samaneertebatbaanjomanemadrese.model.User;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
-
+import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger.RequestData;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,13 +28,13 @@ import java.util.Map;
 import static com.example.samaneertebatbaanjomanemadrese.R.id.signup_et_st_no_child;
 
 public class SignupActivity extends AppCompatActivity {
-    private AppCompatEditText inputFirstname, inputLastname, inputPhoneNo, inputNIDNo, inputChildName, inputStNoOfChild, inputUsername, inputPassword;
-    private FlatButton signupBtn;
+    private AppCompatEditText inputFirstname, inputLastname, inputPhoneNo, inputChildName, inputStNoOfChild, inputUsername, inputPassword;
+    private ActionProcessButton signupBtn;
     private AppCompatRadioButton maleRB, femaleRB;
-    private boolean gender = false;
+    private int gender = 0;
     private User user;
-    public static final String URL_REGISTER = "http://192.168.1.35:8888/Register.php";
-    private RequestQueue requestQueue;
+    public static final String URL_REGISTER = "http://192.168.1.38:8888/Register.php";
+    public final static int ERROR = -1, NORMAL = 0, COMPLETE = 100, PROCESS = 50;
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -54,35 +49,42 @@ public class SignupActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         init();
+        signupBtnSetOnClick();
+
+    }
+
+    private void signupBtnSetOnClick() {
         signupBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //creat account
                 String firstname = inputFirstname.getText().toString().trim();
                 String lastname = inputLastname.getText().toString().trim();
                 String phoneNo = inputPhoneNo.getText().toString().trim();
-                String NIDNo = inputNIDNo.getText().toString().trim();
+                ;
                 String childName = inputChildName.getText().toString().trim();
                 String stNoOfChild = inputStNoOfChild.getText().toString().trim();
                 String username = inputUsername.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
                 //onRadioButtonClicked(v);
-                if (isValidInput(firstname, lastname, phoneNo, NIDNo, childName, stNoOfChild, username, password)) {
-                    user = initUser(new User(firstname, lastname, phoneNo, username, password, gender), NIDNo, childName, stNoOfChild);
-                    if (!MyHttpManger.isOnline(SignupActivity.this)){
+                if (isValidInput(firstname, lastname, phoneNo, childName, stNoOfChild, username, password)) {
+                    user = new User(firstname, lastname, username, password, gender);
+                    initUser(user, phoneNo, childName, stNoOfChild);
+                    if (!MyHttpManger.isOnline(SignupActivity.this)) {
                         MyIntentHelper.alertDialogIsOffline(SignupActivity.this);
                     }
-                    sendParamsPost();
+                    myRequest(user);
                 }
             }
         });
     }
 
 
-    private User initUser(User initUser, String NIDNo, String childName, String stNoOfChild) {
+    private User initUser(User initUser, String phoneNo, String childName, String stNoOfChild) {
         User user = initUser;
-        user.setNIDNo(NIDNo);
         user.setChildName(childName);
         user.setStNoOfChild(stNoOfChild);
+        user.setPhoneNo(phoneNo);
         return user;
     }
 
@@ -96,56 +98,9 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
-
     private void sendParamsPost() {
-        requestQueue = Volley.newRequestQueue(SignupActivity.this);
-        StringRequest request = new StringRequest(
-                Request.Method.POST
-                , URL_REGISTER,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            if (success) {
-                                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
-                            } else {
-                                Toast.makeText(SignupActivity.this, "error", Toast.LENGTH_LONG);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }
-                , new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map< String , String >  params = new HashMap<>();
-                try {
-                params.put("firstname", user.getFirstname());
-                params.put("lastname", user.getLastname());
-                params.put("gender", String.valueOf(user.isGender()));
-                params.put("username", user.getUsername());
-                params.put("password", user.getPassword());
-                params.put("phone_no", user.getPhoneNo());
-                params.put("nid_no", user.getNIDNo());
-                params.put("child_name", user.getChildName());
-                params.put("st_no_of_child", user.getStNoOfChild());
-                } catch (NullPointerException e){
-                    e.printStackTrace();
-                }
-                return params;
-            }
-        };
-        requestQueue.add(request);
-
+        signupBtn.setEnabled(false);
+        signupBtn.setProgress(PROCESS);
     }
 
     private void onRadioButtonClicked(View view) {
@@ -153,16 +108,16 @@ public class SignupActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.signup_rb_male:
                 if (checked)
-                    gender = true;
+                    gender = 1;
                 break;
             case R.id.signup_rb_female:
                 if (checked)
-                    gender = false;
+                    gender = 0;
                 break;
         }
     }
 
-    private boolean isValidInput(String firstname, String lastname, String phoneNo, String nidNo, String childName, String stNoOfChild, String username, String password) {
+    private boolean isValidInput(String firstname, String lastname, String phoneNo, String childName, String stNoOfChild, String username, String password) {
         /*
         if ( (firstname == null) && (lastname == null) && (phoneNo == null) && (nidNo == null) && (childName == null) && (stNoOfChild == null) && (username == null) && (password == null) ){
             Toast.makeText(SignupActivity.this, R.string.warning_fistname_length , Toast.LENGTH_SHORT).show();
@@ -181,10 +136,6 @@ public class SignupActivity extends AppCompatActivity {
         } else if (phoneNo.length() < 3) {
             Toast.makeText(SignupActivity.this, R.string.phone_number, Toast.LENGTH_SHORT).show();
             inputPhoneNo.requestFocus();
-            return false;
-        } else if (nidNo.length() < 3) {
-            Toast.makeText(SignupActivity.this, R.string.nid_no, Toast.LENGTH_SHORT).show();
-            inputNIDNo.requestFocus();
             return false;
         } else if (childName.length() < 3) {
             Toast.makeText(SignupActivity.this, R.string.name_Of_child, Toast.LENGTH_SHORT).show();
@@ -214,10 +165,96 @@ public class SignupActivity extends AppCompatActivity {
         inputUsername = (AppCompatEditText) findViewById(R.id.signup_et_username);
         inputPassword = (AppCompatEditText) findViewById(R.id.signup_et_password);
         inputStNoOfChild = (AppCompatEditText) findViewById(signup_et_st_no_child);
-        inputNIDNo = (AppCompatEditText) findViewById(R.id.signup_et_nid_no);
         inputChildName = (AppCompatEditText) findViewById(signup_et_st_no_child);
-        signupBtn = (FlatButton) findViewById(R.id.signup_btn_signup);
+        signupBtn = (ActionProcessButton) findViewById(R.id.signup_btn_signup);
         maleRB = (AppCompatRadioButton) findViewById(R.id.signup_rb_male);
         femaleRB = (AppCompatRadioButton) findViewById(R.id.signup_rb_female);
+        signupBtn.setMode(ActionProcessButton.Mode.ENDLESS);
+
     }
+
+    private void myRequest(User user) {
+        signupBtn.setEnabled(false);
+        signupBtn.setProgress(PROCESS);
+        SignupTask task = new SignupTask();
+        task.execute(getRequestData(user));
+    }
+
+    private RequestData getRequestData(User user) {
+        RequestData requestData = new RequestData();
+        requestData.setUri(URL_REGISTER);
+        requestData.setMethod("POST");
+        Map<String, String> params = new HashMap<>();
+        params.put("firstname", user.getFirstname());
+        params.put("lastname", user.getLastname());
+        params.put("gender", String.valueOf(user.getGender()));
+        params.put("username", user.getUsername());
+        params.put("password", user.getPassword());
+        params.put("phone_no", user.getPhoneNo());
+        params.put("child_name", user.getChildName());
+        params.put("st_no_of_child", user.getStNoOfChild());
+        requestData.setParams(params);
+        return requestData;
+    }
+
+    private class SignupTask extends AsyncTask<RequestData, Void, String> {
+        private User myuser;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(RequestData... params) {
+            MyHttpManger.RequestData uri = params[0];
+            String content = MyHttpManger.getDataHttpURLConnection(uri , "" , "");
+            return content;
+        }
+
+        @Override
+        protected void onPostExecute(String response) {
+            try {
+                JSONObject jsonResponse = new JSONObject(response);
+                boolean success = jsonResponse.getBoolean("success");
+                if (success) {
+                    successProcess();
+
+                } else {
+                    unsuccessProcess();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        }
+
+        private void unsuccessProcess() {
+            signupBtn.setProgress(ERROR);
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(SignupActivity.this, "error", Toast.LENGTH_LONG);
+                    signupBtn.setProgress(NORMAL);
+                    signupBtn.setEnabled(true);
+                }
+            }, 1000);
+            signupBtn.setProgress(ERROR);
+        }
+
+        private void successProcess() {
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    signupBtn.setProgress(COMPLETE);
+                    startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+                }
+            }, 1000);
+        }
+    }
+
+
 }

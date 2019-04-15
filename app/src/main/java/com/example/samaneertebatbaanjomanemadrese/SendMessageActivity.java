@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 
+import com.example.samaneertebatbaanjomanemadrese.adapters.SpinnerAdapter;
 import com.example.samaneertebatbaanjomanemadrese.helper.LocaleHelper;
 
 public class SendMessageActivity extends AppCompatActivity {
@@ -37,10 +38,12 @@ public class SendMessageActivity extends AppCompatActivity {
         sendToItem = getResources().getStringArray(R.array.sendToArray);
         visibilityItem = getResources().getStringArray(R.array.visibilityArray);
         categoryItem =getResources().getStringArray(R.array.categoryArray);
-        ArrayAdapter<String> sendToAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, sendToItem);
+        //SpinnerAdapter adapter = new SpinnerAdapter(SendMessageActivity.this , sendToItem);
+        ArrayAdapter<String> sendToAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item ,sendToItem);
         ArrayAdapter<String> visibilityAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, visibilityItem);
         ArrayAdapter<String> categoryAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_dropdown_item, categoryItem);
         sendToSPN.setAdapter(sendToAdapter);
+      //  sendToSPN.setAdapter(adapter);
         visibilitySPN.setAdapter(visibilityAdapter);
         categorySPN.setAdapter(categoryAdapter);
     }

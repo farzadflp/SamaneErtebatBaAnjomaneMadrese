@@ -111,9 +111,18 @@
                 android:orientation="horizontal"
                 android:padding="5dp">
 
-                <com.dd.processbutton.FlatButton
+                <com.dd.processbutton.iml.ActionProcessButton
                     android:id="@+id/login_btn_login"
                     style="@style/FlatButton"
+                    android:textColor="@color/primary_text"
+                    android:textSize="18sp"
+                    app:pb_colorComplete="@color/primary"
+                    app:pb_colorNormal="@color/accent"
+                    app:pb_colorPressed="@color/primary"
+                    app:pb_colorProgress="@color/primary_text"
+                    app:pb_textComplete="@string/success"
+                    app:pb_textError="@string/error"
+                    app:pb_textProgress="@string/loading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"

@@ -5,13 +5,31 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 
 import com.example.samaneertebatbaanjomanemadrese.R;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
 
 public class MyIntentHelper {
+    private static SharedPreferences pref  ;
+    public final static String FILE_NAME = "myprefs";
+    public static void writeSession(Context context , String sessId ,String sessName){
+        pref = context.getSharedPreferences(FILE_NAME , Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.putString("sess_id",sessId);
+        editor.putString("sess_name",sessName);
+        editor.commit();
+    }
+    public static String getSessionName(Context context ) {
+        pref = context.getSharedPreferences(FILE_NAME , Context.MODE_PRIVATE);
+        return pref.getString("sess_name" , "not-found");
+    }
 
+    public static String getSessionId(Context context) {
+        pref = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        return pref.getString("sess_id" , "not-found");
+    }
 
     public static void openWifiSettingsScreen(Context context) {
         Intent intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);

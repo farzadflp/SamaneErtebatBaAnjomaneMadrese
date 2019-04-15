@@ -1,6 +1,6 @@
 package com.example.samaneertebatbaanjomanemadrese.adapters;
 
-import android.app.Dialog;
+
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -8,14 +8,11 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
-import android.support.v7.widget.DialogTitle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
-import com.example.samaneertebatbaanjomanemadrese.ChatActivity;
 import com.example.samaneertebatbaanjomanemadrese.model.Message;
 import com.example.samaneertebatbaanjomanemadrese.R;
 
@@ -26,8 +23,6 @@ import java.util.List;
 public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder> {
     private List<Message> msgList;
     private int selectedPosition=-1;
-
-
 
     public ChatAdapter(@NonNull List<Message> msgList) {
         if (msgList == null){
@@ -89,10 +84,18 @@ public class ChatAdapter extends RecyclerView.Adapter<ChatAdapter.ChatViewHolder
         }
         public void bind(Message message){
             msg.setText(message.getMsg());
+            username.setText(message.getUsername());
+            time.setText(" ");
+            date.setText(message.getDateTimeMsg());
+            avatar.setImageResource(R.drawable.user);
+
+            /*
+            msg.setText(message.getMsg());
             avatar.setImageResource(R.drawable.user);
             username.setText(message.getUsername());
             time.setText(message.getTime());
             date.setText(message.getDate());
+            */
 
         }
     }
