@@ -5,114 +5,130 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary_text"
     tools:context=".LoginActivity"
     tools:layout_editor_absoluteX="51dp"
+
     tools:layout_editor_absoluteY="81dp">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
+    <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="50dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHeight_default="wrap"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_default="wrap">
+        app:layout_constraintWidth_default="wrap"
+        app:layout_constraintHeight_default="wrap">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="0dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="50dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
 
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:layout_marginBottom="10dp"
-                android:layout_weight="1"
-                android:padding="6dp"
-                android:scaleType="fitXY"
-                android:src="@color/primary_light" />
-        </LinearLayout>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            >
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:scaleType="fitCenter"
-                android:src="@drawable/user" />
-
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/login_et_username"
-                style="@style/BaseEditText"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.75"
-                android:ems="10"
-                android:hint="@string/username"
-                android:inputType="textPersonName" />
+                android:orientation="horizontal">
 
-        </LinearLayout>
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="200dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:padding="6dp"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@drawable/egitim" />
+            </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.AppCompatImageView
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.25"
-                android:scaleType="fitCenter"
-                android:src="@drawable/lock" />
-
-            <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/login_et_password"
-                style="@style/BaseEditText"
-                android:layout_width="0dp"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.75"
-                android:ems="10"
-                android:gravity="right"
-                android:hint="@string/password"
-                android:inputType="textPassword" />
-        </LinearLayout>
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="5dp">
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
+                    android:backgroundTint="@color/primary"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/user" />
 
-            <com.dd.processbutton.FlatButton
-                android:id="@+id/login_btn_login"
-                style="@style/FlatButton"
-                android:layout_width="wrap_content"
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/login_et_username"
+                    style="@style/BaseEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.75"
+                    android:ems="10"
+                    android:hint="@string/username"
+                    android:inputType="textPersonName" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
+                    android:backgroundTint="@color/primary"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/lock" />
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/login_et_password"
+                    style="@style/BaseEditText"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.75"
+                    android:ems="10"
+                    android:gravity="right"
+                    android:hint="@string/password"
+                    android:inputType="textPassword" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="5dp">
+
+                <com.dd.processbutton.FlatButton
+                    android:id="@+id/login_btn_login"
+                    style="@style/FlatButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_weight="1"
+                    android:text="@string/login" />
+            </LinearLayout>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/login_tv_signup"
+                style="@style/TextViewBasic"
+                android:layout_width="match_parent"
+                android:layout_height="28dp"
                 android:layout_marginTop="15dp"
-                android:layout_weight="1"
-                android:text="@string/login" />
+                android:text="@string/signup" />
+
         </LinearLayout>
-
-        <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/login_tv_signup"
-            style="@style/TextViewBasic"
-            android:layout_width="match_parent"
-            android:layout_height="28dp"
-            android:layout_marginTop="15dp"
-            android:text="@string/signup" />
-
-    </LinearLayout>
+    </ScrollView>
 </android.support.constraint.ConstraintLayout>

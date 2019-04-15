@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="sendToArray">
+        <item>تست۱</item>
+        <item>تست۲</item>
+        <item>تست۳</item>
+        <item>تست۴</item>
+        <item>تست۵</item>
+        <item>تست۶</item>
+        <item>تست۷</item>
+        <item>تست۸</item>
+        <item>تست۹</item>
+        <item>تست۱۰</item>
+        <item>تست۱</item>
+        <item>تست۲</item>
+        <item>تست۳</item>
+        <item>تست۴</item>
+        <item>تست۵</item>
+        <item>تست۶</item>
+        <item>تست۷</item>
+        <item>تست۸</item>
+        <item>تست۹</item>
+        <item>تست۱۰</item>
+        <item>تست۱</item>
+        <item>تست۲</item>
+        <item>تست۳</item>
+        <item>تست۴</item>
+        <item>تست۵</item>
+        <item>تست۶</item>
+        <item>تست۷</item>
+        <item>تست۸</item>
+        <item>تست۹</item>
+        <item>تست۱۰</item>
+    </array>
+
+    <array name="visibilityArray">
+        <item>تست۱</item>
+        <item>تست۲</item>
+        <item>تست۳</item>
+        <item>تست۴</item>
+        <item>تست۵</item>
+        <item>تست۶</item>
+        <item>تست۷</item>
+        <item>تست۸</item>
+        <item>تست۹</item>
+        <item>تست۱۰</item>
+        <item>تست۱</item>
+        <item>تست۲</item>
+        <item>تست۳</item>
+        <item>تست۴</item>
+        <item>تست۵</item>
+        <item>تست۶</item>
+        <item>تست۷</item>
+        <item>تست۸</item>
+        <item>تست۹</item>
+        <item>تست۱۰</item>
+    </array>
+
+    <array name="categoryArray">
+        <item>تست۱</item>
+        <item>تست۲</item>
+        <item>تست۳</item>
+        <item>تست۴</item>
+        <item>تست۵</item>
+        <item>تست۶</item>
+        <item>تست۷</item>
+        <item>تست۸</item>
+        <item>تست۹</item>
+        <item>تست۱۰</item>
+        <item>تست۱</item>
+        <item>تست۲</item>
+        <item>تست۳</item>
+        <item>تست۴</item>
+        <item>تست۵</item>
+        <item>تست۶</item>
+        <item>تست۷</item>
+        <item>تست۸</item>
+        <item>تست۹</item>
+        <item>تست۱۰</item>
+    </array>
+</resources>
