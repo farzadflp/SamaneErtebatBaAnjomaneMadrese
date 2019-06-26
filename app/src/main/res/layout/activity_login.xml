@@ -16,11 +16,11 @@
         android:layout_height="0dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHeight_default="wrap"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintWidth_default="wrap"
-        app:layout_constraintHeight_default="wrap">
+        app:layout_constraintWidth_default="wrap">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -35,8 +35,7 @@
             app:layout_constraintEnd_toEndOf="parent"
 
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -107,22 +106,48 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioGroup
+                    android:id="@+id/login_rg_role"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/login_rb_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:checked="true"
+                        android:text="@string/parent" />
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/login_rb_community"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/community" />
+
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/login_rb_manager"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/manager" />
+                </RadioGroup>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:padding="5dp">
 
                 <com.dd.processbutton.iml.ActionProcessButton
                     android:id="@+id/login_btn_login"
-                    style="@style/FlatButton"
-                    android:textColor="@color/primary_text"
-                    android:textSize="18sp"
-                    app:pb_colorComplete="@color/primary"
-                    app:pb_colorNormal="@color/accent"
-                    app:pb_colorPressed="@color/primary"
-                    app:pb_colorProgress="@color/primary_text"
-                    app:pb_textComplete="@string/success"
-                    app:pb_textError="@string/error"
-                    app:pb_textProgress="@string/loading"
+                    style="@style/ActionProcessButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"

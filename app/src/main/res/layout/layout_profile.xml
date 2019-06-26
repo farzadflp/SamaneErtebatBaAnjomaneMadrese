@@ -27,6 +27,7 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:scaleType="fitXY"
+                android:visibility="visible"
                 android:src="@drawable/background" />
 
             <RelativeLayout
@@ -42,7 +43,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <android.support.v7.widget.AppCompatButton
@@ -117,11 +117,35 @@
             android:textStyle="bold" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/profile_tv_name_of_child"
+            android:id="@+id/profile_tv_gender"
             style="@style/ProfileActivityTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/profile_tv_lastname"
+            android:text="@string/gender" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/profile_tv_username"
+            style="@style/ProfileActivityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_tv_gender"
+            android:text="@string/username" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/profile_tv_phone_no"
+            style="@style/ProfileActivityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_tv_username"
+            android:text="@string/phone_number" />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/profile_tv_name_of_child"
+            style="@style/ProfileActivityTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/profile_tv_phone_no"
             android:text="@string/name_Of_child" />
 
     </RelativeLayout>

@@ -18,7 +18,7 @@ public class MessageJsonParser {
     public MessageJsonParser() {
     }
 
-    public ArrayList<Message> MessageParseJson(String jsonstring) {
+    public ArrayList<Message> messageParseJson(String jsonstring) {
         ArrayList<Message> msgList = new ArrayList<>();
         try {
             JSONObject jsonOBJ = new JSONObject(jsonstring);

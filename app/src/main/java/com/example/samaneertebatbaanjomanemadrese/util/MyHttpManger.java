@@ -81,7 +81,9 @@ public class MyHttpManger {
                                 @Override
                                 public List<Cookie> loadForRequest(HttpUrl url) {
                                     final ArrayList<Cookie> oneCookie = new ArrayList<>(1);
+                                    if (sess_id != null && sess_name != null){
                                     oneCookie.add(createNonPersistentCookie(sess_id, sess_name));
+                                    }
                                     return oneCookie;
                                 }
                             })
@@ -112,7 +114,9 @@ public class MyHttpManger {
                                 @Override
                                 public List<Cookie> loadForRequest(HttpUrl url) {
                                     final ArrayList<Cookie> oneCookie = new ArrayList<>(1);
-                                    oneCookie.add(createNonPersistentCookie(sess_id, sess_name));
+                                    if (sess_id != null && sess_name != null) {
+                                        oneCookie.add(createNonPersistentCookie(sess_id, sess_name));
+                                    }
                                     return oneCookie;
                                 }
                             })
@@ -134,8 +138,13 @@ public class MyHttpManger {
                             .post(body)
                             .build();
                     Response response = client.newCall(request).execute();
-                    String responseStr = response.body().string();
-                    return responseStr;
+
+                    String responseStr;
+                    if (response.code() == 200 && response.message().equals("OK")) {
+                        responseStr = response.body().string();
+                        return responseStr;
+                    }
+                    return null;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

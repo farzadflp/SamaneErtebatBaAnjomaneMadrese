@@ -1,7 +1,6 @@
 package com.example.samaneertebatbaanjomanemadrese;
 
 import android.content.Context;
-import android.os.AsyncTask;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,7 +14,7 @@ import com.example.samaneertebatbaanjomanemadrese.adapters.InboxAdapter;
 import com.example.samaneertebatbaanjomanemadrese.helper.LocaleHelper;
 import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
 import com.example.samaneertebatbaanjomanemadrese.model.Inbox;
-import com.example.samaneertebatbaanjomanemadrese.util.InboxJsonParser;
+import com.example.samaneertebatbaanjomanemadrese.task.InboxTask;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger.RequestData;
 
@@ -27,9 +26,12 @@ public class InboxActivity extends AppCompatActivity {
     AppCompatImageView imageView;
     List<Inbox> inboxList;
     InboxAdapter adapter;
-    SwipeRefreshLayout swipeRefreshLayout;
-    public static final String URL_INBOX = "http://192.168.1.38:8888/inbox.php";
-    public Context inboxContext = InboxActivity.this;
+    SwipeRefreshLayout swipeRefreshLayout ;
+    public static final String URL_INBOX;
+
+    static {
+        URL_INBOX = "http://192.168.1.34:8888/inbox.php";
+    }
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(LocaleHelper.onAttach(newBase, "fa"));
@@ -44,8 +46,12 @@ public class InboxActivity extends AppCompatActivity {
         }
         MyHttpManger.initCooki();
         init();
-        //sendParamsPost();
-        myRequest();
+        if (!MyHttpManger.isOnline(InboxActivity.this)){
+            MyIntentHelper.alertDialogIsOffline(InboxActivity.this);
+        } else {
+            InboxRequest();
+        }
+
     }
 
 
@@ -61,9 +67,8 @@ public class InboxActivity extends AppCompatActivity {
     }
 
     private void init() {
-        recyclerView = (RecyclerView) findViewById(R.id.inbox_recyclerview);
-        imageView = (AppCompatImageView) findViewById(R.id.inbox_row_imgv_avatar);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.inbox_swrl);
+        recyclerView = findViewById(R.id.inbox_recyclerview);
+        imageView = findViewById(R.id.inbox_row_imgv_avatar);
 
     }
 
@@ -71,13 +76,9 @@ public class InboxActivity extends AppCompatActivity {
 
 
     private void updatePage() {
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                finish();
-                startActivity(getIntent());
-
-            }
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            finish();
+            startActivity(getIntent());
         });
         swipeRefreshLayout.setRefreshing(false);
 
@@ -99,18 +100,30 @@ public class InboxActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
     }
-    private void myRequest() {
-        InboxTask task = new InboxTask();
-        task.execute(getRequestData());
+
+    public InboxAdapter getAdapter() {
+        return adapter;
     }
-    private RequestData getRequestData(){
+
+    private void InboxRequest() {
+        /*
+        InboxTask task = new InboxTask();
+        task.execute(getConversationRequest());
+        */
+        InboxTask task = new InboxTask(this);
+        task.execute(getConversationRequest());
+    }
+    private RequestData getConversationRequest(){
         MyHttpManger.RequestData requestData = new MyHttpManger.RequestData();
         requestData.setUri(URL_INBOX);
         requestData.setMethod("POST");
         return requestData;
     }
 
-
+    public RecyclerView getRecyclerView() {
+        return recyclerView;
+    }
+/*
     private class InboxTask extends AsyncTask<MyHttpManger.RequestData,Void,String> {
         private Context context = InboxActivity.this;
         @Override
@@ -121,26 +134,7 @@ public class InboxActivity extends AppCompatActivity {
         @Override
         protected String doInBackground(MyHttpManger.RequestData... params) {
             MyHttpManger.RequestData uri = params[0];
-            String content = MyHttpManger.getDataHttpURLConnection(uri , MyIntentHelper.getSessionId(context), MyIntentHelper.getSessionName(context));
-
-            /*
-            for (Inbox inboxItem :
-                    inboxList) {
-                try {
-                    URL url = new URL(inboxItem.getAvatarPath());
-                    InputStream instream = (InputStream) url.getContent();
-                    Bitmap bitmap = BitmapFactory.decodeStream(instream);
-                    inboxItem.setBitmap(bitmap);
-                    instream.close();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-            }
-            */
-            return content;
+            return MyHttpManger.getDataHttpURLConnection(uri , MyIntentHelper.getSessionId(context), MyIntentHelper.getSessionName(context));
         }
 
         @Override
@@ -149,7 +143,7 @@ public class InboxActivity extends AppCompatActivity {
             showData(InboxActivity.this, inboxList);
         }
     }
-
+*/
 
 
 }

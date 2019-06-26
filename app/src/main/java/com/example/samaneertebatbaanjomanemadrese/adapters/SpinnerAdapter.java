@@ -8,10 +8,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 import com.example.samaneertebatbaanjomanemadrese.R;
+import com.example.samaneertebatbaanjomanemadrese.model.School;
+
+import java.util.ArrayList;
 
 public class SpinnerAdapter extends BaseAdapter {
     private Context context;
     private String[] lists;
+    private int[] id_numeric;
     private LayoutInflater inflater;
 
     public SpinnerAdapter(Context context, String[] lists) {
@@ -19,6 +23,13 @@ public class SpinnerAdapter extends BaseAdapter {
         this.lists = lists;
         this.inflater = LayoutInflater.from(context);
     }
+    public SpinnerAdapter(Context context, String[] lists , int[] id_numeric) {
+        this.context = context;
+        this.lists = lists;
+        this.id_numeric = id_numeric;
+        this.inflater = LayoutInflater.from(context);
+    }
+
 
     @Override
     public int getCount() {
@@ -29,6 +40,8 @@ public class SpinnerAdapter extends BaseAdapter {
     public Object getItem(int position) {
         return lists[position];
     }
+
+
 
     @Override
     public long getItemId(int position) {
@@ -56,6 +69,14 @@ public class SpinnerAdapter extends BaseAdapter {
 
     public void setLists(String[] lists) {
         this.lists = lists;
+    }
+
+    public int[] getId_numeric() {
+        return id_numeric;
+    }
+
+    public void setId_numeric(int[] id_numeric) {
+        this.id_numeric = id_numeric;
     }
 
     public class ViewHolder {

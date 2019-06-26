@@ -1,81 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <array name="sendToArray">
-        <item>تست۱</item>
-        <item>تست۲</item>
-        <item>تست۳</item>
-        <item>تست۴</item>
-        <item>تست۵</item>
-        <item>تست۶</item>
-        <item>تست۷</item>
-        <item>تست۸</item>
-        <item>تست۹</item>
-        <item>تست۱۰</item>
-        <item>تست۱</item>
-        <item>تست۲</item>
-        <item>تست۳</item>
-        <item>تست۴</item>
-        <item>تست۵</item>
-        <item>تست۶</item>
-        <item>تست۷</item>
-        <item>تست۸</item>
-        <item>تست۹</item>
-        <item>تست۱۰</item>
-        <item>تست۱</item>
-        <item>تست۲</item>
-        <item>تست۳</item>
-        <item>تست۴</item>
-        <item>تست۵</item>
-        <item>تست۶</item>
-        <item>تست۷</item>
-        <item>تست۸</item>
-        <item>تست۹</item>
-        <item>تست۱۰</item>
+        <item>انجمن ۱</item>
+        <item>انجمن ۲</item>
+        <item>انجمن ۳</item>
+        <item>انجمن ۴</item>
+        <item>انجمن ۵</item>
+        <item>انجمن ۶</item>
+        <item>انجمن ۷</item>
+        <item>انجمن ۸</item>
+        <item>انجمن ۹</item>
+        <item>انجمن ۱۰</item>
     </array>
 
     <array name="visibilityArray">
-        <item>تست۱</item>
-        <item>تست۲</item>
-        <item>تست۳</item>
-        <item>تست۴</item>
-        <item>تست۵</item>
-        <item>تست۶</item>
-        <item>تست۷</item>
-        <item>تست۸</item>
-        <item>تست۹</item>
-        <item>تست۱۰</item>
-        <item>تست۱</item>
-        <item>تست۲</item>
-        <item>تست۳</item>
-        <item>تست۴</item>
-        <item>تست۵</item>
-        <item>تست۶</item>
-        <item>تست۷</item>
-        <item>تست۸</item>
-        <item>تست۹</item>
-        <item>تست۱۰</item>
+        <item>عمومی</item>
+        <item>خصوصی</item>
+
     </array>
 
     <array name="categoryArray">
-        <item>تست۱</item>
-        <item>تست۲</item>
-        <item>تست۳</item>
-        <item>تست۴</item>
-        <item>تست۵</item>
-        <item>تست۶</item>
-        <item>تست۷</item>
-        <item>تست۸</item>
-        <item>تست۹</item>
-        <item>تست۱۰</item>
-        <item>تست۱</item>
-        <item>تست۲</item>
-        <item>تست۳</item>
-        <item>تست۴</item>
-        <item>تست۵</item>
-        <item>تست۶</item>
-        <item>تست۷</item>
-        <item>تست۸</item>
-        <item>تست۹</item>
-        <item>تست۱۰</item>
+        <item>نظافت</item>
+        <item>آموزش</item>
+        <item>پرورش</item>
+        <item>فرهنگی</item>
+        <item>پژوهشی</item>
+        <item>فضای مدرسه</item>
+        <item>مدرسین</item>
+        <item>مالی</item>
+        <item>امتحانات</item>
     </array>
 </resources>

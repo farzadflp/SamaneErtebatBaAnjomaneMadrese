@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="FlatButton" parent="Base.Widget.AppCompat.Button">
+    <style name="ActionProcessButton" parent="Base.Widget.AppCompat.Button">
         <item name="pb_colorNormal">@color/accent</item>
         <item name="pb_colorPressed">@color/primary</item>
+        <item name="pb_colorComplete">@color/primary</item>
+        <item name="pb_colorProgress">@color/primary_text</item>
         <item name="pb_cornerRadius">10dp</item>
+        <item name="pb_textComplete">@string/success</item>
+        <item name="pb_textError">@string/error</item>
+        <item name="pb_textProgress">@string/loading</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:fontFamily">@font/fonts</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/primary_text</item>
+    </style>
+
+    <style name="RefuseActionProcessButton" parent="Base.Widget.AppCompat.Button">
+        <item name="pb_colorNormal">@color/error</item>
+        <item name="pb_colorPressed">@color/primary</item>
+        <item name="pb_colorComplete">@color/primary</item>
+        <item name="pb_colorProgress">@color/primary_text</item>
+        <item name="pb_cornerRadius">100dp</item>
+        <item name="pb_textComplete">@string/success</item>
+        <item name="pb_textError">@string/error</item>
+        <item name="pb_textProgress">@string/loading</item>
+        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textSize">18sp</item>
         <item name="android:fontFamily">@font/fonts</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/primary_text</item>
@@ -13,7 +36,7 @@
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/rec</item>
+        <item name="android:background">@drawable/recc</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_marginLeft">10dp</item>

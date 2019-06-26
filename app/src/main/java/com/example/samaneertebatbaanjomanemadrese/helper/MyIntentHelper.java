@@ -3,23 +3,32 @@ package com.example.samaneertebatbaanjomanemadrese.helper;
 
 import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
-
 import com.example.samaneertebatbaanjomanemadrese.R;
+import com.example.samaneertebatbaanjomanemadrese.model.Parent;
+import com.example.samaneertebatbaanjomanemadrese.model.User;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
 
 public class MyIntentHelper {
     private static SharedPreferences pref  ;
-    public final static String FILE_NAME = "myprefs";
+    private final static String FILE_NAME;
+    public  final static String URL_BASE;
+
+    static {
+        FILE_NAME = "myprefs";
+        URL_BASE = "http://192.168.1.34:8888/";
+    }
+
+
+
     public static void writeSession(Context context , String sessId ,String sessName){
         pref = context.getSharedPreferences(FILE_NAME , Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = pref.edit();
         editor.putString("sess_id",sessId);
         editor.putString("sess_name",sessName);
-        editor.commit();
+        editor.apply();
     }
     public static String getSessionName(Context context ) {
         pref = context.getSharedPreferences(FILE_NAME , Context.MODE_PRIVATE);
@@ -29,6 +38,12 @@ public class MyIntentHelper {
     public static String getSessionId(Context context) {
         pref = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
         return pref.getString("sess_id" , "not-found");
+    }
+    public static void clearSession(Context context){
+        pref = context.getSharedPreferences(FILE_NAME, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = pref.edit();
+        editor.clear();
+        editor.apply();
     }
 
     public static void openWifiSettingsScreen(Context context) {
@@ -47,26 +62,13 @@ public class MyIntentHelper {
         builder.setTitle(R.string.no_internet_access)
                 .setCancelable(false)
                 .setMessage(R.string.you_are_offline)
-                .setPositiveButton(R.string.turn_on_wifi, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        openWifiSettingsScreen(context);
+                .setPositiveButton(R.string.turn_on_wifi, (dialog, which) -> openWifiSettingsScreen(context))
+                .setNegativeButton(R.string.turn_on_mobile_data, (dialog, which) -> openDataUsageScreen(context))
+                .setNeutralButton(R.string.retry, (dialog, which) -> {
+                    if(!MyHttpManger.isOnline(context)){
+                        alertDialogIsOffline(context);
                     }
-                })
-                .setNegativeButton(R.string.turn_on_mobile_data, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        openDataUsageScreen(context);
-                    }
-                })
-                .setNeutralButton(R.string.retry, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        if(!MyHttpManger.isOnline(context)){
-                            alertDialogIsOffline(context);
-                        }
 
-                    }
                 })
                 .show();
 

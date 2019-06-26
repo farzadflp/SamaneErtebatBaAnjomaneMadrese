@@ -1,19 +1,37 @@
 package com.example.samaneertebatbaanjomanemadrese.model;
 
 public class User {
-    private String firstname, lastname , phoneNo, childName , stNoOfChild , username , password , role;
-    private int gender = 0 , id_user;
+    private String firstname, lastname , phoneNo, username , passsword  , role , school  ;
+    private int gender = 0 , id_user = -1 , id_school = -1 , verified = 0;
 
-    public User(String firstname, String lastname, String username, String password, int gender) {
+    public User(String firstname, String lastname, String username, int gender) {
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username;
-        this.password = password;
         this.gender = gender;
-        this.role = "usual";
+    }
+    public User(String firstname, String lastname, String username, int gender , int id_user , int id_school) {
+        this(firstname , lastname , username , gender);
+        this.id_school = id_school;
+        this.id_user =  id_user;
     }
 
+    public User(int id_user , String firstname, String lastname ,String phoneNo ,int gender) {
+        this.id_user = id_user;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.phoneNo = phoneNo;
+        this.gender = gender;
+    }
 
+    public User(String firstname, String lastname, String phoneNo, String username, String passsword, String role) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.phoneNo = phoneNo;
+        this.username = username;
+        this.passsword = passsword;
+        this.role = role;
+    }
 
     public String getFirstname() {
         return firstname;
@@ -39,23 +57,6 @@ public class User {
         this.phoneNo = phoneNo;
     }
 
-
-    public String getChildName() {
-        return childName;
-    }
-
-    public void setChildName(String childName) {
-        this.childName = childName;
-    }
-
-    public String getStNoOfChild() {
-        return stNoOfChild;
-    }
-
-    public void setStNoOfChild(String stNoOfChild) {
-        this.stNoOfChild = stNoOfChild;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -64,12 +65,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword() {
-        return password;
+    public String getPasssword() {
+        return passsword;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPasssword(String passsword) {
+        this.passsword = passsword;
     }
 
     public int getGender() {
@@ -94,5 +95,30 @@ public class User {
 
     public void setId_user(int id_user) {
         this.id_user = id_user;
+    }
+
+    public String getSchool() {
+        return school;
+    }
+
+    public void setSchool(String school) {
+        this.school = school;
+    }
+
+    public int getId_school() {
+        return id_school;
+    }
+
+    public void setId_school(int id_school) {
+        this.id_school = id_school;
+    }
+
+
+    public int getVerified() {
+        return verified;
+    }
+
+    public void setVerified(int verified) {
+        this.verified = verified;
     }
 }

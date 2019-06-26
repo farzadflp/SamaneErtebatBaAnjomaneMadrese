@@ -26,11 +26,15 @@ public class ChatActivity extends AppCompatActivity {
     private AppCompatTextView topicTV;
     private ArrayList<Message> msgArray;
     private List<Message> msgList;
+    private Message newMessage;
     private ChatAdapter adapter;
     private ActionProcessButton sendBtn;
     private SwipeRefreshLayout swipeRefreshLayout;
-    public static final String URL_BASE = "http://192.168.1.34:8888/";
-    public static final String URL_CHATJSON = "http://192.168.1.34:8888/chat.json";
+    public static final String URL_CHATJSON;
+
+    static {
+        URL_CHATJSON = "http://192.168.1.34:8888/new_conversation.php";
+    }
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -54,7 +58,6 @@ public class ChatActivity extends AppCompatActivity {
             }
         }
         showData();
-
     }
 
     @Override
@@ -67,11 +70,11 @@ public class ChatActivity extends AppCompatActivity {
     }
 
     private void init() {
-        recyclerView = (RecyclerView) findViewById(R.id.chat_recyclerview);
-        imageView = (AppCompatImageView) findViewById(R.id.msg_row_tv_msg);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.inbox_swrl);
-        sendBtn = (ActionProcessButton) findViewById(R.id.chat_btn_send);
-        topicTV = (AppCompatTextView) findViewById(R.id.chat_tv_topic);
+        recyclerView = findViewById(R.id.chat_recyclerview);
+        imageView = findViewById(R.id.msg_row_tv_msg);
+        swipeRefreshLayout = findViewById(R.id.inbox_swrl);
+        sendBtn = findViewById(R.id.chat_btn_send);
+        topicTV = findViewById(R.id.chat_tv_topic);
     }
 
     private void showData() {
@@ -81,5 +84,12 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
     }
 
+    public ChatAdapter getAdapter() {
+        return adapter;
+    }
+
+    public Message getNewMessage() {
+        return newMessage;
+    }
 
 }
