@@ -1,18 +1,15 @@
 package com.example.samaneertebatbaanjomanemadrese;
 
 import android.content.Context;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
-import android.view.View;
-
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.samaneertebatbaanjomanemadrese.helper.LocaleHelper;
 import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
 import com.example.samaneertebatbaanjomanemadrese.model.Parent;
 import com.example.samaneertebatbaanjomanemadrese.task.VerificationTask;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
-
 import java.util.HashMap;
 import java.util.Map;
 

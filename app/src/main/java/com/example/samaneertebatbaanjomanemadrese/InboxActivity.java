@@ -1,30 +1,22 @@
 package com.example.samaneertebatbaanjomanemadrese;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-
 import com.example.samaneertebatbaanjomanemadrese.adapters.InboxAdapter;
 import com.example.samaneertebatbaanjomanemadrese.helper.LocaleHelper;
 import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
-import com.example.samaneertebatbaanjomanemadrese.model.Inbox;
 import com.example.samaneertebatbaanjomanemadrese.task.InboxTask;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger.RequestData;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class InboxActivity extends AppCompatActivity {
     RecyclerView recyclerView;
     AppCompatImageView imageView;
-    List<Inbox> inboxList;
     InboxAdapter adapter;
     SwipeRefreshLayout swipeRefreshLayout ;
     public static final String URL_INBOX;
@@ -51,6 +43,7 @@ public class InboxActivity extends AppCompatActivity {
         } else {
             InboxRequest();
         }
+        swipeRefreshLayoutSetOnRefreshListener();
 
     }
 
@@ -58,10 +51,8 @@ public class InboxActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case android.R.id.home:
-                finish();
-                break;
+        if (id == android.R.id.home) {
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
@@ -75,29 +66,12 @@ public class InboxActivity extends AppCompatActivity {
 
 
 
-    private void updatePage() {
+    private void swipeRefreshLayoutSetOnRefreshListener() {
         swipeRefreshLayout.setOnRefreshListener(() -> {
             finish();
             startActivity(getIntent());
         });
         swipeRefreshLayout.setRefreshing(false);
-
-    }
-
-
-    private void showData(Context context, List<Inbox> inboxList) {
-        adapter = new InboxAdapter(inboxList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-
-    }
-
-    private void showData(ArrayList<Inbox> inboxes) {
-        adapter = new InboxAdapter(inboxList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(InboxActivity.this));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
 
     }
 

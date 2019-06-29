@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.samaneertebatbaanjomanemadrese.helper.LocaleHelper;
 import com.example.samaneertebatbaanjomanemadrese.model.Parent;
@@ -33,7 +34,7 @@ public class ParentProfileActivity extends AppCompatActivity {
             intent.putExtra("parent" , parent);
             startActivity(intent);
         });
-        profileLayout.getButton2().setOnClickListener(v -> startActivity(new Intent(ParentProfileActivity.this , SearchActivity.class)));
+        profileLayout.getButton2().setVisibility(View.GONE);
         profileLayout.getButton3().setOnClickListener(v -> startActivity(new Intent(ParentProfileActivity.this , InboxActivity.class)));
 
     }
@@ -47,12 +48,11 @@ public class ParentProfileActivity extends AppCompatActivity {
     }
 
     private void init() {
-        profileLayout = (MyProfileLayout) findViewById(R.id.profile_layout);
+        profileLayout = findViewById(R.id.profile_layout);
         setTexts();
     }
 
     private void setTexts() {
-        Bundle extras = getIntent().getExtras();
         parent =  getIntent().getParcelableExtra("parent");
         String firstname = getString(R.string.first_name)+ ": " + parent.getFirstname()
                 , lastname = getString(R.string.last_name)+ ": " + parent.getLastname() ,

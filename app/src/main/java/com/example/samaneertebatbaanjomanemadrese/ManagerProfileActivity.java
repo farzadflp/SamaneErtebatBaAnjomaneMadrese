@@ -55,7 +55,6 @@ public class ManagerProfileActivity extends AppCompatActivity {
     }
 
     private void setTexts() {
-        Bundle extras = getIntent().getExtras();
         manager = getIntent().getParcelableExtra("manager");
         String genderStr = "";
         switch (manager.getGender()){

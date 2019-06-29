@@ -2,28 +2,24 @@ package com.example.samaneertebatbaanjomanemadrese;
 
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.samaneertebatbaanjomanemadrese.adapters.ChatAdapter;
 import com.example.samaneertebatbaanjomanemadrese.helper.LocaleHelper;
 import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
 import com.example.samaneertebatbaanjomanemadrese.model.Message;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private AppCompatImageView imageView;
     private AppCompatTextView topicTV;
     private ArrayList<Message> msgArray;
     private List<Message> msgList;
@@ -49,17 +45,16 @@ public class ChatActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         init();
-        Bundle extras = getIntent().getExtras();
-        msgArray =  getIntent().getParcelableArrayListExtra("msg");
-        msgList = msgArray;
-        if (extras != null){
-            if (extras.containsKey("topic")){
-                topicTV.setText(extras.getString("topic"));
-
-            }
-        }
         showData();
+        sendBtnSetOnClickListener();
     }
+
+    private void sendBtnSetOnClickListener() {
+        sendBtn.setOnClickListener(v -> {
+
+        });
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -72,10 +67,19 @@ public class ChatActivity extends AppCompatActivity {
 
     private void init() {
         recyclerView = findViewById(R.id.chat_recyclerview);
-        imageView = findViewById(R.id.msg_row_tv_msg);
         swipeRefreshLayout = findViewById(R.id.inbox_swrl);
         sendBtn = findViewById(R.id.chat_btn_send);
         topicTV = findViewById(R.id.chat_tv_topic);
+        sendBtn.setMode(ActionProcessButton.Mode.ENDLESS);
+        Bundle extras = getIntent().getExtras();
+        msgArray =  getIntent().getParcelableArrayListExtra("msg");
+        msgList = msgArray;
+        if (extras != null){
+            if (extras.containsKey("topic")){
+                topicTV.setText(extras.getString("topic"));
+
+            }
+        }
     }
 
     private void showData() {
@@ -84,6 +88,7 @@ public class ChatActivity extends AppCompatActivity {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
     }
+
 
     public ChatAdapter getAdapter() {
         return adapter;

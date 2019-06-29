@@ -8,7 +8,6 @@ import android.support.v7.widget.AppCompatSpinner;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.samaneertebatbaanjomanemadrese.adapters.GetCommunityAdapter;
 import com.example.samaneertebatbaanjomanemadrese.adapters.SpinnerAdapter;
@@ -19,7 +18,6 @@ import com.example.samaneertebatbaanjomanemadrese.model.Parent;
 import com.example.samaneertebatbaanjomanemadrese.task.GetCommunityTask;
 import com.example.samaneertebatbaanjomanemadrese.task.NewConversationTask;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,14 +31,10 @@ public class NewConversationActivity extends AppCompatActivity {
     private int currentCommunity = 0 , currentVisibility = 0 ,currentCategory =0;
     private static final String URL_NEW_CONV ,URL_GET_COMMUNITY ;
     private ActionProcessButton newConvBtn;
-    private final static int ERROR,NORMAL,PROCESS,COMPLETE;
     static {
         URL_NEW_CONV = MyIntentHelper.URL_BASE +"parent/new_conversation.php";
         URL_GET_COMMUNITY = MyIntentHelper.URL_BASE +"parent/get_community.php";
-        ERROR = -1;
-        NORMAL = 0;
-        PROCESS = 50;
-        COMPLETE = 100;
+
     }
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -69,10 +63,15 @@ public class NewConversationActivity extends AppCompatActivity {
             String msg = inputMsg.getText().toString().trim();
             String topic = inputTopic.getText().toString().trim();
             if (!topic.isEmpty() && !msg.isEmpty() && currentCategory != 0 && currentCommunity != 0 && currentVisibility !=0){
+                newConvBtn.setClickable(false);
+                newConvBtn.setEnabled(false);
                 conversation.setMsg(msg);
                 conversation.setTopic(topic);
+                if (!MyHttpManger.isOnline(NewConversationActivity.this)){
+                    MyIntentHelper.alertDialogIsOffline(NewConversationActivity.this);
+                }else {
                 newConversationRequest();
-
+                }
             }
         });
     }
