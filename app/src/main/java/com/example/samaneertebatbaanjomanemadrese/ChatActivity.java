@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.samaneertebatbaanjomanemadrese.adapters.ChatAdapter;
 import com.example.samaneertebatbaanjomanemadrese.helper.LocaleHelper;
+import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
 import com.example.samaneertebatbaanjomanemadrese.model.Message;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class ChatActivity extends AppCompatActivity {
     public static final String URL_CHATJSON;
 
     static {
-        URL_CHATJSON = "http://192.168.1.34:8888/new_conversation.php";
+        URL_CHATJSON = MyIntentHelper.URL_BASE + "parent/new_conversation.php";
     }
 
     @Override

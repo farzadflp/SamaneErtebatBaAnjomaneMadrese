@@ -18,6 +18,11 @@ public class Community extends User {
         this.course = course;
     }
 
+    public Community(User user, String post) {
+        super(user.getFirstname(), user.getLastname(), user.getUsername());
+        super.setRole("c");
+        this.post = post;
+    }
 
     public String getPost() {
         return post;

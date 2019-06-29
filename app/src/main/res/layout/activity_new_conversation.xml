@@ -28,33 +28,57 @@
             app:layout_constraintTop_toTopOf="parent">
 
 
-            <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/send_msg_tv_send_to"
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/new_conv_et_topic"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/rec"
+                android:hint="@string/topic"
+                android:lines="2"
+                android:minLines="1"
+                android:padding="8dp"
+                android:textColor="@color/primary"
+                android:textColorHint="@color/primary"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/new_conv_tv_send_to"/>
+
+            <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/new_conv_tv_send_to"
+                android:layout_width="0dp"
+                android:layout_height="70dp"
                 android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:text="@string/send_to"
                 android:textColor="@color/primary"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/send_msg_spn_send_to"
+                app:layout_constraintBottom_toBottomOf="@id/new_conv_spn_send_to"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/send_msg_spn_send_to" />
+                app:layout_constraintTop_toBottomOf="@id/new_conv_et_topic"
+
+
+
+                />
 
             <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/send_msg_spn_send_to"
+                android:id="@+id/new_conv_spn_send_to"
                 style="@style/BaseSpinner"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:spinnerMode="dialog"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toLeftOf="@id/send_msg_tv_send_to"
-                app:layout_constraintTop_toTopOf="@id/send_msg_tv_send_to" />
+                app:layout_constraintRight_toLeftOf="@id/new_conv_tv_send_to"
+                app:layout_constraintTop_toTopOf="@id/new_conv_tv_send_to"
+
+                />
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/send_msg_tv_visibility"
+                android:id="@+id/new_conv_tv_visibility"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="10dp"
@@ -63,25 +87,25 @@
                 android:textColor="@color/primary"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/send_msg_spn_visibility"
-                app:layout_constraintLeft_toRightOf="@id/send_msg_spn_visibility"
+                app:layout_constraintBottom_toBottomOf="@id/new_conv_spn_visibility"
+                app:layout_constraintLeft_toRightOf="@id/new_conv_spn_visibility"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/send_msg_spn_visibility" />
+                app:layout_constraintTop_toTopOf="@id/new_conv_spn_visibility"  />
 
             <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/send_msg_spn_visibility"
+                android:id="@+id/new_conv_spn_visibility"
                 style="@style/BaseSpinner"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:spinnerMode="dialog"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@id/send_msg_spn_send_to"
-                app:layout_constraintTop_toBottomOf="@id/send_msg_spn_send_to" />
+                app:layout_constraintRight_toRightOf="@id/new_conv_spn_send_to"
+                app:layout_constraintTop_toBottomOf="@id/new_conv_spn_send_to" />
 
             <android.support.v7.widget.AppCompatTextView
-                android:id="@+id/send_msg_tv_category"
+                android:id="@+id/new_conv_tv_category"
                 android:layout_width="0dp"
                 android:layout_height="50dp"
                 android:layout_marginRight="10dp"
@@ -90,37 +114,36 @@
                 android:textColor="@color/primary"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@id/send_msg_spn_category"
+                app:layout_constraintBottom_toBottomOf="@id/new_conv_spn_category"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="@id/send_msg_spn_category" />
+                app:layout_constraintTop_toTopOf="@id/new_conv_spn_category" />
 
 
             <android.support.v7.widget.AppCompatSpinner
-                android:id="@+id/send_msg_spn_category"
+                android:id="@+id/new_conv_spn_category"
                 style="@style/BaseSpinner"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
-
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="15dp"
                 android:spinnerMode="dialog"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="@id/send_msg_spn_visibility"
-                app:layout_constraintTop_toBottomOf="@id/send_msg_spn_visibility" />
+                app:layout_constraintRight_toRightOf="@id/new_conv_spn_visibility"
+                app:layout_constraintTop_toBottomOf="@id/new_conv_spn_visibility" />
 
             <android.support.v7.widget.AppCompatEditText
                 android:id="@+id/send_msg_et_send_to1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone"
-                app:layout_constraintBottom_toTopOf="@id/send_msg_et_text"
+                app:layout_constraintBottom_toTopOf="@id/new_conv_et_msg"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/send_msg_spn_category" />
+                app:layout_constraintTop_toBottomOf="@id/new_conv_spn_category" />
 
 
             <android.support.v7.widget.AppCompatEditText
-                android:id="@+id/send_msg_et_text"
+                android:id="@+id/new_conv_et_msg"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -137,7 +160,8 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/send_msg_et_send_to1" />
 
-            <com.dd.processbutton.FlatButton
+            <com.dd.processbutton.iml.ActionProcessButton
+                android:id="@+id/new_conv_btn_send"
                 style="@style/ActionProcessButton"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -147,7 +171,7 @@
                 android:text="@string/send"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/send_msg_et_text" />
+                app:layout_constraintTop_toBottomOf="@id/new_conv_et_msg" />
 
         </android.support.constraint.ConstraintLayout>
     </ScrollView>

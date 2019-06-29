@@ -63,4 +63,25 @@ public class CommunityJsonParser {
         }
         return null;
     }
+    public ArrayList<Community> CommunintiesParseJson(String jsonstring) {
+        try {
+            ArrayList<Community> communities = new ArrayList<>();
+            JSONObject jsonOBJ = new JSONObject(jsonstring);
+            jsonOBJ.remove("success");
+            for (int i = 0; i < jsonOBJ.length(); i++) {
+                JSONObject jsonobject = jsonOBJ.getJSONObject(String.valueOf(i));
+                User user = new User(jsonobject.getString(KEY_FIRSTNAME)
+                        , jsonobject.getString(KEY_LASTNAME)
+                        , jsonobject.getString(KEY_USERNAME)
+                );
+                Community  community = new Community(user , jsonobject.getString(KEY_POST));
+                communities.add(community);
+            }
+            return communities;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
 }

@@ -17,7 +17,7 @@ public class ManagerProfileActivity extends AppCompatActivity {
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(LocaleHelper.onAttach(newBase , "fa"));
+        super.attachBaseContext(LocaleHelper.onAttach(newBase, "fa"));
     }
 
     @Override
@@ -30,11 +30,16 @@ public class ManagerProfileActivity extends AppCompatActivity {
         init();
         profileLayout.getButton1().setText(R.string.add_community);
         profileLayout.getButton2().setText(R.string.verified_parent);
-        profileLayout.getButton1().setOnClickListener(v -> startActivity(new Intent(ManagerProfileActivity.this , ManagerAddCommunityActivity.class)));
-        profileLayout.getButton2().setOnClickListener(v -> startActivity(new Intent(ManagerProfileActivity.this , ManagerVerifyParentActivity.class)));
+        profileLayout.getButton1().setOnClickListener(v -> startActivity(new Intent(ManagerProfileActivity.this, ManagerAddCommunityActivity.class)));
+        profileLayout.getButton2().setOnClickListener(v -> {
+            Intent intent = new Intent(ManagerProfileActivity.this, ManagerVerifyParentActivity.class);
+            intent.putExtra("manager", manager);
+            startActivity(intent);
+        });
         profileLayout.getButton3().setVisibility(View.GONE);
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -51,17 +56,26 @@ public class ManagerProfileActivity extends AppCompatActivity {
 
     private void setTexts() {
         Bundle extras = getIntent().getExtras();
-        manager =  getIntent().getParcelableExtra("manager");
-        String firstname = getString(R.string.first_name)+ ": " + manager.getFirstname()
-                , lastname = getString(R.string.last_name)+ ": " + manager.getLastname() ,
-                gender = getString(R.string.gender)+ ": "  + manager.getGender() ,
-                username = getString(R.string.username)+ ": " + manager.getUsername() ,
-                phone_no = getString(R.string.phone_number)+ ": " + manager.getPhoneNo();
+        manager = getIntent().getParcelableExtra("manager");
+        String genderStr = "";
+        switch (manager.getGender()){
+            case 0 :
+                genderStr = getString(R.string.female);
+                break;
+            case 1 :
+                genderStr = getString(R.string.male);
+        }
+
+        String firstname = getString(R.string.first_name) + ": " + manager.getFirstname(), lastname = getString(R.string.last_name) + ": " + manager.getLastname(),
+                gender = getString(R.string.gender) + ": " + genderStr,
+                username = getString(R.string.username) + ": " + manager.getUsername(),
+                phone_no = getString(R.string.phone_number) + ": " + manager.getPhoneNo();
         profileLayout.getTv1().setText(firstname);
         profileLayout.getTv2().setText(lastname);
         profileLayout.getTv3().setText(gender);
         profileLayout.getTv4().setText(username);
         profileLayout.getTv5().setText(phone_no);
+        profileLayout.getTv6().setVisibility(View.INVISIBLE);
         //profileLayout.getTv6().setText(child_name);
     }
 }

@@ -77,4 +77,9 @@
     <string name="grade">Grade</string>
     <string name="empty_city">There Is No School In This State</string>
     <string name="empty_school">There Is No School In This Zone</string>
+    <string name="empty_not_verified_parent">There Is No Parent To Verify</string>
+    <string name="address_work">Office Address</string>
+    <string name="tel_work">Office Telephone</string>
+    <string name="public_word">public</string>
+    <string name="private_word">private</string>
 </resources>

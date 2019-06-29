@@ -10,7 +10,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.RadioGroup;
 import android.widget.Toast;
-
 import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.samaneertebatbaanjomanemadrese.adapters.SpinnerAdapter;
 import com.example.samaneertebatbaanjomanemadrese.helper.LocaleHelper;
@@ -41,13 +40,12 @@ public class SignupActivity extends AppCompatActivity {
     private int currentState = 0 , currentGrade = 0 ,currentCity =0 ,currentZone =0 , currentSchool =0;
     private static final String URL_REGISTER , URL_GET_CITY, URL_GET_SCHOOL;
     public final static int ERROR,NORMAL,PROCESS,COMPLETE;
-    private String[] stateArray , gradeArray , cityArray , zoneArray , schoolArray;
     private int[] school_id;
 
     static {
-        URL_REGISTER = MyIntentHelper.URL_BASE + "Register.php";
-        URL_GET_CITY = MyIntentHelper.URL_BASE + "get_city.php";
-        URL_GET_SCHOOL = MyIntentHelper.URL_BASE + "get_school.php";
+        URL_REGISTER = MyIntentHelper.URL_BASE + "parent/Register.php";
+        URL_GET_CITY = MyIntentHelper.URL_BASE + "parent/get_city.php";
+        URL_GET_SCHOOL = MyIntentHelper.URL_BASE + "parent/get_school.php";
         ERROR = -1;
         NORMAL = 0;
         PROCESS = 50;
@@ -70,18 +68,93 @@ public class SignupActivity extends AppCompatActivity {
         }
         init();
         radioGroupSetOnCheckedChangeListener();
+        gradeSetOnItemSelectedListener();
+        stateSetOnItemSelectedListener();
+        citySetOnItemSelectedListener();
+        zoneSetOnItemSelectedListener();
+        schoolSetOnItemSelectedListener();
+        signupBtnSetOnClick();
+
+    }
+
+    private void schoolSetOnItemSelectedListener() {
+        schoolSPN.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (currentSchool != position){
+                    currentSchool = position;
+                    school.setName((String) parent.getSelectedItem());
+                    school.setId_school(school_id[position]);
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void zoneSetOnItemSelectedListener() {
+        zoneSPN.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (currentZone != position){
+                    currentZone = position;
+                    schoolSPN.setAdapter(null);
+                    currentSchool = 0;
+                    school.setZone(Integer.parseInt((String) parent.getSelectedItem()));
+                    if (!MyHttpManger.isOnline(SignupActivity.this)) {
+                        MyIntentHelper.alertDialogIsOffline(SignupActivity.this);
+                    }
+                    getNameOfSchoolRequest(school);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void citySetOnItemSelectedListener() {
+        citySPN.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (currentCity != position){
+                    currentCity = position;
+                    school.setCity((String) parent.getSelectedItem());
+                    currentZone = 0;
+                    currentSchool = 0;
+                    SpinnerAdapter zoneAdapter = new SpinnerAdapter(SignupActivity.this , getResources().getStringArray(R.array.zone));
+                    zoneSPN.setAdapter(zoneAdapter);
+                    schoolSPN.setAdapter(null);
+                    school.setName(null);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void gradeSetOnItemSelectedListener() {
         gradeSPN.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (currentGrade != position){
                     currentGrade = position;
                     school.setGrade((String) parent.getSelectedItem());
-                    Toast.makeText(SignupActivity.this , school.getState() , Toast.LENGTH_LONG).show();
                     currentState = 0;
                     currentCity = 0 ;
                     currentZone = 0;
                     currentSchool = 0;
-                    SpinnerAdapter stateAdapter = new SpinnerAdapter(SignupActivity.this , stateArray);
+                    SpinnerAdapter stateAdapter = new SpinnerAdapter(SignupActivity.this , getResources().getStringArray(R.array.state));
                     stateSPN.setAdapter(stateAdapter);
                     citySPN.setAdapter(null);
                     zoneSPN.setAdapter(null);
@@ -97,6 +170,9 @@ public class SignupActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    private void stateSetOnItemSelectedListener() {
         stateSPN.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -123,75 +199,16 @@ public class SignupActivity extends AppCompatActivity {
 
             }
         });
-        citySPN.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (currentCity != position){
-                    currentCity = position;
-                    school.setCity((String) parent.getSelectedItem());
-                    currentZone = 0;
-                    currentSchool = 0;
-                    Toast.makeText(SignupActivity.this , school.getState() , Toast.LENGTH_LONG).show();
-                    SpinnerAdapter  zoneAdapter = new SpinnerAdapter(SignupActivity.this , zoneArray);
-                    zoneSPN.setAdapter(zoneAdapter);
-                    schoolSPN.setAdapter(null);
-                    school.setName(null);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        zoneSPN.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (currentZone != position){
-                    currentZone = position;
-                    schoolSPN.setAdapter(null);
-                    currentSchool = 0;
-                    school.setZone(Integer.parseInt((String) parent.getSelectedItem()));
-                    if (!MyHttpManger.isOnline(SignupActivity.this)) {
-                        MyIntentHelper.alertDialogIsOffline(SignupActivity.this);
-                    }
-                    getNameOfSchoolRequest(school);
-                }
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        schoolSPN.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (currentSchool != position){
-                    currentSchool = position;
-                    school.setName((String) parent.getSelectedItem());
-                    school.setId_school(school_id[position]);
-
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        signupBtnSetOnClick();
-
     }
 
     private void radioGroupSetOnCheckedChangeListener() {
         radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
-            if (checkedId == R.id.signup_rb_male){
-                gender = 1;
-            }else if(checkedId == R.id.signup_rb_female){
-                gender = 0;
+            switch (checkedId){
+                case  R.id.add_community_rb_male:
+                    gender = 1 ;
+                    break;
+                case R.id.add_community_rb_female:
+                    gender = 0;
             }
         });
     }
@@ -213,6 +230,7 @@ public class SignupActivity extends AppCompatActivity {
                     signupBtn.setEnabled(false);
                     signupBtn.setClickable(false);
                     User user = new User(firstname, lastname, phoneNo, username, password, role);
+                    user.setGender(gender);
                     initParent(user, phoneNo, childName, stNoOfChild);
                     if (!MyHttpManger.isOnline(SignupActivity.this)) {
                         MyIntentHelper.alertDialogIsOffline(SignupActivity.this);
@@ -291,14 +309,8 @@ public class SignupActivity extends AppCompatActivity {
         citySPN = findViewById(R.id.signup_city_spn);
         zoneSPN = findViewById(R.id.signup_zone_spn);
         schoolSPN = findViewById(R.id.signup_school_name_spn);
-        stateArray =getResources().getStringArray(R.array.state);
-        gradeArray =getResources().getStringArray(R.array.grade);
-        zoneArray =getResources().getStringArray(R.array.zone);
-        SpinnerAdapter  gradeAdapter = new SpinnerAdapter(this , gradeArray);
+        SpinnerAdapter  gradeAdapter = new SpinnerAdapter(this , getResources().getStringArray(R.array.grade));
         gradeSPN.setAdapter(gradeAdapter);
-
-
-        
         signupBtn.setMode(ActionProcessButton.Mode.ENDLESS);
         inputFirstname.requestFocus();
 
@@ -364,18 +376,10 @@ public class SignupActivity extends AppCompatActivity {
        return requestData;
 
     }
-
-    public int[] getSchool_id() {
-        return school_id;
-    }
-
     public void setSchool_id(int[] school_id) {
         this.school_id = school_id;
     }
 
-    public String[] getZoneArray() {
-        return zoneArray;
-    }
 
 
 }

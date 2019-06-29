@@ -53,6 +53,38 @@ public class ParentJsonParser {
         }
         return null;
     }
+    public ArrayList<Parent> notVerifiedParentParseJson(String jsonstring) {
+        try {
+            ArrayList<Parent> parents = new ArrayList<>();
+            JSONObject jsonOBJ = new JSONObject(jsonstring);
+            jsonOBJ.remove("success");
+            for (int i = 0; i < jsonOBJ.length(); i++) {
+                JSONObject  jsonobject = jsonOBJ.getJSONObject(String.valueOf(i));
+                User  user = new User(jsonobject.getString(KEY_FIRSTNAME)
+                        ,jsonobject.getString(KEY_LASTNAME)
+                        ,jsonobject.getString(KEY_USERNAME)
+                        ,jsonobject.getInt(KEY_GENDER)
+                        ,jsonobject.getInt(KEY_ID_USER)
+                        ,jsonobject.getInt(KEY_ID_SCHOOL)
+                );
+                user.setVerified(jsonobject.getInt(KEY_VERIFIED));
+                user.setPhoneNo(jsonobject.getString(KEY_PHONE_NO));
+                Parent parent = new Parent(user
+                        , jsonobject.getString(KEY_CHILDNAME)
+                        ,jsonobject.getString(KEY_ST_NO_OF_CHILD)
+                );
+                parent.setRole(jsonobject.getString(KEY_ROLE));
+                parent.setVerified_by_m(jsonobject.getString(KEY_VERIFIED_BY_M));
+                parents.add(parent);
+            }
+            return parents;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+        return null;
+    }
 
 
 }

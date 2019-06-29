@@ -46,8 +46,7 @@ public class SignupTask extends AsyncTask<MyHttpManger.RequestData, Void, String
     @Override
     protected String doInBackground(MyHttpManger.RequestData... params) {
         MyHttpManger.RequestData uri = params[0];
-        String content = MyHttpManger.getDataHttpURLConnection(uri , "" , "");
-        return content;
+        return MyHttpManger.getDataHttpURLConnection(uri , "" , "");
     }
 
     @Override

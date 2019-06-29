@@ -30,7 +30,7 @@ public class InboxActivity extends AppCompatActivity {
     public static final String URL_INBOX;
 
     static {
-        URL_INBOX = "http://192.168.1.34:8888/inbox.php";
+        URL_INBOX = MyIntentHelper.URL_BASE + "parent/inbox.php";
     }
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -106,10 +106,6 @@ public class InboxActivity extends AppCompatActivity {
     }
 
     private void InboxRequest() {
-        /*
-        InboxTask task = new InboxTask();
-        task.execute(getConversationRequest());
-        */
         InboxTask task = new InboxTask(this);
         task.execute(getConversationRequest());
     }
@@ -120,30 +116,7 @@ public class InboxActivity extends AppCompatActivity {
         return requestData;
     }
 
-    public RecyclerView getRecyclerView() {
-        return recyclerView;
-    }
-/*
-    private class InboxTask extends AsyncTask<MyHttpManger.RequestData,Void,String> {
-        private Context context = InboxActivity.this;
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
 
-        @Override
-        protected String doInBackground(MyHttpManger.RequestData... params) {
-            MyHttpManger.RequestData uri = params[0];
-            return MyHttpManger.getDataHttpURLConnection(uri , MyIntentHelper.getSessionId(context), MyIntentHelper.getSessionName(context));
-        }
-
-        @Override
-        protected void onPostExecute(String response) {
-            inboxList = new InboxJsonParser().InboxParseJson(response);
-            showData(InboxActivity.this, inboxList);
-        }
-    }
-*/
 
 
 }

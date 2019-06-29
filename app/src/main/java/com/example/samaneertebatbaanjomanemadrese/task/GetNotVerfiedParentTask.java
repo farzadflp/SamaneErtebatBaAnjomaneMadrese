@@ -2,23 +2,41 @@ package com.example.samaneertebatbaanjomanemadrese.task;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
-import android.support.v7.widget.AppCompatImageView;
+import android.os.Handler;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.Toast;
 
 import com.example.samaneertebatbaanjomanemadrese.ManagerVerifyParentActivity;
+import com.example.samaneertebatbaanjomanemadrese.R;
+import com.example.samaneertebatbaanjomanemadrese.adapters.VerifyAdapter;
 import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
+import com.example.samaneertebatbaanjomanemadrese.model.Parent;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
+import com.example.samaneertebatbaanjomanemadrese.util.ParentJsonParser;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
 
 public class GetNotVerfiedParentTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
     private WeakReference<ManagerVerifyParentActivity> activityReference;
     @SuppressLint("StaticFieldLeak")
-    private ManagerVerifyParentActivity activity ;
+    private ManagerVerifyParentActivity activity;
     @SuppressLint("StaticFieldLeak")
+   // private RecyclerView recyclerView;
+    private RecyclerView recyclerView;
+    private AppCompatTextView emptyTv;
 
     public GetNotVerfiedParentTask(ManagerVerifyParentActivity context) {
         activityReference = new WeakReference<>(context);
     }
+
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -42,7 +60,47 @@ public class GetNotVerfiedParentTask extends AsyncTask<MyHttpManger.RequestData,
         if (activity == null || activity.isFinishing()) {
             return;
         }
+        recyclerView = activity.findViewById(R.id.mvp_rc);
+
+        if (response == null) {
+            errorOccurred();
+        } else {
+            try {
+                JSONObject jsonResponse = new JSONObject(response);
+                boolean success = false;
+                success = jsonResponse.getBoolean("success");
+                if (success) {
+                    successProcess(response);
+                } else {
+                    unsuccessProcess();
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
 
 
+    }
+
+    private void successProcess(String response) {
+        ArrayList<Parent> parents = new ParentJsonParser().notVerifiedParentParseJson(response);
+        VerifyAdapter adapter = new VerifyAdapter(parents);
+        recyclerView.setLayoutManager(new LinearLayoutManager(activity));
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        recyclerView.setAdapter(adapter);
+    }
+
+    private void unsuccessProcess() {
+        recyclerView.setVisibility(View.GONE);
+        emptyTv = activity.findViewById(R.id.mvp_tv);
+        emptyTv.setVisibility(View.VISIBLE);
+    }
+
+    private void errorOccurred() {
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            Toast.makeText(activity, R.string.error, Toast.LENGTH_LONG).show();
+
+        }, 1500);
     }
 }

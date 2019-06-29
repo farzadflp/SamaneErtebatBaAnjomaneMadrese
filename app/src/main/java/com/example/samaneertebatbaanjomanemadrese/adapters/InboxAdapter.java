@@ -36,7 +36,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
     private Context context ;
     private String topicSelected;
     static {
-        URL_GET_MSGS = "http://192.168.1.34:8888/get_msgs.php";
+        URL_GET_MSGS = MyIntentHelper.URL_BASE +"parent/get_msgs.php";
     }
 
 

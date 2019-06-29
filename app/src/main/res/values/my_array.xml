@@ -14,12 +14,13 @@
     </array>
 
     <array name="visibilityArray">
+        <item>-------------</item>
         <item>عمومی</item>
         <item>خصوصی</item>
-
     </array>
 
     <array name="categoryArray">
+        <item>-------------</item>
         <item>نظافت</item>
         <item>آموزش</item>
         <item>پرورش</item>

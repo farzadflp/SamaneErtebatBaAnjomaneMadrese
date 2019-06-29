@@ -4,16 +4,42 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/primary_text"
     tools:context=".ManagerVerifyParentActivity">
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/mvp_rc"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        />
+        app:layout_constraintLeft_toLeftOf="parent">
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/mvp_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/empty_not_verified_parent"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_horizontal"
+            style="@style/TextViewBasic"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:visibility="gone"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/mvp_rc"
+            android:visibility="visible"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
+
+
+    </FrameLayout>
+
+
 
 </android.support.constraint.ConstraintLayout>

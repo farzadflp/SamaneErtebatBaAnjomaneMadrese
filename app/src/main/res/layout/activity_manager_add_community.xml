@@ -184,6 +184,47 @@
                 android:layout_width="match_parent"
                 android:layout_height="5dp"
                 android:background="@color/accent_light" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/add_community_et_tel_work"
+                    style="@style/BaseEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="@string/tel_work"
+                    android:inputType="number"
+                    android:maxLength="30" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/add_community_et_address_work"
+                    style="@style/BaseEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="@string/address_work"
+                    android:inputType="textPersonName"
+                    android:maxLength="50" />
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/accent_light" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -222,6 +263,8 @@
                     android:maxLength="30" />
             </LinearLayout>
 
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -242,6 +285,9 @@
                     android:textSize="18sp" />
 
             </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp" />
 
         </LinearLayout>
     </ScrollView>

@@ -30,7 +30,7 @@ public class VerificationActivity extends AppCompatActivity {
         super.attachBaseContext(LocaleHelper.onAttach(newBase, "fa"));
     }
     static {
-        URL_VERIFICATION = "http://192.168.1.34:8888/Verification.php";
+        URL_VERIFICATION = MyIntentHelper.URL_BASE +"parent/Verification.php";
         ERROR = -1;
         NORMAL = 0;
         PROCESS = 50;

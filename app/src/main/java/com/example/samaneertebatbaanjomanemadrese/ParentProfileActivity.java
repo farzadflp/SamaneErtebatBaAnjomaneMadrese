@@ -28,7 +28,11 @@ public class ParentProfileActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         init();
-        profileLayout.getButton1().setOnClickListener(v -> startActivity(new Intent(ParentProfileActivity.this , NewConversationActivity.class)));
+        profileLayout.getButton1().setOnClickListener(v -> {
+            Intent  intent = new Intent(ParentProfileActivity.this , NewConversationActivity.class);
+            intent.putExtra("parent" , parent);
+            startActivity(intent);
+        });
         profileLayout.getButton2().setOnClickListener(v -> startActivity(new Intent(ParentProfileActivity.this , SearchActivity.class)));
         profileLayout.getButton3().setOnClickListener(v -> startActivity(new Intent(ParentProfileActivity.this , InboxActivity.class)));
 

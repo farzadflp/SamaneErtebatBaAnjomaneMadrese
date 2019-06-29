@@ -24,6 +24,12 @@ public class User {
         this.gender = gender;
     }
 
+    public User(String firstname, String lastname, String username) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+    }
+
     public User(String firstname, String lastname, String phoneNo, String username, String passsword, String role) {
         this.firstname = firstname;
         this.lastname = lastname;

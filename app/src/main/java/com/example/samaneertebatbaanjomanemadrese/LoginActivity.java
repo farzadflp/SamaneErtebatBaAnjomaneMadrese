@@ -51,10 +51,11 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        updateView("fa");
+        updateView();
         init();
         radioGroupSetOnCheckedChangeListener();
         loginBtnSetOnClick();
+        signupTv.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this , SignupActivity.class)));
 
 
     }
@@ -153,8 +154,8 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-    private void updateView(String lang) {
-        Context context = LocaleHelper.setLocale(this, lang);
+    private void updateView() {
+        LocaleHelper.setLocale(this, "fa");
     }
 
     private void loginRequest(String username, String password) {

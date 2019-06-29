@@ -77,4 +77,9 @@
     <string name="grade">مقطع</string>
     <string name="empty_city">مدرسه ای در این استان وجود ندارد</string>
     <string name="empty_school">مدرسه ای در این ناحیه وجود ندارد</string>
+    <string name="empty_not_verified_parent">والدی برای تایید کردن وجود ندارد</string>
+    <string name="address_work">آدرس محل کار</string>
+    <string name="tel_work">تلفن محل کار</string>
+    <string name="public_word">عمومی</string>
+    <string name="private_word">خصوصی</string>
 </resources>

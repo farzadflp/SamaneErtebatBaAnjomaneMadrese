@@ -8,6 +8,9 @@ public class Conversation {
         this.msg = msg;
     }
 
+    public Conversation() {
+    }
+
     public String getCategory() {
         return category;
     }

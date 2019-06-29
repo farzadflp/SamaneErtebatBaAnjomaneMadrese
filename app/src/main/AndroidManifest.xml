@@ -16,7 +16,6 @@
         <activity android:name=".ManagerProfileActivity" />
         <activity android:name=".ManagerVerifyParentActivity" />
         <activity android:name=".VerificationActivity" />
-        <activity android:name=".SearchActivity" />
         <activity android:name=".NewConversationActivity" />
         <activity android:name=".InboxActivity" />
         <activity android:name=".ParentProfileActivity" />

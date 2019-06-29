@@ -8,13 +8,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.example.samaneertebatbaanjomanemadrese.InboxActivity;
-import com.example.samaneertebatbaanjomanemadrese.LoginActivity;
+import com.example.samaneertebatbaanjomanemadrese.R;
 import com.example.samaneertebatbaanjomanemadrese.adapters.InboxAdapter;
 import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
 import com.example.samaneertebatbaanjomanemadrese.model.Inbox;
 import com.example.samaneertebatbaanjomanemadrese.util.InboxJsonParser;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
-
 import java.lang.ref.WeakReference;
 import java.util.List;
 
@@ -24,8 +23,7 @@ public class  InboxTask extends AsyncTask<MyHttpManger.RequestData,Void,String> 
     private InboxActivity activity ;
     @SuppressLint("StaticFieldLeak")
     private RecyclerView recyclerView;
-    private InboxAdapter adapter;
-    private List<Inbox> inboxList;
+
     public InboxTask(InboxActivity context) {
         activityReference = new WeakReference<>(context);
     }
@@ -40,24 +38,21 @@ public class  InboxTask extends AsyncTask<MyHttpManger.RequestData,Void,String> 
         if (activity == null || activity.isFinishing()) {
             return null;
         }
-        String content = MyHttpManger.getDataHttpURLConnection(uri , MyIntentHelper.getSessionId(activity), MyIntentHelper.getSessionName(activity));
-        return content;
+        return MyHttpManger.getDataHttpURLConnection(uri , MyIntentHelper.getSessionId(activity), MyIntentHelper.getSessionName(activity));
     }
 
     @Override
     protected void onPostExecute(String response) {
         activity = activityReference.get();
         if (activity == null || activity.isFinishing()) return;
-        adapter = activity.getAdapter();
-        recyclerView = activity.getRecyclerView();
-        inboxList = new InboxJsonParser().InboxParseJson(response);
+        recyclerView = activity.findViewById(R.id.inbox_recyclerview);
+        List<Inbox> inboxList = new InboxJsonParser().InboxParseJson(response);
         showData(activity, inboxList);
     }
     private void showData(Context context, List<Inbox> inboxList) {
-        adapter = new InboxAdapter(inboxList);
+        InboxAdapter adapter = new InboxAdapter(inboxList);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-
     }
 }
