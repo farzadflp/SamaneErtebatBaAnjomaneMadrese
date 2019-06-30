@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ManagerAddCommunityActivity"></activity>
+        <activity android:name=".CommunityProfileActivity"></activity>
+        <activity android:name=".EditCommunityActivity" />
+        <activity android:name=".GetCommunityActivity" />
+        <activity android:name=".ManagerAddCommunityActivity" />
         <activity android:name=".ManagerProfileActivity" />
         <activity android:name=".ManagerVerifyParentActivity" />
         <activity android:name=".VerificationActivity" />

@@ -95,7 +95,7 @@
                     android:text="@string/gender" />
 
                 <RadioGroup
-                    android:id="@+id/signup_rg_gender"
+                    android:id="@+id/add_community_rg_gender"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="3"
@@ -275,7 +275,7 @@
 
 
                 <com.dd.processbutton.iml.ActionProcessButton
-                    android:id="@+id/add_communityـbtn_signup"
+                    android:id="@+id/add_communityـbtn_add"
                     style="@style/ActionProcessButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

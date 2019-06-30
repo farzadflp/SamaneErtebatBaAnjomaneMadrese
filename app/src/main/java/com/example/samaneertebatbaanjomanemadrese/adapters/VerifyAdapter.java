@@ -54,8 +54,8 @@ public class VerifyAdapter extends RecyclerView.Adapter<VerifyAdapter.VerifyView
                 .inflate(R.layout.manager_verify_user_row, parent, false);
         context = parent.getContext();
         activity = (Activity) context;
-        recyclerView  = activity.findViewById(R.id.mvp_rc);
-        emptyTextView = activity.findViewById(R.id.mvp_tv);
+        recyclerView  = activity.findViewById(R.id.get_community_rc);
+        emptyTextView = activity.findViewById(R.id.get_community_tv);
         return new VerifyViewHolder(itemview);
     }
 
@@ -196,11 +196,11 @@ public class VerifyAdapter extends RecyclerView.Adapter<VerifyAdapter.VerifyView
 
         VerifyViewHolder(View itemView) {
             super(itemView);
-            firstname = itemView.findViewById(R.id.mvu_name_content_tv);
-            lastname = itemView.findViewById(R.id.mvu_family_content_name_tv);
-            gender = itemView.findViewById(R.id.mvu_gender_content_tv);
-            childName = itemView.findViewById(R.id.mvu_child_name_content_tv);
-            stNoOfChild = itemView.findViewById(R.id.mvu_st_no_child_content_tv);
+            firstname = itemView.findViewById(R.id.community_row_tv_name_content);
+            lastname = itemView.findViewById(R.id.community_row_tv_family_name_content);
+            gender = itemView.findViewById(R.id.community_row_tv_gender_content);
+            childName = itemView.findViewById(R.id.community_row_tv_degree);
+            stNoOfChild = itemView.findViewById(R.id.community_row_tv_course);
             phone_no = itemView.findViewById(R.id.mvu_phone_no_content_tv);
             verify = itemView.findViewById(R.id.mvu_verify_imgv);
             refuse = itemView.findViewById(R.id.mvu_refuse_imgv);

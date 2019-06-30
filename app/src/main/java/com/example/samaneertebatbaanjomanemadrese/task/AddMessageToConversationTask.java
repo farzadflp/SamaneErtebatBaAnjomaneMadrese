@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.support.v7.widget.AppCompatEditText;
 import android.widget.Toast;
 
 import com.dd.processbutton.iml.ActionProcessButton;
@@ -22,12 +23,11 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class AddMessageToConversationTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
-    private final static int ERROR, NORMAL, PROCESS, COMPLETE;
+    private final static int ERROR, NORMAL,COMPLETE;
 
     static {
         ERROR = -1;
         NORMAL = 0;
-        PROCESS = 50;
         COMPLETE = 100;
     }
     private WeakReference<ChatActivity> activityReference;
@@ -35,8 +35,13 @@ public class AddMessageToConversationTask extends AsyncTask<MyHttpManger.Request
     private ChatActivity activity ;
     @SuppressLint("StaticFieldLeak")
     private ActionProcessButton sendBtn;
+    @SuppressLint("StaticFieldLeak")
+    private AppCompatEditText inputMsg;
     private ChatAdapter adapter;
     private Message newMessage;
+    public AddMessageToConversationTask(ChatActivity context) {
+        activityReference = new WeakReference<>(context);
+    }
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -58,23 +63,16 @@ public class AddMessageToConversationTask extends AsyncTask<MyHttpManger.Request
         try {
             activity = activityReference.get();
             if (activity == null || activity.isFinishing()) return;
-            sendBtn = activity.findViewById(R.id.login_btn_login);
+            sendBtn = activity.findViewById(R.id.chat_btn_send);
+            inputMsg = activity.findViewById(R.id.chat_et_msg);
             adapter = activity.getAdapter();
             newMessage = activity.getNewMessage();
-            sendBtn.setProgress(PROCESS);
             if (response == null) {
                 errorOccurred();
             } else {
                 JSONObject jsonResponse = new JSONObject(response);
                 boolean success = jsonResponse.getBoolean("success");
                 if (success) {
-                    try {
-                        MyIntentHelper.writeSession(activity
-                                , jsonResponse.getString("sess_id")
-                                , jsonResponse.getString("sess_name"));
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
                     successProcess();
                 } else {
                     unsuccessProcess();
@@ -89,18 +87,28 @@ public class AddMessageToConversationTask extends AsyncTask<MyHttpManger.Request
     }
 
     private void successProcess() {
+        sendBtn.setProgress(COMPLETE);
         List<Message> msgList = adapter.getMsgList();
         msgList.add(newMessage);
         adapter.notifyItemInserted(adapter.getItemCount()-1);
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            inputMsg.getText().clear();
+            sendBtn.setProgress(NORMAL);
+            sendBtn.setEnabled(true);
+            sendBtn.setClickable(true);
+        }, 1500);
     }
 
     private void unsuccessProcess() {
         Toast.makeText(activity , R.string.error_login , Toast.LENGTH_LONG).show();
         MyIntentHelper.clearSession(activity);
+        inputMsg.getText().clear();
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
-            activity.startActivity(new Intent(activity , LoginActivity.class));
-            activity.finish();
+            Intent intent = new Intent(activity.getApplicationContext(), LoginActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            activity.startActivity(intent);
         }, 1500);
 
     }

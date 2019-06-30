@@ -7,11 +7,9 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.dd.processbutton.iml.ActionProcessButton;
-import com.example.samaneertebatbaanjomanemadrese.InboxActivity;
 import com.example.samaneertebatbaanjomanemadrese.LoginActivity;
-import com.example.samaneertebatbaanjomanemadrese.NewConversationActivity;
+import com.example.samaneertebatbaanjomanemadrese.ManagerAddCommunityActivity;
 import com.example.samaneertebatbaanjomanemadrese.R;
-import com.example.samaneertebatbaanjomanemadrese.adapters.InboxAdapter;
 import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
 
@@ -20,25 +18,25 @@ import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
 
-public class NewConversationTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
-    private WeakReference<NewConversationActivity> activityReference;
-    @SuppressLint("StaticFieldLeak")
-    private NewConversationActivity activity ;
-    @SuppressLint("StaticFieldLeak")
-    private ActionProcessButton newConvBtn;
-    private final static int ERROR,NORMAL,PROCESS,COMPLETE;
+public class AddCommunityTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
+    private final static int ERROR, NORMAL, PROCESS, COMPLETE;
+
     static {
         ERROR = -1;
         NORMAL = 0;
         PROCESS = 50;
         COMPLETE = 100;
     }
+    private WeakReference<ManagerAddCommunityActivity> activityReference;
+    @SuppressLint("StaticFieldLeak")
+    private ManagerAddCommunityActivity activity ;
+    @SuppressLint("StaticFieldLeak")
+    private ActionProcessButton addCommunityBtn;
 
 
-    public NewConversationTask(NewConversationActivity context) {
+    public AddCommunityTask(ManagerAddCommunityActivity context) {
         activityReference = new WeakReference<>(context);
     }
-
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -60,7 +58,7 @@ public class NewConversationTask extends AsyncTask<MyHttpManger.RequestData, Voi
         try {
             activity = activityReference.get();
             if (activity == null || activity.isFinishing()) return;
-            newConvBtn = activity.findViewById(R.id.new_conv_btn_send);
+            addCommunityBtn = activity.findViewById(R.id.add_communityـbtn_add);
             JSONObject jsonResponse = new JSONObject(response);
             boolean success = jsonResponse.getBoolean("success");
             if (jsonResponse.length() == 0){
@@ -74,28 +72,27 @@ public class NewConversationTask extends AsyncTask<MyHttpManger.RequestData, Voi
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
     }
     private void errorOccurred() {
-        newConvBtn.setProgress(ERROR);
+        addCommunityBtn.setProgress(ERROR);
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
             Toast.makeText(activity, R.string.error, Toast.LENGTH_LONG).show();
-            newConvBtn.setProgress(NORMAL);
-            newConvBtn.setEnabled(true);
-            newConvBtn.setClickable(true);
+            addCommunityBtn.setProgress(NORMAL);
+            addCommunityBtn.setEnabled(true);
+            addCommunityBtn.setClickable(true);
         }, 1500);
     }
     private void unsuccessProcess() {
-        newConvBtn.setProgress(ERROR);
+        addCommunityBtn.setProgress(ERROR);
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
             Toast.makeText(activity, R.string.error, Toast.LENGTH_LONG);
-            newConvBtn.setProgress(NORMAL);
-            newConvBtn.setEnabled(true);
-            newConvBtn.setClickable(true);
-            Intent intent = new Intent(activity.getApplicationContext(), LoginActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            activity.startActivity(intent);
+            addCommunityBtn.setProgress(NORMAL);
+            addCommunityBtn.setEnabled(true);
+            addCommunityBtn.setClickable(true);
         }, 1000);
 
     }
@@ -103,12 +100,11 @@ public class NewConversationTask extends AsyncTask<MyHttpManger.RequestData, Voi
     private void successProcess() {
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
-            newConvBtn.setProgress(COMPLETE);
-            Intent  intent = new Intent(activity , InboxActivity.class);
-            intent.putExtra("parent", activity.getMyParent() );
+            addCommunityBtn.setProgress(COMPLETE);
+            addCommunityBtn.setProgress(NORMAL);
+            addCommunityBtn.setEnabled(true);
+            addCommunityBtn.setClickable(true);
             activity.finish();
-            activity.startActivity(intent);
         }, 1000);
     }
 }
-

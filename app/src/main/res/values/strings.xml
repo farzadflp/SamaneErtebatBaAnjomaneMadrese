@@ -82,4 +82,7 @@
     <string name="tel_work">Office Telephone</string>
     <string name="public_word">public</string>
     <string name="private_word">private</string>
+    <string name="new_conv">New Conversation</string>
+    <string name="edit_community">Edit Community</string>
+    <string name="empty_community_list">Empty Community List</string>
 </resources>

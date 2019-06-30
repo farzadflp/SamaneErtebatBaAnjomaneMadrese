@@ -31,9 +31,12 @@ public class NewConversationActivity extends AppCompatActivity {
     private int currentCommunity = 0 , currentVisibility = 0 ,currentCategory =0;
     private static final String URL_NEW_CONV ,URL_GET_COMMUNITY ;
     private ActionProcessButton newConvBtn;
+    private static final int PROCESS;
+
     static {
         URL_NEW_CONV = MyIntentHelper.URL_BASE +"parent/new_conversation.php";
         URL_GET_COMMUNITY = MyIntentHelper.URL_BASE +"parent/get_community.php";
+        PROCESS = 50;
 
     }
     @Override
@@ -63,6 +66,7 @@ public class NewConversationActivity extends AppCompatActivity {
             String msg = inputMsg.getText().toString().trim();
             String topic = inputTopic.getText().toString().trim();
             if (!topic.isEmpty() && !msg.isEmpty() && currentCategory != 0 && currentCommunity != 0 && currentVisibility !=0){
+                newConvBtn.setProgress(PROCESS);
                 newConvBtn.setClickable(false);
                 newConvBtn.setEnabled(false);
                 conversation.setMsg(msg);

@@ -36,7 +36,7 @@
     <string name="visibility">مشاهده پذیری</string>
     <string name="category">دسته بندی</string>
     <string name="chat">چت</string>
-    <string name="inbox">صندوق</string>
+    <string name="inbox">صندوق پیام ها</string>
     <string name="profile">پروفایل</string>
     <string name="request_text">متن درخواست</string>
     <string name="refresh">تازه سازی</string>
@@ -82,4 +82,7 @@
     <string name="tel_work">تلفن محل کار</string>
     <string name="public_word">عمومی</string>
     <string name="private_word">خصوصی</string>
+    <string name="new_conv">گفتگو جدید</string>
+    <string name="edit_community">ویرایش عضو انجمن</string>
+    <string name="empty_community_list">لیست اعضای انجمن خالی است</string>
 </resources>

@@ -50,14 +50,43 @@ public class CommunityJsonParser {
                         ,jsonobject.getString(KEY_DEGREE)
                         ,jsonobject.getString(KEY_COURSE)
                         );
-                community.setAddress(jsonobject.getString(KEY_ADDRESS));
                 community.setAddressWork(jsonobject.getString(KEY_ADDRESS_WORK));
-                community.setTel(jsonobject.getString(KEY_TEL));
                 community.setTelWork(jsonobject.getString(KEY_TEL_WORK));
                 communities.add(community);
 
             }
             return communities.get(0);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    public ArrayList<Community> CommunintiesDataParseJson(String jsonstring) {
+        try {
+            ArrayList<Community> communities = new ArrayList<>();
+            JSONObject jsonOBJ = new JSONObject(jsonstring);
+            jsonOBJ.remove("success");
+            for (int i = 0; i < jsonOBJ.length(); i++) {
+                JSONObject jsonobject = jsonOBJ.getJSONObject(String.valueOf(i));
+                User user = new User(jsonobject.getString(KEY_FIRSTNAME)
+                        , jsonobject.getString(KEY_LASTNAME)
+                        , jsonobject.getInt(KEY_GENDER)
+                );
+                user.setPhoneNo(jsonobject.getString(KEY_PHONE_NO));
+                user.setRole("c");
+                user.setId_user(jsonobject.getInt(KEY_ID_USER));
+                Community community = new Community(user,
+                        jsonobject.getString(KEY_POST)
+                        , jsonobject.getString(KEY_DEGREE)
+                        , jsonobject.getString(KEY_COURSE)
+                );
+                community.setAddressWork(jsonobject.getString(KEY_ADDRESS_WORK));
+                community.setTelWork(jsonobject.getString(KEY_TEL_WORK));
+                communities.add(community);
+
+
+            }
+            return communities;
         } catch (JSONException e) {
             e.printStackTrace();
         }

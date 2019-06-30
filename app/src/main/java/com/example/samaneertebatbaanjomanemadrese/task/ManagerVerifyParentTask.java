@@ -3,25 +3,20 @@ package com.example.samaneertebatbaanjomanemadrese.task;
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.widget.Toast;
 
 import com.example.samaneertebatbaanjomanemadrese.ManagerVerifyParentActivity;
 import com.example.samaneertebatbaanjomanemadrese.R;
 import com.example.samaneertebatbaanjomanemadrese.adapters.VerifyAdapter;
 import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
-import com.example.samaneertebatbaanjomanemadrese.model.Parent;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
 
 public class ManagerVerifyParentTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
     private WeakReference<ManagerVerifyParentActivity> activityReference;
@@ -56,7 +51,7 @@ public class ManagerVerifyParentTask extends AsyncTask<MyHttpManger.RequestData,
         if (activity == null || activity.isFinishing()) {
             return;
         }
-        recyclerView = activity.findViewById(R.id.mvp_rc);
+        recyclerView = activity.findViewById(R.id.get_community_rc);
         if (response == null) {
             errorOccurred();
         } else {

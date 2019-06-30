@@ -31,7 +31,6 @@
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:padding="10dp"
-            app:tint="@color/primary_light"
             app:srcCompat="@drawable/conversation" />
 
         <android.support.v7.widget.AppCompatTextView

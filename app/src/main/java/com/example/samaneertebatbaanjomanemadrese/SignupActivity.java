@@ -18,7 +18,7 @@ import com.example.samaneertebatbaanjomanemadrese.model.Parent;
 import com.example.samaneertebatbaanjomanemadrese.model.School;
 import com.example.samaneertebatbaanjomanemadrese.model.User;
 import com.example.samaneertebatbaanjomanemadrese.task.GetCityOfSchoolTask;
-import com.example.samaneertebatbaanjomanemadrese.task.GetNameOfSchool;
+import com.example.samaneertebatbaanjomanemadrese.task.GetNameOfSchoolTask;
 import com.example.samaneertebatbaanjomanemadrese.task.SignupTask;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger.RequestData;
@@ -209,6 +209,7 @@ public class SignupActivity extends AppCompatActivity {
                     break;
                 case R.id.add_community_rb_female:
                     gender = 0;
+                    break;
             }
         });
     }
@@ -316,7 +317,7 @@ public class SignupActivity extends AppCompatActivity {
 
     }
     private void getNameOfSchoolRequest(School school) {
-        GetNameOfSchool task = new GetNameOfSchool(this);
+        GetNameOfSchoolTask task = new GetNameOfSchoolTask(this);
         task.execute(getNameOfSchoolRequestData(school));
     }
 

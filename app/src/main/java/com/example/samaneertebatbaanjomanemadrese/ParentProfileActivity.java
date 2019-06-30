@@ -54,9 +54,17 @@ public class ParentProfileActivity extends AppCompatActivity {
 
     private void setTexts() {
         parent =  getIntent().getParcelableExtra("parent");
+        String genderStr = "";
+        switch (parent.getGender()){
+            case 0 :
+                genderStr = getString(R.string.female);
+                break;
+            case 1 :
+                genderStr = getString(R.string.male);
+        }
         String firstname = getString(R.string.first_name)+ ": " + parent.getFirstname()
                 , lastname = getString(R.string.last_name)+ ": " + parent.getLastname() ,
-                gender = getString(R.string.gender)+ ": "  + parent.getGender() ,
+                gender = getString(R.string.gender)+ ": "  + genderStr ,
                 username = getString(R.string.username)+ ": " + parent.getUsername() ,
                 phone_no = getString(R.string.phone_number)+ ": " + parent.getPhoneNo(),
                 child_name = getString(R.string.name_Of_child)+ ": " + parent.getChildName();

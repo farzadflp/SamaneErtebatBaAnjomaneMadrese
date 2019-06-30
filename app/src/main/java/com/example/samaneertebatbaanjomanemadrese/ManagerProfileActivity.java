@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.example.samaneertebatbaanjomanemadrese.helper.LocaleHelper;
 import com.example.samaneertebatbaanjomanemadrese.model.Manager;
+import com.example.samaneertebatbaanjomanemadrese.task.GetCommunityDataTask;
 
 public class ManagerProfileActivity extends AppCompatActivity {
 
@@ -30,13 +31,22 @@ public class ManagerProfileActivity extends AppCompatActivity {
         init();
         profileLayout.getButton1().setText(R.string.add_community);
         profileLayout.getButton2().setText(R.string.verified_parent);
-        profileLayout.getButton1().setOnClickListener(v -> startActivity(new Intent(ManagerProfileActivity.this, ManagerAddCommunityActivity.class)));
+        profileLayout.getButton1().setOnClickListener(v -> {
+            Intent intent = new Intent(ManagerProfileActivity.this, ManagerAddCommunityActivity.class);
+            intent.putExtra("manager", manager);
+            startActivity(intent);
+        });
         profileLayout.getButton2().setOnClickListener(v -> {
             Intent intent = new Intent(ManagerProfileActivity.this, ManagerVerifyParentActivity.class);
             intent.putExtra("manager", manager);
             startActivity(intent);
         });
-        profileLayout.getButton3().setVisibility(View.GONE);
+        profileLayout.getButton3().setOnClickListener(v -> {
+            Intent intent = new Intent(ManagerProfileActivity.this, GetCommunityActivity.class);
+            intent.putExtra("manager", manager);
+            startActivity(intent);
+
+        });
 
     }
 

@@ -10,13 +10,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.samaneertebatbaanjomanemadrese.ManagerVerifyParentActivity;
+import com.example.samaneertebatbaanjomanemadrese.GetCommunityActivity;
 import com.example.samaneertebatbaanjomanemadrese.R;
-import com.example.samaneertebatbaanjomanemadrese.adapters.VerifyAdapter;
+import com.example.samaneertebatbaanjomanemadrese.adapters.CommunityAdapter;
 import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
-import com.example.samaneertebatbaanjomanemadrese.model.Parent;
+import com.example.samaneertebatbaanjomanemadrese.model.Community;
+import com.example.samaneertebatbaanjomanemadrese.util.CommunityJsonParser;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
-import com.example.samaneertebatbaanjomanemadrese.util.ParentJsonParser;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -24,19 +24,18 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class GetNotVerfiedParentTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
-    private WeakReference<ManagerVerifyParentActivity> activityReference;
+public class GetCommunityDataTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
+    private WeakReference<GetCommunityActivity> activityReference;
     @SuppressLint("StaticFieldLeak")
-    private ManagerVerifyParentActivity activity;
+    private GetCommunityActivity activity ;
     @SuppressLint("StaticFieldLeak")
-   // private RecyclerView recyclerView;
     private RecyclerView recyclerView;
     private AppCompatTextView emptyTv;
 
-    public GetNotVerfiedParentTask(ManagerVerifyParentActivity context) {
+
+    public GetCommunityDataTask(GetCommunityActivity context) {
         activityReference = new WeakReference<>(context);
     }
-
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
@@ -51,17 +50,15 @@ public class GetNotVerfiedParentTask extends AsyncTask<MyHttpManger.RequestData,
         }
         return MyHttpManger.getDataHttpURLConnection(uri, MyIntentHelper.getSessionId(activity)
                 , MyIntentHelper.getSessionName(activity));
+
     }
 
     @Override
     protected void onPostExecute(String response) {
-        super.onPostExecute(response);
         activity = activityReference.get();
-        if (activity == null || activity.isFinishing()) {
-            return;
-        }
+        if (activity == null || activity.isFinishing()) return;
         recyclerView = activity.findViewById(R.id.get_community_rc);
-
+        emptyTv = activity.findViewById(R.id.get_community_tv);
         if (response == null) {
             errorOccurred();
         } else {
@@ -78,18 +75,16 @@ public class GetNotVerfiedParentTask extends AsyncTask<MyHttpManger.RequestData,
                 e.printStackTrace();
             }
         }
-
-
     }
-
     private void successProcess(String response) {
-        ArrayList<Parent> parents = new ParentJsonParser().notVerifiedParentParseJson(response);
-        VerifyAdapter adapter = new VerifyAdapter(parents);
+        ArrayList<Community> communities = new CommunityJsonParser().CommunintiesDataParseJson(response);
+        CommunityAdapter adapter = new CommunityAdapter(communities);
         recyclerView.setLayoutManager(new LinearLayoutManager(activity));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(adapter);
-    }
 
+
+    }
     private void unsuccessProcess() {
         recyclerView.setVisibility(View.GONE);
         emptyTv = activity.findViewById(R.id.get_community_tv);

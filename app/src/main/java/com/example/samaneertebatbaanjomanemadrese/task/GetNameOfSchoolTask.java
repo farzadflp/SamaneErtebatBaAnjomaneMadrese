@@ -18,7 +18,7 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
-public class GetNameOfSchool extends AsyncTask<MyHttpManger.RequestData, Void, String> {
+public class GetNameOfSchoolTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
     private WeakReference<SignupActivity> activityReference;
     @SuppressLint("StaticFieldLeak")
     private SignupActivity activity ;
@@ -26,7 +26,7 @@ public class GetNameOfSchool extends AsyncTask<MyHttpManger.RequestData, Void, S
     private AppCompatSpinner schoolSPN;
 
 
-    public GetNameOfSchool(SignupActivity context) {
+    public GetNameOfSchoolTask(SignupActivity context) {
         activityReference = new WeakReference<>(context);
     }
 

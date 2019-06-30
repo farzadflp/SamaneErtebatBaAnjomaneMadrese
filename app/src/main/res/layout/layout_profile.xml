@@ -48,7 +48,7 @@
                     <android.support.v7.widget.AppCompatButton
                         android:id="@+id/profile_btn_send"
                         style="@style/ProfileActivityButtons"
-                        android:text="@string/send" />
+                        android:text="@string/new_conv" />
 
                     <android.support.v7.widget.AppCompatButton
                         android:id="@+id/profile_btn_search"
@@ -58,7 +58,7 @@
                     <android.support.v7.widget.AppCompatButton
                         android:id="@+id/profile_btn_chatlist"
                         style="@style/ProfileActivityButtons"
-                        android:text="@string/chatlist" />
+                        android:text="@string/inbox" />
 
                 </LinearLayout>
 

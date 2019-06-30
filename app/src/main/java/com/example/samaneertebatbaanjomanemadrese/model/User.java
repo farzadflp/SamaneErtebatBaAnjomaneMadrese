@@ -16,7 +16,13 @@ public class User {
         this.id_user =  id_user;
     }
 
-    public User(int id_user , String firstname, String lastname ,String phoneNo ,int gender) {
+    public User(String firstname, String lastname, int gender) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.gender = gender;
+    }
+
+    public User(int id_user , String firstname, String lastname , String phoneNo , int gender) {
         this.id_user = id_user;
         this.firstname = firstname;
         this.lastname = lastname;

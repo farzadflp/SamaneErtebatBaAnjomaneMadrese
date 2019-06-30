@@ -24,9 +24,15 @@ public class Message implements Parcelable {
     private String username , msg , dateTimeMsg;
     private int idMsg , idUser, idConversation;
 
+
     public Message(int idMsg, int idUser, int idConversation) {
         this.idMsg = idMsg;
         this.idUser = idUser;
+        this.idConversation = idConversation;
+    }
+
+    public Message(String msg, int idConversation) {
+        this.msg = msg;
         this.idConversation = idConversation;
     }
 

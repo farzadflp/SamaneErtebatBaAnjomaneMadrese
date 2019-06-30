@@ -71,8 +71,6 @@ public class LoginTask extends AsyncTask<MyHttpManger.RequestData, Void, String>
             activity = activityReference.get();
             if (activity == null || activity.isFinishing()) return;
             loginBtn = activity.findViewById(R.id.login_btn_login);
-
-            loginBtn.setProgress(PROCESS);
             if (response == null) {
                 errorOccurred();
             } else {
@@ -141,7 +139,6 @@ public class LoginTask extends AsyncTask<MyHttpManger.RequestData, Void, String>
 
     private void sucessCommunityProcess(JSONObject response, Community community) {
         loginBtn.setProgress(COMPLETE);
-        //parent verified
         if (community.getVerified() == 0) {
           //  unVerifiedPhoneNo();
         } else {

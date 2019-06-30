@@ -60,6 +60,7 @@ public class InboxActivity extends AppCompatActivity {
     private void init() {
         recyclerView = findViewById(R.id.inbox_recyclerview);
         imageView = findViewById(R.id.inbox_row_imgv_avatar);
+        swipeRefreshLayout = findViewById(R.id.inbox_swrl);
 
     }
 
