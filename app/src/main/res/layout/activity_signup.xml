@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,16 +20,15 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:orientation="vertical"
             android:layout_marginStart="12dp"
             android:layout_marginTop="50dp"
             android:layout_marginEnd="12dp"
             android:layout_marginBottom="50dp"
+            android:orientation="vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            >
+            app:layout_constraintTop_toTopOf="parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -40,14 +38,14 @@
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="wrap_content"
-                    android:layout_height="150dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_height="200dp"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:layout_marginBottom="10dp"
                     android:layout_weight="1"
                     android:padding="6dp"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/egitim" />
+                    app:srcCompat="@drawable/signup_background" />
             </LinearLayout>
 
             <LinearLayout
@@ -85,28 +83,6 @@
                 android:layout_marginTop="5dp"
                 android:orientation="horizontal">
 
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/signup_et_nid_no"
-                    style="@style/BaseEditText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/nid_no"
-                    android:inputType="number"
-                    android:maxLength="10" />
-
-                <android.support.v7.widget.AppCompatEditText
-                    android:id="@+id/signup_et_phone_no"
-                    style="@style/BaseEditText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/phone_number"
-                    android:inputType="number"
-                    android:maxLength="10" />
-
             </LinearLayout>
 
             <LinearLayout
@@ -117,23 +93,34 @@
                 android:gravity="center"
                 android:orientation="horizontal">
 
-                <android.support.v7.widget.AppCompatTextView
-                    style="@style/GenderTextView"
+                <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/signup_et_phone_no"
+                    style="@style/BaseEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.4"
+                    android:layout_weight="4"
+                    android:ems="10"
+                    android:hint="@string/phone_number"
+                    android:inputType="number"
+                    android:maxLength="10" />
+
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/SignupPageTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.2"
                     android:text="@string/gender" />
 
                 <RadioGroup
                     android:id="@+id/signup_rg_gender"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.6"
+                    android:layout_weight="3"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatRadioButton
                         android:id="@+id/signup_rb_male"
-                        style="@style/GenderTextView"
+                        style="@style/SignupPageTextView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
@@ -141,12 +128,12 @@
 
                     <android.support.v7.widget.AppCompatRadioButton
                         android:id="@+id/signup_rb_female"
-                        style="@style/GenderTextView"
+                        style="@style/SignupPageTextView"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
                         android:checked="true"
-                        android:text="@string/femail" />
+                        android:text="@string/female" />
                 </RadioGroup>
             </LinearLayout>
 
@@ -233,6 +220,110 @@
                     android:maxLength="30" />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:background="@color/accent_light" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <android.support.v7.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:text="@string/grade"
+                android:layout_weight="0.2"
+                android:paddingTop="2dp"
+                android:layout_gravity="center|center_vertical"
+                style="@style/SignupPageTextView"/>
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/signup_grade_spn"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="0.7"
+                    style="@style/BaseSpinner">
+
+                </android.support.v7.widget.AppCompatSpinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                s<android.support.v7.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="30dp"
+                android:text="@string/state"
+                android:layout_weight="0.2"
+                android:paddingTop="2dp"
+                android:layout_gravity="center|center_vertical"
+                style="@style/SignupPageTextView"/>
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/signup_state_spn"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="0.7"
+                    style="@style/BaseSpinner">
+
+                </android.support.v7.widget.AppCompatSpinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                s<android.support.v7.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="@string/city"
+                    android:layout_weight="0.2"
+                    android:paddingTop="2dp"
+                    android:layout_gravity="center|center_vertical"
+                    style="@style/SignupPageTextView"/>
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/signup_city_spn"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="0.7"
+                    style="@style/BaseSpinner">
+
+                </android.support.v7.widget.AppCompatSpinner>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:padding="4dp">
+                <android.support.v7.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:text="@string/zone"
+                    android:layout_weight="0.2"
+                    android:paddingTop="2dp"
+                    android:layout_gravity="center"
+                    style="@style/SignupPageTextView"/>
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/signup_zone_spn"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="0.7"
+                    style="@style/BaseSpinner">
+
+                </android.support.v7.widget.AppCompatSpinner>
+            </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -240,15 +331,48 @@
                 android:orientation="horizontal"
                 android:padding="4dp">
 
-                <com.dd.processbutton.FlatButton
-                    android:id="@+id/signup_btn_signup"
-                    style="@style/FlatButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:text="@string/signup" />
+                <android.support.v7.widget.AppCompatTextView
+                    style="@style/SignupPageTextView"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="0.2"
+                    android:paddingTop="2dp"
+                    android:text="@string/school_name" />
+
+                <android.support.v7.widget.AppCompatSpinner
+                    android:id="@+id/signup_school_name_spn"
+                    style="@style/BaseSpinner"
+                    android:layout_width="0dp"
+                    android:layout_height="30dp"
+                    android:layout_weight="0.7">
+
+                </android.support.v7.widget.AppCompatSpinner>
             </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                android:padding="4dp">
+
+
+                <com.dd.processbutton.iml.ActionProcessButton
+                    android:id="@+id/signup_btn_signup"
+                    style="@style/ActionProcessButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="16dp"
+                    android:text="@string/signup"
+                    android:textColor="@color/primary_text"
+                    android:textSize="18sp" />
+
+            </LinearLayout>
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="40dp" />
 
         </LinearLayout>
     </ScrollView>

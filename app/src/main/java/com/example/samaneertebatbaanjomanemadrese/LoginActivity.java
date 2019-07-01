@@ -2,77 +2,116 @@ package com.example.samaneertebatbaanjomanemadrese;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.AppCompatTextView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MenuItem.OnMenuItemClickListener;
-import android.view.View;
-
-import com.dd.processbutton.FlatButton;
+import android.widget.RadioGroup;
+import android.widget.Toast;
+import com.dd.processbutton.iml.ActionProcessButton;
 import com.example.samaneertebatbaanjomanemadrese.helper.LocaleHelper;
 import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
+import com.example.samaneertebatbaanjomanemadrese.task.LoginTask;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
+import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger.RequestData;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.example.samaneertebatbaanjomanemadrese.R.string.verify;
+
 
 public class LoginActivity extends AppCompatActivity {
-    private AppCompatTextView signup;
-    private FlatButton login;
-    private AppCompatEditText username , password;
-    public static final String URL_BASE = "http://192.168.1.35:8888";
+    private AppCompatTextView signupTv;
+    private ActionProcessButton loginBtn;
+    private AppCompatEditText inputUsername, inputPassword;
+    private RadioGroup radioGroup;
+    private String role = "p";
+    public static final String URL_LOGIN,FILE_NAME;
+    public final static int ERROR,NORMAL,PROCESS,COMPLETE;
+
+    static {
+        URL_LOGIN = MyIntentHelper.URL_BASE + "Login.php";
+        ERROR = -1;
+        NORMAL = 0;
+        PROCESS = 50;
+        COMPLETE = 100;
+        FILE_NAME = "myprefs";
+    }
+
+
 
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(LocaleHelper.onAttach(newBase , "fa"));
+        super.attachBaseContext(LocaleHelper.onAttach(newBase, "fa"));
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        updateView("fa");
+        updateView();
         init();
-        //myRequest();
-     //   sendpassword();
-        //methode check kardan doros boodan password
+        radioGroupSetOnCheckedChangeListener();
+        loginBtnSetOnClick();
+        signupTv.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this , SignupActivity.class)));
 
-
-        signup.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this , SignupActivity.class );
-                startActivity(intent );
-            }
-        });
 
     }
-/*
-    private void myRequest() {
-        LoginTask task = new LoginTask();
-        task.execute(URL_BASE);
-    }
-*/
 
-    private void sendpassword() {
-        login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    private void loginBtnSetOnClick() {
+        loginBtn.setOnClickListener(v -> {
+            loginBtn.setProgress(PROCESS);
+            loginBtn.setEnabled(false);
+            loginBtn.setClickable(false);
+            String username = inputUsername.getText().toString().trim();
+            String password = inputPassword.getText().toString().trim();
+            if (isValid(username, password)) {
                 if (!MyHttpManger.isOnline(LoginActivity.this)){
                     MyIntentHelper.alertDialogIsOffline(LoginActivity.this);
                 } else {
-                 //   myRequest();
+                    loginRequest(username, password);
                 }
             }
         });
     }
 
-    private void init() {
-        signup = (AppCompatTextView) findViewById(R.id.login_tv_signup);
-        login = (FlatButton) findViewById(R.id.login_btn_login);
-        username = (AppCompatEditText) findViewById(R.id.login_et_username);
-        password = (AppCompatEditText) findViewById(R.id.login_et_password);
+    private void radioGroupSetOnCheckedChangeListener() {
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            if (checkedId == R.id.login_rb_parent) {
+                role = "p";
+            } else if (checkedId == R.id.login_rb_community) {
+                role = "c";
+            } else if (checkedId == R.id.login_rb_manager) {
+                role = "m";
 
+            }
+        });
+    }
+
+    private boolean isValid(String username, String password) {
+        if (username.isEmpty()) {
+            Toast.makeText(LoginActivity.this, R.string.warning_field_empty, Toast.LENGTH_SHORT).show();
+            inputUsername.requestFocus();
+            return false;
+        } else if (password.isEmpty()) {
+            Toast.makeText(LoginActivity.this, R.string.warning_field_empty, Toast.LENGTH_SHORT).show();
+            inputPassword.requestFocus();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    private void init() {
+        signupTv = findViewById(R.id.login_tv_signup);
+        loginBtn = findViewById(R.id.login_btn_login);
+        inputUsername = findViewById(R.id.login_et_username);
+        inputPassword = findViewById(R.id.login_et_password);
+        radioGroup = findViewById(R.id.login_rg_role);
+        loginBtn.setMode(ActionProcessButton.Mode.ENDLESS);
     }
 
     @Override
@@ -86,62 +125,61 @@ public class LoginActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        menu.add(R.string.signup).setOnMenuItemClickListener(new OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Intent  intent = new Intent(LoginActivity.this  , SignupActivity.class);
-                startActivity(intent);
-                return false;
-            }
+        menu.add(R.string.signup).setOnMenuItemClickListener(item -> {
+            Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
+            startActivity(intent);
+            return false;
         });
-        menu.add(R.string.chat).setOnMenuItemClickListener(new OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                Intent  intent = new Intent(LoginActivity.this  , ChatActivity.class);
-                startActivity(intent);
-                return false;
-            }
+        menu.add(R.string.chat).setOnMenuItemClickListener(item -> {
+            Intent intent = new Intent(LoginActivity.this, ChatActivity.class);
+            startActivity(intent);
+            return false;
         });
-        menu.add(R.string.inbox).setOnMenuItemClickListener(new OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Intent  intent = new Intent(LoginActivity.this  , InboxActivity.class);
-                        startActivity(intent);
-                        return false;
-                    }
-                });
-        menu.add(R.string.profile).setOnMenuItemClickListener(new OnMenuItemClickListener() {
-                    @Override
-                    public boolean onMenuItemClick(MenuItem item) {
-                        Intent  intent = new Intent(LoginActivity.this  , ProfileActivity.class);
-                        startActivity(intent);
-                        return false;
-                    }
-                });
+        menu.add(R.string.inbox).setOnMenuItemClickListener(item -> {
+            Intent intent = new Intent(LoginActivity.this, InboxActivity.class);
+            startActivity(intent);
+            return false;
+        });
+        menu.add(R.string.profile).setOnMenuItemClickListener(item -> {
+            Intent intent = new Intent(LoginActivity.this, ParentProfileActivity.class);
+            startActivity(intent);
+            return false;
+        });
+        menu.add(verify).setOnMenuItemClickListener(item -> {
+            Intent intent = new Intent(LoginActivity.this, ManagerVerifyParentActivity.class);
+            startActivity(intent);
+            return false;
+        });
         return super.onCreateOptionsMenu(menu);
     }
 
-    private void updateView(String lang) {
-        Context  context = LocaleHelper.setLocale(this , lang);
+
+    private void updateView() {
+        LocaleHelper.setLocale(this, "fa");
     }
-/*
-    private class LoginTask extends AsyncTask<MyHttpUtils.RequestData,Void,String>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
 
-        @Override
-        protected String doInBackground(MyHttpUtils.RequestData... params) {
-            //String uri = params[0];
-           // String content = MyHttpManger.getDataHttpURLConnection(uri);
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-
-        }
+    private void loginRequest(String username, String password) {
+        LoginTask task = new LoginTask(LoginActivity.this);
+        task.execute(getRequestData(username, password));
     }
-*/
+
+    private RequestData getRequestData(String username, String password) {
+        RequestData requestData = new RequestData();
+        requestData.setUri(URL_LOGIN);
+        requestData.setMethod("POST");
+        Map<String, String> params = new HashMap<>();
+        params.put("username", username);
+        params.put("password", password);
+        params.put("role", role);
+        requestData.setParams(params);
+        return requestData;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+
+
+
 }

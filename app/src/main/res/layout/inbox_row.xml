@@ -1,33 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_height="wrap_content"
     android:background="@color/primary_text"
     >
+
     <android.support.constraint.ConstraintLayout
         android:id="@+id/inbox_row_cl"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintVertical_bias="0.25">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/inbox_row_imgv_avatar"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
+            android:background="@drawable/circle_white"
             android:padding="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.883"
             app:layout_constraintLeft_toRightOf="@+id/inbox_row_tv_username"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:background="@drawable/circle_white"/>
+            app:layout_constraintVertical_bias="0.0" />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/inbox_row_tv_topic"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/topic"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            app:layout_constraintRight_toLeftOf="@id/inbox_row_imgv_avatar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.11"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/inbox_row_tv_topic_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/primary_light"
+            app:layout_constraintRight_toLeftOf="@id/inbox_row_tv_topic"
+            app:layout_constraintTop_toTopOf="@id/inbox_row_tv_topic"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:gravity="right"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/inbox_row_tv_contact"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:text="@string/contact"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/inbox_row_tv_topic"
+            app:layout_constraintRight_toRightOf="@id/inbox_row_tv_topic"/>
 
         <android.support.v7.widget.AppCompatTextView
             android:id="@+id/inbox_row_tv_username"
@@ -36,10 +78,47 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_weight="1"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:gravity="right"
+            android:textColor="@color/primary_light"
+            app:layout_constraintRight_toLeftOf="@id/inbox_row_tv_contact"
+            app:layout_constraintTop_toTopOf="@id/inbox_row_tv_contact"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/inbox_row_imgv_avatar"
-            app:layout_constraintTop_toTopOf="parent" />
+            />
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/inbox_row_tv_category"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="10dp"
+            android:text="@string/hashtag"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            app:layout_constraintTop_toBottomOf="@id/inbox_row_tv_contact"
+            app:layout_constraintRight_toRightOf="@id/inbox_row_tv_contact"
+            />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/inbox_row_tv_category_content"
+            android:layout_width="0dp"
+            android:layout_height="24dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/primary_light"
+            app:layout_constraintRight_toLeftOf="@id/inbox_row_tv_category"
+            app:layout_constraintTop_toTopOf="@id/inbox_row_tv_category"
+            app:layout_constraintLeft_toRightOf="@id/inbox_row_tv_date"
+
+             />
+
+        <android.support.v7.widget.AppCompatTextView
+            android:id="@+id/inbox_row_tv_date"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/primary"
+            android:textStyle="bold"
+            app:layout_constraintRight_toLeftOf="@id/inbox_row_tv_category_content"
+            app:layout_constraintTop_toTopOf="@id/inbox_row_tv_category"
+            app:layout_constraintLeft_toLeftOf="parent"
+            />
 
     </android.support.constraint.ConstraintLayout>
 

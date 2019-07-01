@@ -1,12 +1,12 @@
 package com.example.samaneertebatbaanjomanemadrese;
 
 import android.animation.Animator;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.AppCompatTextView;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewAnimationUtils;
@@ -21,7 +21,8 @@ public class MyProfileLayout extends RelativeLayout implements View.OnClickListe
     private AppCompatImageView avatar, menu, cover;
     private RelativeLayout layoutReveal;
     private LinearLayout layoutBtn;
-    private AppCompatButton send, search, chatlist;
+    private AppCompatButton button1, button2, button3;
+    private AppCompatTextView tv1, tv2, tv3, tv4, tv5, tv6;
 
 
 
@@ -43,29 +44,58 @@ public class MyProfileLayout extends RelativeLayout implements View.OnClickListe
         return cover;
     }
 
-    public AppCompatButton getSend() {
-        return send;
+    public AppCompatButton getButton1() {
+        return button1;
     }
 
-    public AppCompatButton getSearch() {
-        return search;
+    public AppCompatButton getButton2() {
+        return button2;
     }
 
-    public AppCompatButton getChatlist() {
-        return chatlist;
+    public AppCompatButton getButton3() {
+        return button3;
+    }
+
+    public AppCompatTextView getTv1() {
+        return tv1;
+    }
+
+    public AppCompatTextView getTv2() {
+        return tv2;
+    }
+
+    public AppCompatTextView getTv3() {
+        return tv3;
+    }
+
+    public AppCompatTextView getTv4() {
+        return tv4;
+    }
+
+    public AppCompatTextView getTv5() {
+        return tv5;
+    }
+
+    public AppCompatTextView getTv6() {
+        return tv6;
     }
 
     private void init(Context context) {
         rootview = inflate(context, R.layout.layout_profile, this);
-        avatar = (AppCompatImageView) rootview.findViewById(R.id.profile_imgv_avatar);
-        menu = (AppCompatImageView) rootview.findViewById(R.id.profile_imgv_menu);
-        cover = (AppCompatImageView) rootview.findViewById(R.id.profile_imgv_cover);
-        send = (AppCompatButton) rootview.findViewById(R.id.profile_btn_send);
-        search = (AppCompatButton) rootview.findViewById(R.id.profile_btn_search);
-        chatlist = (AppCompatButton) rootview.findViewById(R.id.profile_btn_chatlist);
-        layoutReveal = (RelativeLayout) rootview.findViewById(R.id.profile_rl_reveal);
-        layoutBtn = (LinearLayout) rootview.findViewById(R.id.profile_lil_btns);
-
+        avatar = rootview.findViewById(R.id.profile_imgv_avatar);
+        menu = rootview.findViewById(R.id.profile_imgv_menu);
+        cover = rootview.findViewById(R.id.profile_imgv_cover);
+        button1 = rootview.findViewById(R.id.profile_btn_send);
+        button2 = rootview.findViewById(R.id.profile_btn_search);
+        button3 = rootview.findViewById(R.id.profile_btn_chatlist);
+        layoutReveal = rootview.findViewById(R.id.profile_rl_reveal);
+        layoutBtn = rootview.findViewById(R.id.profile_lil_btns);
+        tv1 = rootview.findViewById(R.id.profile_tv_firstname);
+        tv2 = rootview.findViewById(R.id.profile_tv_lastname);
+        tv3 = rootview.findViewById(R.id.profile_tv_gender);
+        tv4 = rootview.findViewById(R.id.profile_tv_username);
+        tv5 = rootview.findViewById(R.id.profile_tv_phone_no);
+        tv6 = rootview.findViewById(R.id.profile_tv_name_of_child);
         menu.setOnClickListener(this);
     }
 

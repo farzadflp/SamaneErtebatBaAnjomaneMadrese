@@ -1,44 +1,34 @@
 package com.example.samaneertebatbaanjomanemadrese;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
-import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
-
 import com.example.samaneertebatbaanjomanemadrese.adapters.InboxAdapter;
 import com.example.samaneertebatbaanjomanemadrese.helper.LocaleHelper;
-import com.example.samaneertebatbaanjomanemadrese.model.Inbox;
-import com.example.samaneertebatbaanjomanemadrese.util.InboxJsonParser;
+import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
+import com.example.samaneertebatbaanjomanemadrese.task.InboxTask;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger.RequestData;
 
 public class InboxActivity extends AppCompatActivity {
-
     RecyclerView recyclerView;
     AppCompatImageView imageView;
-    List<Inbox> inboxList;
     InboxAdapter adapter;
-    SwipeRefreshLayout swipeRefreshLayout;
-    public static final String URL_BASE = "http://192.168.43.246:8888/";
-    public static final String URL_INBOXJSON = "http://192.168.43.246:8888/inbox.json";
+    SwipeRefreshLayout swipeRefreshLayout ;
+    public static final String URL_INBOX;
+
+    static {
+        URL_INBOX = MyIntentHelper.URL_BASE + "parent/inbox.php";
+    }
     @Override
     protected void attachBaseContext(Context newBase) {
-        super.attachBaseContext(LocaleHelper.onAttach(newBase , "fa"));
+        super.attachBaseContext(LocaleHelper.onAttach(newBase, "fa"));
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,98 +36,63 @@ public class InboxActivity extends AppCompatActivity {
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+        MyHttpManger.initCooki();
         init();
-        //  prepareData();
-        InboxTask  task = new InboxTask();
-        task.execute(URL_INBOXJSON);
-        updatePageLister();
-
-
-
+        if (!MyHttpManger.isOnline(InboxActivity.this)){
+            MyIntentHelper.alertDialogIsOffline(InboxActivity.this);
+        } else {
+            InboxRequest();
+        }
+        swipeRefreshLayoutSetOnRefreshListener();
 
     }
 
-    private void init() {
-        recyclerView = (RecyclerView) findViewById(R.id.inbox_recyclerview);
-        imageView = (AppCompatImageView) findViewById(R.id.inbox_row_imgv_avatar);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.inbox_swrl);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
-        switch (id) {
-            case android.R.id.home:
-                finish();
-            break;
+        if (id == android.R.id.home) {
+            finish();
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void updatePageLister() {
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
+    private void init() {
+        recyclerView = findViewById(R.id.inbox_recyclerview);
+        imageView = findViewById(R.id.inbox_row_imgv_avatar);
+        swipeRefreshLayout = findViewById(R.id.inbox_swrl);
 
-                finish();
-                startActivity(getIntent());
-            }
+    }
+
+
+
+
+    private void swipeRefreshLayoutSetOnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            finish();
+            startActivity(getIntent());
         });
         swipeRefreshLayout.setRefreshing(false);
-    }
-
-
-    private void showData(Context context, List<Inbox> inboxList) {
-        adapter = new InboxAdapter(inboxList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(context));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
-
-    }
-    private void showData(ArrayList<Inbox> inboxes) {
-        adapter = new InboxAdapter(inboxList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(InboxActivity.this));
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        recyclerView.setAdapter(adapter);
 
     }
 
-    private class InboxTask extends AsyncTask<String,String,String>{
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected String doInBackground(String... params) {
-            String uri = params[0];
-            String content = MyHttpManger.getDataHttpClient(uri);
-            inboxList = new InboxJsonParser().parseJson(content);
-            for (Inbox inboxItem:
-                 inboxList) {
-                try {
-                    URL url = new URL(inboxItem.getAvatarPath());
-                    InputStream instream = (InputStream) url.getContent();
-                    Bitmap bitmap = BitmapFactory.decodeStream(instream);
-                    inboxItem.setBitmap(bitmap);
-                    instream.close();
-                } catch (MalformedURLException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                
-            }
-
-            return content;
-        }
-
-        @Override
-        protected void onPostExecute(String result) {
-           // inboxList = new InboxJsonParser().parseJson(result);
-            showData(InboxActivity.this , inboxList);
-        }
+    public InboxAdapter getAdapter() {
+        return adapter;
     }
+
+    private void InboxRequest() {
+        InboxTask task = new InboxTask(this);
+        task.execute(getConversationRequest());
+    }
+    private RequestData getConversationRequest(){
+        MyHttpManger.RequestData requestData = new MyHttpManger.RequestData();
+        requestData.setUri(URL_INBOX);
+        requestData.setMethod("POST");
+        return requestData;
+    }
+
+
+
 
 }
 
@@ -154,37 +109,4 @@ public class InboxActivity extends AppCompatActivity {
 
 
 
-/*
-    private void prepareData() {
-        if (inboxList == null) {
-            inboxList = new ArrayList<>();
-        } else {
-            inboxList.clear();
-        }
-        inboxList.add(new Inbox( "فرزاد فلاح پور", imageView));
-        inboxList.add(new Inbox( "پارسا محمودی", imageView));
-        inboxList.add(new Inbox( "آریا روحانی", imageView));
-        inboxList.add(new Inbox( "شایان شایگانی", imageView));
-        inboxList.add(new Inbox( "امیر خیری", imageView));
-        inboxList.add(new Inbox( "فرزاد فلاح پور", imageView));
-        inboxList.add(new Inbox( "پارسا محمودی", imageView));
-        inboxList.add(new Inbox( "آریا روحانی", imageView));
-        inboxList.add(new Inbox( "شایان شایگانی", imageView));
-        inboxList.add(new Inbox( "امیر خیری", imageView));
-        inboxList.add(new Inbox( "فرزاد فلاح پور", imageView));
-        inboxList.add(new Inbox( "پارسا محمودی", imageView));
-        inboxList.add(new Inbox( "آریا روحانی", imageView));
-        inboxList.add(new Inbox( "شایان شایگانی", imageView));
-        inboxList.add(new Inbox( "امیر خیری", imageView));
-        inboxList.add(new Inbox( "فرزاد فلاح پور", imageView));
-        inboxList.add(new Inbox( "پارسا محمودی", imageView));
-        inboxList.add(new Inbox( "آریا روحانی", imageView));
-        inboxList.add(new Inbox( "شایان شایگانی", imageView));
-        inboxList.add(new Inbox( "امیر خیری", imageView));
-        inboxList.add(new Inbox( "فرزاد فلاح پور", imageView));
-        inboxList.add(new Inbox( "پارسا محمودی", imageView));
-        inboxList.add(new Inbox( "آریا روحانی", imageView));
-        inboxList.add(new Inbox( "شایان شایگانی", imageView));
-        inboxList.add(new Inbox( "امیر خیری", imageView));
-    }
-    */
+

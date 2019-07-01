@@ -1,45 +1,58 @@
 package com.example.samaneertebatbaanjomanemadrese;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatRadioButton;
+import android.support.v7.widget.AppCompatSpinner;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.RadioGroup;
 import android.widget.Toast;
-
-import com.android.volley.AuthFailureError;
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.dd.processbutton.FlatButton;
+import com.dd.processbutton.iml.ActionProcessButton;
+import com.example.samaneertebatbaanjomanemadrese.adapters.SpinnerAdapter;
 import com.example.samaneertebatbaanjomanemadrese.helper.LocaleHelper;
 import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
+import com.example.samaneertebatbaanjomanemadrese.model.Parent;
+import com.example.samaneertebatbaanjomanemadrese.model.School;
 import com.example.samaneertebatbaanjomanemadrese.model.User;
+import com.example.samaneertebatbaanjomanemadrese.task.GetCityOfSchoolTask;
+import com.example.samaneertebatbaanjomanemadrese.task.GetNameOfSchoolTask;
+import com.example.samaneertebatbaanjomanemadrese.task.SignupTask;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
-
-
-import org.json.JSONException;
-import org.json.JSONObject;
+import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger.RequestData;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.example.samaneertebatbaanjomanemadrese.R.id.signup_et_name_of_child;
 import static com.example.samaneertebatbaanjomanemadrese.R.id.signup_et_st_no_child;
 
 public class SignupActivity extends AppCompatActivity {
-    private AppCompatEditText inputFirstname, inputLastname, inputPhoneNo, inputNIDNo, inputChildName, inputStNoOfChild, inputUsername, inputPassword;
-    private FlatButton signupBtn;
-    private AppCompatRadioButton maleRB, femaleRB;
-    private boolean gender = false;
-    private User user;
-    public static final String URL_REGISTER = "http://192.168.1.35:8888/Register.php";
-    private RequestQueue requestQueue;
+    private AppCompatEditText inputFirstname, inputLastname, inputPhoneNo, inputChildName, inputStNoOfChild, inputUsername, inputPassword;
+    private ActionProcessButton signupBtn;
+    private AppCompatSpinner stateSPN , gradeSPN ,  citySPN , zoneSPN , schoolSPN;
+    private RadioGroup radioGroup;
+    private int gender = 0;
+    private Parent parent;
+    private School school = new School("");
+    private int currentState = 0 , currentGrade = 0 ,currentCity =0 ,currentZone =0 , currentSchool =0;
+    private static final String URL_REGISTER , URL_GET_CITY, URL_GET_SCHOOL;
+    public final static int ERROR,NORMAL,PROCESS,COMPLETE;
+    private int[] school_id;
+
+    static {
+        URL_REGISTER = MyIntentHelper.URL_BASE + "parent/Register.php";
+        URL_GET_CITY = MyIntentHelper.URL_BASE + "parent/get_city.php";
+        URL_GET_SCHOOL = MyIntentHelper.URL_BASE + "parent/get_school.php";
+        ERROR = -1;
+        NORMAL = 0;
+        PROCESS = 50;
+        COMPLETE = 100;
+    }
+
+
 
     @Override
     protected void attachBaseContext(Context newBase) {
@@ -54,36 +67,187 @@ public class SignupActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         init();
-        signupBtn.setOnClickListener(new View.OnClickListener() {
+        radioGroupSetOnCheckedChangeListener();
+        gradeSetOnItemSelectedListener();
+        stateSetOnItemSelectedListener();
+        citySetOnItemSelectedListener();
+        zoneSetOnItemSelectedListener();
+        schoolSetOnItemSelectedListener();
+        signupBtnSetOnClick();
+
+    }
+
+    private void schoolSetOnItemSelectedListener() {
+        schoolSPN.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onClick(View v) {
-                String firstname = inputFirstname.getText().toString().trim();
-                String lastname = inputLastname.getText().toString().trim();
-                String phoneNo = inputPhoneNo.getText().toString().trim();
-                String NIDNo = inputNIDNo.getText().toString().trim();
-                String childName = inputChildName.getText().toString().trim();
-                String stNoOfChild = inputStNoOfChild.getText().toString().trim();
-                String username = inputUsername.getText().toString().trim();
-                String password = inputPassword.getText().toString().trim();
-                //onRadioButtonClicked(v);
-                if (isValidInput(firstname, lastname, phoneNo, NIDNo, childName, stNoOfChild, username, password)) {
-                    user = initUser(new User(firstname, lastname, phoneNo, username, password, gender), NIDNo, childName, stNoOfChild);
-                    if (!MyHttpManger.isOnline(SignupActivity.this)){
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (currentSchool != position){
+                    currentSchool = position;
+                    school.setName((String) parent.getSelectedItem());
+                    school.setId_school(school_id[position]);
+
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void zoneSetOnItemSelectedListener() {
+        zoneSPN.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (currentZone != position){
+                    currentZone = position;
+                    schoolSPN.setAdapter(null);
+                    currentSchool = 0;
+                    school.setZone(Integer.parseInt((String) parent.getSelectedItem()));
+                    if (!MyHttpManger.isOnline(SignupActivity.this)) {
                         MyIntentHelper.alertDialogIsOffline(SignupActivity.this);
                     }
-                    sendParamsPost();
+                    getNameOfSchoolRequest(school);
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void citySetOnItemSelectedListener() {
+        citySPN.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (currentCity != position){
+                    currentCity = position;
+                    school.setCity((String) parent.getSelectedItem());
+                    currentZone = 0;
+                    currentSchool = 0;
+                    SpinnerAdapter zoneAdapter = new SpinnerAdapter(SignupActivity.this , getResources().getStringArray(R.array.zone));
+                    zoneSPN.setAdapter(zoneAdapter);
+                    schoolSPN.setAdapter(null);
+                    school.setName(null);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void gradeSetOnItemSelectedListener() {
+        gradeSPN.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (currentGrade != position){
+                    currentGrade = position;
+                    school.setGrade((String) parent.getSelectedItem());
+                    currentState = 0;
+                    currentCity = 0 ;
+                    currentZone = 0;
+                    currentSchool = 0;
+                    SpinnerAdapter stateAdapter = new SpinnerAdapter(SignupActivity.this , getResources().getStringArray(R.array.state));
+                    stateSPN.setAdapter(stateAdapter);
+                    citySPN.setAdapter(null);
+                    zoneSPN.setAdapter(null);
+                    schoolSPN.setAdapter(null);
+                    school.setCity(null);
+                    school.setZone(-1);
+                    school.setName(null);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void stateSetOnItemSelectedListener() {
+        stateSPN.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (currentState != position){
+                    currentState = position;
+                    school.setState((String) parent.getSelectedItem());
+                    currentCity = 0 ;
+                    currentZone = 0;
+                    currentSchool = 0;
+                    if (!MyHttpManger.isOnline(SignupActivity.this)) {
+                        MyIntentHelper.alertDialogIsOffline(SignupActivity.this);
+                    }
+                    Toast.makeText(SignupActivity.this , school.getState() , Toast.LENGTH_LONG).show();
+                    getCityOfSchoolRequest(school);
+                    zoneSPN.setAdapter(null);
+                    schoolSPN.setAdapter(null);
+                    school.setZone(-1);
+                    school.setName(null);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void radioGroupSetOnCheckedChangeListener() {
+        radioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId){
+                case  R.id.add_community_rb_male:
+                    gender = 1 ;
+                    break;
+                case R.id.add_community_rb_female:
+                    gender = 0;
+                    break;
+            }
+        });
+    }
+
+    private void signupBtnSetOnClick() {
+        signupBtn.setOnClickListener(v -> {
+            //create account
+            String firstname = inputFirstname.getText().toString().trim();
+            String lastname = inputLastname.getText().toString().trim();
+            String phoneNo = inputPhoneNo.getText().toString().trim();
+            String childName = inputChildName.getText().toString().trim();
+            String stNoOfChild = inputStNoOfChild.getText().toString().trim();
+            String username = inputUsername.getText().toString().trim();
+            String password = inputPassword.getText().toString().trim();
+            String role = "p";
+            if (isValidInput(firstname, lastname, phoneNo, childName, stNoOfChild, username, password)) {
+                if (currentCity != 0 && currentZone != 0 && currentState != 0 && currentGrade != 0 && currentSchool !=0 ) {
+                    signupBtn.setProgress(PROCESS);
+                    signupBtn.setEnabled(false);
+                    signupBtn.setClickable(false);
+                    User user = new User(firstname, lastname, phoneNo, username, password, role);
+                    user.setGender(gender);
+                    initParent(user, phoneNo, childName, stNoOfChild);
+                    if (!MyHttpManger.isOnline(SignupActivity.this)) {
+                        MyIntentHelper.alertDialogIsOffline(SignupActivity.this);
+                    }
+                    signupRequest(parent);
                 }
             }
         });
     }
 
 
-    private User initUser(User initUser, String NIDNo, String childName, String stNoOfChild) {
-        User user = initUser;
-        user.setNIDNo(NIDNo);
-        user.setChildName(childName);
-        user.setStNoOfChild(stNoOfChild);
-        return user;
+    private void initParent(User initUser, String phoneNo, String childName, String stNoOfChild) {
+        parent = new Parent(initUser , childName , stNoOfChild);
+        parent.setChildName(childName);
+        parent.setStNoOfChild(stNoOfChild);
+        parent.setPhoneNo(phoneNo);
     }
 
     @Override
@@ -96,80 +260,8 @@ public class SignupActivity extends AppCompatActivity {
     }
 
 
+    private boolean isValidInput(String firstname, String lastname, String phoneNo, String childName, String stNoOfChild, String username, String password) {
 
-    private void sendParamsPost() {
-        requestQueue = Volley.newRequestQueue(SignupActivity.this);
-        StringRequest request = new StringRequest(
-                Request.Method.POST
-                , URL_REGISTER,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
-                            if (success) {
-                                startActivity(new Intent(SignupActivity.this, LoginActivity.class));
-                            } else {
-                                Toast.makeText(SignupActivity.this, "error", Toast.LENGTH_LONG);
-                            }
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                }
-                , new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-
-            }
-        }){
-            @Override
-            protected Map<String, String> getParams() throws AuthFailureError {
-                Map< String , String >  params = new HashMap<>();
-                try {
-                params.put("firstname", user.getFirstname());
-                params.put("lastname", user.getLastname());
-                params.put("gender", String.valueOf(user.isGender()));
-                params.put("username", user.getUsername());
-                params.put("password", user.getPassword());
-                params.put("phone_no", user.getPhoneNo());
-                params.put("nid_no", user.getNIDNo());
-                params.put("child_name", user.getChildName());
-                params.put("st_no_of_child", user.getStNoOfChild());
-                } catch (NullPointerException e){
-                    e.printStackTrace();
-                }
-                return params;
-            }
-        };
-        requestQueue.add(request);
-
-    }
-
-    private void onRadioButtonClicked(View view) {
-        boolean checked = ((AppCompatRadioButton) view).isChecked();
-        switch (view.getId()) {
-            case R.id.signup_rb_male:
-                if (checked)
-                    gender = true;
-                break;
-            case R.id.signup_rb_female:
-                if (checked)
-                    gender = false;
-                break;
-        }
-    }
-
-    private boolean isValidInput(String firstname, String lastname, String phoneNo, String nidNo, String childName, String stNoOfChild, String username, String password) {
-        /*
-        if ( (firstname == null) && (lastname == null) && (phoneNo == null) && (nidNo == null) && (childName == null) && (stNoOfChild == null) && (username == null) && (password == null) ){
-            Toast.makeText(SignupActivity.this, R.string.warning_fistname_length , Toast.LENGTH_SHORT).show();
-            //yek fild khalist
-            return false;
-        }
-        */
         if (firstname.length() < 3) {
             Toast.makeText(SignupActivity.this, R.string.warning_fistname_length, Toast.LENGTH_SHORT).show();
             inputFirstname.requestFocus();
@@ -181,10 +273,6 @@ public class SignupActivity extends AppCompatActivity {
         } else if (phoneNo.length() < 3) {
             Toast.makeText(SignupActivity.this, R.string.phone_number, Toast.LENGTH_SHORT).show();
             inputPhoneNo.requestFocus();
-            return false;
-        } else if (nidNo.length() < 3) {
-            Toast.makeText(SignupActivity.this, R.string.nid_no, Toast.LENGTH_SHORT).show();
-            inputNIDNo.requestFocus();
             return false;
         } else if (childName.length() < 3) {
             Toast.makeText(SignupActivity.this, R.string.name_Of_child, Toast.LENGTH_SHORT).show();
@@ -208,16 +296,91 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     private void init() {
-        inputFirstname = (AppCompatEditText) findViewById(R.id.signup_et_firstname);
-        inputLastname = (AppCompatEditText) findViewById(R.id.signup_et_lastname);
-        inputPhoneNo = (AppCompatEditText) findViewById(R.id.signup_et_phone_no);
-        inputUsername = (AppCompatEditText) findViewById(R.id.signup_et_username);
-        inputPassword = (AppCompatEditText) findViewById(R.id.signup_et_password);
-        inputStNoOfChild = (AppCompatEditText) findViewById(signup_et_st_no_child);
-        inputNIDNo = (AppCompatEditText) findViewById(R.id.signup_et_nid_no);
-        inputChildName = (AppCompatEditText) findViewById(signup_et_st_no_child);
-        signupBtn = (FlatButton) findViewById(R.id.signup_btn_signup);
-        maleRB = (AppCompatRadioButton) findViewById(R.id.signup_rb_male);
-        femaleRB = (AppCompatRadioButton) findViewById(R.id.signup_rb_female);
+        inputFirstname = findViewById(R.id.signup_et_firstname);
+        inputLastname = findViewById(R.id.signup_et_lastname);
+        inputPhoneNo = findViewById(R.id.signup_et_phone_no);
+        inputUsername = findViewById(R.id.signup_et_username);
+        inputPassword = findViewById(R.id.signup_et_password);
+        inputStNoOfChild = findViewById(signup_et_st_no_child);
+        inputChildName = findViewById(signup_et_name_of_child);
+        signupBtn = findViewById(R.id.signup_btn_signup);
+        radioGroup = findViewById(R.id.signup_rg_gender);
+        gradeSPN = findViewById(R.id.signup_grade_spn);
+        stateSPN = findViewById(R.id.signup_state_spn);
+        citySPN = findViewById(R.id.signup_city_spn);
+        zoneSPN = findViewById(R.id.signup_zone_spn);
+        schoolSPN = findViewById(R.id.signup_school_name_spn);
+        SpinnerAdapter  gradeAdapter = new SpinnerAdapter(this , getResources().getStringArray(R.array.grade));
+        gradeSPN.setAdapter(gradeAdapter);
+        signupBtn.setMode(ActionProcessButton.Mode.ENDLESS);
+        inputFirstname.requestFocus();
+
     }
+    private void getNameOfSchoolRequest(School school) {
+        GetNameOfSchoolTask task = new GetNameOfSchoolTask(this);
+        task.execute(getNameOfSchoolRequestData(school));
+    }
+
+    private RequestData getNameOfSchoolRequestData(School school) {
+        RequestData requestData = new RequestData();
+        requestData.setUri(URL_GET_SCHOOL);
+        requestData.setMethod("POST");
+        Map<String, String> params = new HashMap<>();
+        params.put("grade", school.getGrade());
+        params.put("state", school.getState());
+        params.put("city", school.getCity());
+        params.put("zone", String.valueOf(school.getZone()));
+        requestData.setParams(params);
+        return requestData;
+
+    }
+
+    private void getCityOfSchoolRequest(School school) {
+        GetCityOfSchoolTask task = new GetCityOfSchoolTask(this);
+        task.execute(getCityRequestData(school));
+    }
+
+    private RequestData getCityRequestData(School school) {
+        RequestData requestData = new RequestData();
+        requestData.setUri(URL_GET_CITY);
+        requestData.setMethod("POST");
+        Map<String, String> params = new HashMap<>();
+        params.put("grade", school.getGrade());
+        params.put("state", school.getState());
+        requestData.setParams(params);
+        return requestData;
+
+    }
+
+    private void signupRequest(Parent parent) {
+        signupBtn.setEnabled(false);
+        signupBtn.setProgress(PROCESS);
+        SignupTask task = new SignupTask(this);
+        task.execute(getSignupRequestData(parent));
+    }
+
+    private RequestData getSignupRequestData(Parent parent) {
+        RequestData requestData = new RequestData();
+        requestData.setUri(URL_REGISTER);
+        requestData.setMethod("POST");
+        Map<String, String> params = new HashMap<>();
+        params.put("firstname", parent.getFirstname());
+        params.put("lastname", parent.getLastname());
+        params.put("gender", String.valueOf(parent.getGender()));
+        params.put("username", parent.getUsername());
+        params.put("password", parent.getPasssword());
+        params.put("phone_no", parent.getPhoneNo());
+        params.put("child_name", parent.getChildName());
+        params.put("st_no_of_child", parent.getStNoOfChild());
+        params.put("id_school", String.valueOf(school.getId_school()));
+        requestData.setParams(params);
+       return requestData;
+
+    }
+    public void setSchool_id(int[] school_id) {
+        this.school_id = school_id;
+    }
+
+
+
 }

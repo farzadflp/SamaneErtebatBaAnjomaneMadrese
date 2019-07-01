@@ -10,7 +10,78 @@
         <item>مدرسین</item>
         <item>مالی</item>
         <item>امتحانات</item>
-        <item></item>
+    </array>
+    <array name="grade">
+        <item>-------------</item>
+        <item>ابتدایی</item>
+        <item>متوسطه اول</item>
+        <item>متوسطه دوم</item>
+    </array>
+    <array name="state">
+        <item>-------------</item>
+        <item>آذربایجان شرقی</item>
+        <item>آذربایجان غربی</item>
+        <item>اردبیل</item>
+        <item>اصفهان</item>
+        <item>البرز</item>
+        <item>ایلام</item>
+        <item>بوشهر</item>
+        <item>تهران</item>
+        <item>چهارمحال و بختیاری</item>
+        <item>خراسان جنوبی</item>
+        <item>خراسان رضوی</item>
+        <item>خراسان شمالی</item>
+        <item>خوزستان</item>
+        <item>زنجان</item>
+        <item>سمنان</item>
+        <item>سیستان و بلوچستان</item>
+        <item>فارس</item>
+        <item>قزوین</item>
+        <item>قم</item>
+        <item>کردستان</item>
+        <item>کرمان</item>
+        <item>کرمانشاه</item>
+        <item>کهگیلویه و بویراحمد</item>
+        <item>گلستان</item>
+        <item>گیلان</item>
+        <item>لرستان</item>
+        <item>مازندران</item>
+        <item>مرکزی</item>
+        <item>هرمزگان</item>
+        <item>همدان</item>
+        <item>یزد</item>
+    </array>
+    <array name="zone">
+        <item>۱</item>
+        <item>۲</item>
+        <item>۳</item>
+        <item>۴</item>
+        <item>۵</item>
+        <item>۶</item>
+        <item>۷</item>
+        <item>۸</item>
+        <item>۹</item>
+        <item>۱۰</item>
+        <item>۱۱</item>
+        <item>۱۲</item>
+        <item>۱۳</item>
+        <item>۱۴</item>
+        <item>۱۵</item>
+        <item>۱۶</item>
+        <item>۱۷</item>
+        <item>۱۸</item>
+        <item>۱۹</item>
+        <item>۲۰</item>
+        <item>۲۱</item>
+        <item>۲۲</item>
+        <item>۲۳</item>
+        <item>۲۴</item>
+        <item>۲۵</item>
+        <item>۲۶</item>
+        <item>۲۷</item>
+        <item>۲۸</item>
+        <item>۲۹</item>
+        <item>۳۰</item>
 
     </array>
 </resources>
