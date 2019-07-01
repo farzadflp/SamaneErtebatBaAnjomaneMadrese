@@ -2,11 +2,16 @@ package com.example.samaneertebatbaanjomanemadrese.model;
 
 import android.graphics.Bitmap;
 
+import com.hosseini.persian.dt.PersianDT;
+import com.hosseini.persian.dt.PersianDate.Generate;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+
 public class Inbox {
     private String username_two, topic, date_time_conv, category;
     private int id_two, id_conversation;
-    //private Bitmap bitmap;
-
 
 
     public Inbox(int id_conversation, int id_two) {
@@ -61,13 +66,18 @@ public class Inbox {
     public void setId_conversation(int id_conversation) {
         this.id_conversation = id_conversation;
     }
-    /*
-    public Bitmap getBitmap() {
-        return bitmap;
-    }
+    public void convertToSolarCalendar(){
+        try {
+            DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            String dateTimeFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(dateFormat.parse(date_time_conv));
+            String timeFormat = new SimpleDateFormat("HH:mm:ss").format(dateFormat.parse(date_time_conv));
+            Generate generate = PersianDT
+                    .Instance()
+                    .generate(dateTimeFormat, "{DATE}").Separator("/");
+            date_time_conv = generate.getWithFullDateInDigits()+"  "+ timeFormat;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
-    public void setBitmap(Bitmap bitmap) {
-        this.bitmap = bitmap;
     }
- */
 }

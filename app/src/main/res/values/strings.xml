@@ -85,4 +85,6 @@
     <string name="new_conv">New Conversation</string>
     <string name="edit_community">Edit Community</string>
     <string name="empty_community_list">Empty Community List</string>
+    <string name="contact">Contact</string>
+    <string name="hashtag">#</string>
 </resources>

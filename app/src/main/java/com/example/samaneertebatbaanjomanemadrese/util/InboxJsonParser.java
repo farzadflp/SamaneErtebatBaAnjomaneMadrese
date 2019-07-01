@@ -28,6 +28,7 @@ public class InboxJsonParser {
                 inbox.setUsername_two(jsonobject.getString(KEY_USERNAME_TWO));
                 inbox.setDate_time_conv(jsonobject.getString(KEY_DATE_TIME_CONV));
                 inbox.setCategory(jsonobject.getString(KEY_CATEGORY));
+                inbox.convertToSolarCalendar();
                 inboxes.add(inbox);
             }
             return inboxes;

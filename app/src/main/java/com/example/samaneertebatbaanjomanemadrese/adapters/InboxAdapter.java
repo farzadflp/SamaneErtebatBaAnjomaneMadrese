@@ -1,5 +1,6 @@
 package com.example.samaneertebatbaanjomanemadrese.adapters;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -130,9 +131,9 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
             super(itemView);
             username_two = itemView.findViewById(R.id.inbox_row_tv_username);
             avatar = itemView.findViewById(R.id.inbox_row_imgv_avatar);
-            topic = itemView.findViewById(R.id.inbox_row_tv_topic);
+            topic = itemView.findViewById(R.id.inbox_row_tv_topic_content);
             date_time_conv = itemView.findViewById(R.id.inbox_row_tv_date);
-            category = itemView.findViewById(R.id.inbox_row_tv_category);
+            category = itemView.findViewById(R.id.inbox_row_tv_category_content);
         }
 
         public void bind(Inbox inbox) {
@@ -140,12 +141,12 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
             topic.setText(inbox.getTopic());
             date_time_conv.setText(inbox.getDate_time_conv());
             category.setText(inbox.getCategory());
-            //avatar.setImageBitmap(inbox.getBitmap());
             avatar.setImageResource(R.drawable.conversation);
         }
     }
     
 
+    @SuppressLint("StaticFieldLeak")
     public class GetMsgTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
         @Override
         protected void onPreExecute() {
@@ -179,6 +180,7 @@ public class InboxAdapter extends RecyclerView.Adapter<InboxAdapter.InboxViewHol
 
         }
 
+        @SuppressLint("ShowToast")
         private void unsuccessProcess() {
             Toast.makeText(context , R.string.error , Toast.LENGTH_LONG);
         }

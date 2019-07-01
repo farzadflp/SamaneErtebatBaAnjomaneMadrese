@@ -9,6 +9,7 @@ public class Community extends User  implements Parcelable {
     public Community(User user , String post, String degree , String course) {
         super(user.getFirstname() , user.getLastname() , user.getUsername() , user.getGender(),user.getId_user() , user.getId_school());
         super.setRole("c");
+        super.setPhoneNo(user.getPhoneNo());
         this.post = post;
         this.degree = degree;
         this.course = course;

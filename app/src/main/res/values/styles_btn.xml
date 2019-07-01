@@ -36,12 +36,12 @@
         <item name="android:layout_marginBottom">8dp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/recc</item>
+        <item name="android:background">@drawable/rec_primery</item>
         <item name="android:layout_gravity">center</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
-        <item name="android:textColor">@color/primary_text</item>
+        <item name="android:textColor">@color/primary</item>
         <item name="android:paddingLeft">20dp</item>
         <item name="android:paddingRight">20dp</item>
     </style>

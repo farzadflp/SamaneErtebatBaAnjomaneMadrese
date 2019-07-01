@@ -95,6 +95,7 @@
             android:id="@+id/msg_row_tv_time"
             android:layout_width="wrap_content"
             android:layout_height="22dp"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintRight_toRightOf="@+id/msg_row_tv_date"
             app:layout_constraintStart_toStartOf="parent"

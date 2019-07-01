@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import com.example.samaneertebatbaanjomanemadrese.EditCommunityActivity;
 import com.example.samaneertebatbaanjomanemadrese.R;
 import com.example.samaneertebatbaanjomanemadrese.model.Community;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -115,7 +114,6 @@ public class CommunityAdapter extends RecyclerView.Adapter<CommunityAdapter.Comm
             lastname.setText(community.getLastname());
             switch (community.getGender()){
                 case 0 :
-
                     gender.setText(activity.getString(R.string.female));
                     break;
                 case 1 :

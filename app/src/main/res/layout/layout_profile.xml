@@ -7,7 +7,7 @@
     android:layout_marginTop="50dp"
     android:layout_marginRight="30dp"
     android:layout_marginBottom="50dp"
-    app:cardBackgroundColor="@color/accent"
+    app:cardBackgroundColor="@color/primary"
     app:cardCornerRadius="20dp">
 
     <RelativeLayout
@@ -17,7 +17,7 @@
         <FrameLayout
             android:id="@+id/profile_frame_cover"
             android:layout_width="match_parent"
-            android:layout_height="240dp"
+            android:layout_height="300dp"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true">
 
@@ -35,7 +35,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:background="@color/primary"
+                android:background="@color/accent"
                 android:visibility="gone">
 
                 <LinearLayout
@@ -94,7 +94,7 @@
         <Space
             android:id="@+id/profile_sp"
             android:layout_width="match_parent"
-            android:layout_height="140dp"
+            android:layout_height="230dp"
             android:layout_below="@id/profile_frame_cover" />
 
         <android.support.v7.widget.AppCompatTextView

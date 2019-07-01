@@ -18,7 +18,7 @@ public class MyIntentHelper {
 
     static {
         FILE_NAME = "myprefs";
-        URL_BASE = "http://192.168.1.40:8888/";
+        URL_BASE = "http://192.168.1.35:8888/";
     }
 
 

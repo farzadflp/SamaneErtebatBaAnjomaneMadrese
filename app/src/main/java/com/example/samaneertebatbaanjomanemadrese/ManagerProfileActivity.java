@@ -61,11 +61,11 @@ public class ManagerProfileActivity extends AppCompatActivity {
 
     private void init() {
         profileLayout = findViewById(R.id.manager_profile_layout);
+        manager = getIntent().getParcelableExtra("manager");
         setTexts();
     }
 
     private void setTexts() {
-        manager = getIntent().getParcelableExtra("manager");
         String genderStr = "";
         switch (manager.getGender()){
             case 0 :

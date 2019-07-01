@@ -31,6 +31,7 @@ public class MessageJsonParser {
                 msg.setMsg(jsonobject.getString(KEY_MSG));
                 msg.setUsername(jsonobject.getString(KEY_USERNAME));
                 msg.setDateTimeMsg(jsonobject.getString(KEY_DATE_TIME_MSG));
+                msg.convertToSolarCalendar();
 
                 msgList.add(msg);
             }

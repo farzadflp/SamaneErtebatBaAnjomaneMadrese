@@ -59,8 +59,17 @@ public class ChatActivity extends AppCompatActivity {
         init();
         showData();
         sendBtnSetOnClickListener();
-    }
+        swipeRefreshLayoutSetOnRefreshListener();
 
+    }
+    private void swipeRefreshLayoutSetOnRefreshListener() {
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            finish();
+            startActivity(getIntent());
+        });
+        swipeRefreshLayout.setRefreshing(false);
+
+    }
     private void sendBtnSetOnClickListener() {
         sendBtn.setOnClickListener(v -> {
             String msg = inputMsg.getText().toString().trim();
@@ -103,10 +112,10 @@ public class ChatActivity extends AppCompatActivity {
 
     private void init() {
         recyclerView = findViewById(R.id.chat_recyclerview);
-        swipeRefreshLayout = findViewById(R.id.inbox_swrl);
         sendBtn = findViewById(R.id.chat_btn_send);
         topicTV = findViewById(R.id.chat_tv_topic);
         inputMsg = findViewById(R.id.chat_et_msg);
+        swipeRefreshLayout = findViewById(R.id.chat_swrl);
         sendBtn.setMode(ActionProcessButton.Mode.ENDLESS);
         Bundle extras = getIntent().getExtras();
         ArrayList<Message> msgArray =  getIntent().getParcelableArrayListExtra("msg");

@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
 
 import com.dd.processbutton.iml.ActionProcessButton;
+import com.example.samaneertebatbaanjomanemadrese.CommunityProfileActivity;
 import com.example.samaneertebatbaanjomanemadrese.LoginActivity;
 import com.example.samaneertebatbaanjomanemadrese.ManagerProfileActivity;
 import com.example.samaneertebatbaanjomanemadrese.ParentProfileActivity;
@@ -122,30 +123,22 @@ public class LoginTask extends AsyncTask<MyHttpManger.RequestData, Void, String>
         }, 1500);
     }
 
-    private void LoginCommunityProcess(String response) {
-        try {
-            Community community = new CommunityJsonParser().CommunintyParseJson(response);
-            JSONObject jsonResponse = new JSONObject(response);
-            boolean success = jsonResponse.getBoolean("success");
-            if (success) {
-                sucessCommunityProcess(jsonResponse, community);
-            } else {
-                unsuccessProcess();
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void sucessCommunityProcess(JSONObject response, Community community) {
+    private void  LoginCommunityProcess(String response) {
+        Community community = new CommunityJsonParser().CommunintyParseJson(response);
         loginBtn.setProgress(COMPLETE);
-        if (community.getVerified() == 0) {
-          //  unVerifiedPhoneNo();
-        } else {
-           // parentCanLogin();
-        }
-
+        final Handler handler = new Handler();
+        handler.postDelayed(() -> {
+            loginBtn.setProgress(NORMAL);
+            Intent  intent = new Intent(activity, CommunityProfileActivity.class);
+            intent.putExtra("community" , community);
+            activity.startActivity(intent);
+            activity.finish();
+            loginBtn.setEnabled(true);
+            loginBtn.setClickable(true);
+        }, 1500);
     }
+
+
 
     private void LoginParentProcess(String response) {
         Parent parent = new ParentJsonParser().parentParseJson(response);

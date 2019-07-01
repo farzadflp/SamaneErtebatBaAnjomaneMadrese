@@ -18,12 +18,9 @@ public class CommunityJsonParser {
     private static final String KEY_LASTNAME = "lastname";
     private static final String KEY_PHONE_NO = "phone_no";
     private static final String KEY_GENDER = "gender";
-    private static final String KEY_ROLE = "role";
     private static final String KEY_ID_SCHOOL = "id_school";
     private static final String KEY_POST = "post";
-    private static final String KEY_TEL = "tel";
     private static final String KEY_TEL_WORK = "tel_work";
-    private static final String KEY_ADDRESS = "address";
     private static final String KEY_ADDRESS_WORK = "address_work";
     private static final String KEY_DEGREE = "degree";
     private static final String KEY_COURSE = "course";
@@ -31,36 +28,31 @@ public class CommunityJsonParser {
 
     //parse community data for login
     public Community CommunintyParseJson(String jsonstring) {
-        ArrayList<Community> communities = new ArrayList<>();
         try {
-            JSONArray jsonarray = new JSONArray(jsonstring);
-            for (int i = 0; i < jsonarray.length(); i++) {
-                JSONObject jsonOBJ = new JSONObject(jsonstring);
-                JSONObject  jsonobject = jsonOBJ.getJSONObject("0");
-                User user = new User(jsonobject.getString(KEY_FIRSTNAME)
-                        ,jsonobject.getString(KEY_LASTNAME)
-                        ,jsonobject.getString(KEY_USERNAME)
-                        ,jsonobject.getInt(KEY_GENDER)
-                        ,jsonobject.getInt(KEY_ID_USER)
-                        ,jsonobject.getInt(KEY_ID_SCHOOL)
-                );
-                user.setPhoneNo(jsonobject.getString(KEY_PHONE_NO));
-                Community community = new Community(user,
-                        jsonobject.getString(KEY_POST)
-                        ,jsonobject.getString(KEY_DEGREE)
-                        ,jsonobject.getString(KEY_COURSE)
-                        );
-                community.setAddressWork(jsonobject.getString(KEY_ADDRESS_WORK));
-                community.setTelWork(jsonobject.getString(KEY_TEL_WORK));
-                communities.add(community);
-
-            }
-            return communities.get(0);
+            JSONObject jsonOBJ = new JSONObject(jsonstring);
+            JSONObject jsonobject = jsonOBJ.getJSONObject("0");
+            User user = new User(jsonobject.getString(KEY_FIRSTNAME)
+                    , jsonobject.getString(KEY_LASTNAME)
+                    , jsonobject.getString(KEY_USERNAME)
+                    , jsonobject.getInt(KEY_GENDER)
+                    , jsonobject.getInt(KEY_ID_USER)
+                    , jsonobject.getInt(KEY_ID_SCHOOL)
+            );
+            user.setPhoneNo(jsonobject.getString(KEY_PHONE_NO));
+            Community community = new Community(user,
+                    jsonobject.getString(KEY_POST)
+                    , jsonobject.getString(KEY_DEGREE)
+                    , jsonobject.getString(KEY_COURSE)
+            );
+            community.setAddressWork(jsonobject.getString(KEY_ADDRESS_WORK));
+            community.setTelWork(jsonobject.getString(KEY_TEL_WORK));
+            return community;
         } catch (JSONException e) {
             e.printStackTrace();
         }
         return null;
     }
+
     public ArrayList<Community> CommunintiesDataParseJson(String jsonstring) {
         try {
             ArrayList<Community> communities = new ArrayList<>();
@@ -92,6 +84,7 @@ public class CommunityJsonParser {
         }
         return null;
     }
+
     public ArrayList<Community> CommunintiesParseJson(String jsonstring) {
         try {
             ArrayList<Community> communities = new ArrayList<>();
@@ -103,7 +96,7 @@ public class CommunityJsonParser {
                         , jsonobject.getString(KEY_LASTNAME)
                         , jsonobject.getString(KEY_USERNAME)
                 );
-                Community  community = new Community(user , jsonobject.getString(KEY_POST));
+                Community community = new Community(user, jsonobject.getString(KEY_POST));
                 communities.add(community);
             }
             return communities;

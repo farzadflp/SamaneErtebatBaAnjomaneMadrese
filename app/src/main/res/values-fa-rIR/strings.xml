@@ -85,4 +85,6 @@
     <string name="new_conv">گفتگو جدید</string>
     <string name="edit_community">ویرایش عضو انجمن</string>
     <string name="empty_community_list">لیست اعضای انجمن خالی است</string>
+    <string name="contact">مخاطب</string>
+    <string name="hashtag">#</string>
 </resources>
