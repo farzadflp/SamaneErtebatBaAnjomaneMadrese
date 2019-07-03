@@ -275,7 +275,7 @@
 
 
                 <com.dd.processbutton.iml.ActionProcessButton
-                    android:id="@+id/add_communityـbtn_add"
+                    android:id="@+id/add_community_btn_add"
                     style="@style/ActionProcessButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

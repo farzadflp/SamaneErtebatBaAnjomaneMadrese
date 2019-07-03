@@ -17,7 +17,7 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 
 public class GetCityOfSchoolTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
-    private WeakReference<SignupActivity> activityReference;
+    private final WeakReference<SignupActivity> activityReference;
     @SuppressLint("StaticFieldLeak")
     private SignupActivity activity ;
     @SuppressLint("StaticFieldLeak")
@@ -35,8 +35,7 @@ public class GetCityOfSchoolTask extends AsyncTask<MyHttpManger.RequestData, Voi
     @Override
     protected String doInBackground(MyHttpManger.RequestData... params) {
         MyHttpManger.RequestData uri = params[0];
-        String content = MyHttpManger.getDataHttpURLConnection(uri , "" , "");
-        return content;
+        return MyHttpManger.getDataHttpURLConnection(uri , "" , "");
     }
 
 

@@ -28,7 +28,6 @@ public class VerifyAdapter extends RecyclerView.Adapter<VerifyAdapter.VerifyView
     private int selectedPosition = -1;
     private int idSelected;
     private Context context;
-    private Activity activity;
     private RecyclerView recyclerView;
     private AppCompatTextView emptyTextView;
     private static final String URL_VERIFIED_PARENT;
@@ -53,7 +52,7 @@ public class VerifyAdapter extends RecyclerView.Adapter<VerifyAdapter.VerifyView
         View itemview = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.manager_verify_user_row, parent, false);
         context = parent.getContext();
-        activity = (Activity) context;
+        Activity activity = (Activity) context;
         recyclerView  = activity.findViewById(R.id.get_community_rc);
         emptyTextView = activity.findViewById(R.id.get_community_tv);
         return new VerifyViewHolder(itemview);

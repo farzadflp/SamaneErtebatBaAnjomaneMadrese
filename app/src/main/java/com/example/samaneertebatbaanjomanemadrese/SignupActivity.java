@@ -105,7 +105,7 @@ public class SignupActivity extends AppCompatActivity {
                     schoolSPN.setAdapter(null);
                     currentSchool = 0;
                     school.setZone(Integer.parseInt((String) parent.getSelectedItem()));
-                    if (!MyHttpManger.isOnline(SignupActivity.this)) {
+                    if (MyHttpManger.isOnline(SignupActivity.this)) {
                         MyIntentHelper.alertDialogIsOffline(SignupActivity.this);
                     }
                     getNameOfSchoolRequest(school);
@@ -182,7 +182,7 @@ public class SignupActivity extends AppCompatActivity {
                     currentCity = 0 ;
                     currentZone = 0;
                     currentSchool = 0;
-                    if (!MyHttpManger.isOnline(SignupActivity.this)) {
+                    if (MyHttpManger.isOnline(SignupActivity.this)) {
                         MyIntentHelper.alertDialogIsOffline(SignupActivity.this);
                     }
                     Toast.makeText(SignupActivity.this , school.getState() , Toast.LENGTH_LONG).show();
@@ -233,7 +233,7 @@ public class SignupActivity extends AppCompatActivity {
                     User user = new User(firstname, lastname, phoneNo, username, password, role);
                     user.setGender(gender);
                     initParent(user, phoneNo, childName, stNoOfChild);
-                    if (!MyHttpManger.isOnline(SignupActivity.this)) {
+                    if (MyHttpManger.isOnline(SignupActivity.this)) {
                         MyIntentHelper.alertDialogIsOffline(SignupActivity.this);
                     }
                     signupRequest(parent);

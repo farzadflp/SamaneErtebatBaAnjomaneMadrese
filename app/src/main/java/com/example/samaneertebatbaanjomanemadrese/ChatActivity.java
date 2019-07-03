@@ -27,7 +27,6 @@ import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
-    private AppCompatTextView topicTV;
     AppCompatEditText inputMsg;
     private List<Message> msgList;
     private Message newMessage ;
@@ -113,13 +112,12 @@ public class ChatActivity extends AppCompatActivity {
     private void init() {
         recyclerView = findViewById(R.id.chat_recyclerview);
         sendBtn = findViewById(R.id.chat_btn_send);
-        topicTV = findViewById(R.id.chat_tv_topic);
+        AppCompatTextView topicTV = findViewById(R.id.chat_tv_topic);
         inputMsg = findViewById(R.id.chat_et_msg);
         swipeRefreshLayout = findViewById(R.id.chat_swrl);
         sendBtn.setMode(ActionProcessButton.Mode.ENDLESS);
         Bundle extras = getIntent().getExtras();
-        ArrayList<Message> msgArray =  getIntent().getParcelableArrayListExtra("msg");
-        msgList = msgArray;
+        msgList = getIntent().getParcelableArrayListExtra("msg");
         if (extras != null){
             if (extras.containsKey("topic")){
                 topicTV.setText(extras.getString("topic"));

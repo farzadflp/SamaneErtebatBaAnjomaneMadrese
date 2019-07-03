@@ -36,6 +36,13 @@ public class GetCommunityActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        finish();
+        startActivity(getIntent());
+    }
+
     private void GetCommunitiesRequest() {
         GetCommunityDataTask task = new GetCommunityDataTask(this);
         task.execute(GetCommunitiesRequestData());
@@ -54,5 +61,9 @@ public class GetCommunityActivity extends AppCompatActivity {
     private void init() {
         manager = getIntent().getParcelableExtra("manager");
 
+    }
+
+    public Manager getManager() {
+        return manager;
     }
 }

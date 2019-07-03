@@ -45,7 +45,8 @@
                     android:layout_weight="1"
                     android:padding="6dp"
                     android:scaleType="fitXY"
-                    app:srcCompat="@drawable/signup_background" />
+                    app:srcCompat="@drawable/signup_background"
+                    android:contentDescription="TODO" />
             </LinearLayout>
 
             <LinearLayout

@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AlertDialog;
 import com.example.samaneertebatbaanjomanemadrese.R;
-import com.example.samaneertebatbaanjomanemadrese.model.Parent;
-import com.example.samaneertebatbaanjomanemadrese.model.User;
 import com.example.samaneertebatbaanjomanemadrese.util.MyHttpManger;
 
 public class MyIntentHelper {
@@ -65,7 +63,7 @@ public class MyIntentHelper {
                 .setPositiveButton(R.string.turn_on_wifi, (dialog, which) -> openWifiSettingsScreen(context))
                 .setNegativeButton(R.string.turn_on_mobile_data, (dialog, which) -> openDataUsageScreen(context))
                 .setNeutralButton(R.string.retry, (dialog, which) -> {
-                    if(!MyHttpManger.isOnline(context)){
+                    if(MyHttpManger.isOnline(context)){
                         alertDialogIsOffline(context);
                     }
 

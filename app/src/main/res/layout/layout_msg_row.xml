@@ -125,7 +125,8 @@
         app:layout_constraintLeft_toLeftOf="@+id/msg_cl_date"
         app:layout_constraintRight_toRightOf="@+id/msg_cl_date"
         app:layout_constraintTop_toBottomOf="@+id/msg_cl_date"
-        app:srcCompat="@android:drawable/stat_sys_phone_call_forward" />
+        app:srcCompat="@android:drawable/stat_sys_phone_call_forward"
+        android:contentDescription="TODO" />
 
 
 </android.support.constraint.ConstraintLayout>

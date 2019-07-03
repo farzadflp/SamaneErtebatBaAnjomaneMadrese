@@ -38,10 +38,7 @@ public class MyHttpManger {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo netinfo = cm.getActiveNetworkInfo();
-        if (netinfo != null && netinfo.isConnected())
-            return true;
-        else
-            return false;
+        return netinfo == null || !netinfo.isConnected();
     }
 
     public static String getDataHttpURLConnection(String uri) {
@@ -92,8 +89,7 @@ public class MyHttpManger {
                             .url(url)
                             .build();
                     Response response = client.newCall(request).execute();
-                    String responseStr = response.body().string();
-                    return responseStr;
+                    return response.body().string();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

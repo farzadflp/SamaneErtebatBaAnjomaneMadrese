@@ -34,7 +34,6 @@ public class VerificationTask extends AsyncTask<MyHttpManger.RequestData, Void, 
     private VerificationActivity activity ;
     @SuppressLint("StaticFieldLeak")
     private ActionProcessButton submitBtn;
-    private Parent parent;
 
 
     public VerificationTask(VerificationActivity context) {
@@ -63,7 +62,7 @@ public class VerificationTask extends AsyncTask<MyHttpManger.RequestData, Void, 
             if (activity == null || activity.isFinishing()) return;
             submitBtn = activity.findViewById(R.id.verification_btn_submit);
             submitBtn.setProgress(PROCESS);
-            parent = activity.getMyParent();
+            Parent parent = activity.getMyParent();
             if (response == null) {
                 errorOccurred();
             } else {

@@ -4,6 +4,7 @@ public class User {
     private String firstname, lastname , phoneNo, username , passsword  , role , school  ;
     private int gender = 0 , id_user = -1 , id_school = -1 , verified = 0;
 
+
     public User(String firstname, String lastname, String username, int gender) {
         this.firstname = firstname;
         this.lastname = lastname;

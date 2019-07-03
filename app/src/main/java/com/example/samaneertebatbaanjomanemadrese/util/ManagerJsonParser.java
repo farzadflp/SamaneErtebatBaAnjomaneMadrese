@@ -42,11 +42,10 @@ public class ManagerJsonParser {
             );
             user.setVerified(jsonobject.getInt(KEY_VERIFIED));
             user.setPhoneNo(jsonobject.getString(KEY_PHONE_NO));
-            Manager  manager = new Manager(user
+
+            return new Manager(user
                         ,jsonobject.getString(KEY_DEGREE)
                         ,jsonobject.getString(KEY_COURSE));
-
-            return manager;
         } catch (JSONException e) {
             e.printStackTrace();
         }

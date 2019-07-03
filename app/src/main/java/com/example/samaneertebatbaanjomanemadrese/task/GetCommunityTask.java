@@ -21,7 +21,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class GetCommunityTask  extends AsyncTask<MyHttpManger.RequestData, Void, String> {
-    private WeakReference<NewConversationActivity> activityReference;
+    private final WeakReference<NewConversationActivity> activityReference;
     @SuppressLint("StaticFieldLeak")
     private NewConversationActivity activity ;
     @SuppressLint("StaticFieldLeak")

@@ -10,11 +10,10 @@ import android.widget.BaseAdapter;
 import com.example.samaneertebatbaanjomanemadrese.R;
 
 public class GetCommunityAdapter extends BaseAdapter {
-    private Context context;
     private String[] firstnameArray , lastnameArray , postArray , usernameArray;
     private LayoutInflater inflater;
     public GetCommunityAdapter(Context context, String[] firstnameArray , String[] lastnameArray,String[] postArray,String[] usernameArray) {
-        this.context = context;
+        Context context1 = context;
         this.firstnameArray = firstnameArray;
         this.lastnameArray = lastnameArray;
         this.postArray  = postArray;

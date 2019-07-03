@@ -58,7 +58,7 @@ public class AddCommunityTask extends AsyncTask<MyHttpManger.RequestData, Void, 
         try {
             activity = activityReference.get();
             if (activity == null || activity.isFinishing()) return;
-            addCommunityBtn = activity.findViewById(R.id.add_communityـbtn_add);
+            addCommunityBtn = activity.findViewById(R.id.add_community_btn_add);
             JSONObject jsonResponse = new JSONObject(response);
             boolean success = jsonResponse.getBoolean("success");
             if (jsonResponse.length() == 0){

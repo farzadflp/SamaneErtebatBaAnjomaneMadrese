@@ -27,9 +27,10 @@ public class ManagerAddCommunityActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private int gender = 0;
     private final static int ERROR , NORMAL,PROCESS,COMPLETE;
-    private static final String URL_Add_COMMUNITY;
+    private static final String URL_ADD_COMMUNITY;
+
     static {
-        URL_Add_COMMUNITY = MyIntentHelper.URL_BASE + "manager/add_community.php";
+        URL_ADD_COMMUNITY = MyIntentHelper.URL_BASE + "manager/add_community.php";
         ERROR = -1;
         NORMAL = 0;
         PROCESS = 50;
@@ -70,7 +71,7 @@ public class ManagerAddCommunityActivity extends AppCompatActivity {
                 user.setId_school(manager.getId_school());
                 user.setGender(gender);
                 initCommunity(user, course, degree, post , telWork , addressWork);
-                if (!MyHttpManger.isOnline(ManagerAddCommunityActivity.this)) {
+                if (MyHttpManger.isOnline(ManagerAddCommunityActivity.this)) {
                     MyIntentHelper.alertDialogIsOffline(ManagerAddCommunityActivity.this);
                 }
                 addCommunityRequest();
@@ -94,7 +95,7 @@ public class ManagerAddCommunityActivity extends AppCompatActivity {
 
     private MyHttpManger.RequestData addCommunityRequestData() {
         MyHttpManger.RequestData requestData = new MyHttpManger.RequestData();
-        requestData.setUri(URL_Add_COMMUNITY);
+        requestData.setUri(URL_ADD_COMMUNITY);
         requestData.setMethod("POST");
         Map<String, String> params = new HashMap<>();
         params.put("firstname", community.getFirstname());
@@ -138,7 +139,7 @@ public class ManagerAddCommunityActivity extends AppCompatActivity {
         inputCourse= findViewById(R.id.add_community_et_course);
         inputTelWork= findViewById(R.id.add_community_et_tel_work);
         inputAddressWork= findViewById(R.id.add_community_et_address_work);
-        addCommunityBtn = findViewById(R.id.add_communityـbtn_add);
+        addCommunityBtn = findViewById(R.id.add_community_btn_add);
         radioGroup = findViewById(R.id.add_community_rg_gender);
         manager = getIntent().getParcelableExtra("manager");
     }
