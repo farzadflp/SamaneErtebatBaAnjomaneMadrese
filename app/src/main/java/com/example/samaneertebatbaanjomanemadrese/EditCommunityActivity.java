@@ -158,28 +158,28 @@ public class EditCommunityActivity extends AppCompatActivity {
             inputLastname.requestFocus();
             return false;
         } else if (phoneNo.length() < 10) {
-            Toast.makeText(EditCommunityActivity.this, R.string.phone_number, Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditCommunityActivity.this, R.string.warning_phone_no_length, Toast.LENGTH_SHORT).show();
             inputPhoneNo.requestFocus();
             return false;
         } else if (course.length() < 3) {
-            Toast.makeText(EditCommunityActivity.this, R.string.course, Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditCommunityActivity.this, R.string.warning_course_length, Toast.LENGTH_SHORT).show();
             inputCourse.requestFocus();
             return false;
         } else if (degree.length() < 3) {
-            Toast.makeText(EditCommunityActivity.this, R.string.degree_of_education, Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditCommunityActivity.this, R.string.warning_degree_length, Toast.LENGTH_SHORT).show();
             inputDegree.requestFocus();
             return false;
         } else if (post.length() < 3) {
-            Toast.makeText(EditCommunityActivity.this, R.string.post, Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditCommunityActivity.this, R.string.warning_post_length, Toast.LENGTH_SHORT).show();
             inputPost.requestFocus();
             return false;
         } else if(telWork.length() < 10){
-            Toast.makeText(EditCommunityActivity.this, R.string.tel_work, Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditCommunityActivity.this, R.string.warning_tel_work_length, Toast.LENGTH_SHORT).show();
             inputTelWork.requestFocus();
             return false;
 
         }else if(addressWork.length() < 5){
-            Toast.makeText(EditCommunityActivity.this, R.string.address_work, Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditCommunityActivity.this, R.string.warning_address_work_length, Toast.LENGTH_SHORT).show();
             inputAddressWork.requestFocus();
             return false;
         }else {

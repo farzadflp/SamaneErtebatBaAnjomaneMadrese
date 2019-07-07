@@ -18,13 +18,14 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 
 public class SignupTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
-    private final static int ERROR, NORMAL, PROCESS, COMPLETE;
+    private final static int ERROR, NORMAL, PROCESS, COMPLETE , DELAY;
 
     static {
         ERROR = -1;
         NORMAL = 0;
         PROCESS = 50;
         COMPLETE = 100;
+        DELAY = 2000;
     }
 
     private WeakReference<SignupActivity> activityReference;
@@ -63,7 +64,7 @@ public class SignupTask extends AsyncTask<MyHttpManger.RequestData, Void, String
                 successProcess();
 
             } else {
-                unsuccessProcess();
+                unsuccessProcess(response);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -79,26 +80,41 @@ public class SignupTask extends AsyncTask<MyHttpManger.RequestData, Void, String
             signupBtn.setProgress(NORMAL);
             signupBtn.setEnabled(true);
             signupBtn.setClickable(true);
-        }, 1500);
+        }, DELAY);
     }
-    private void unsuccessProcess() {
+    private void unsuccessProcess(String response) {
         signupBtn.setProgress(ERROR);
+        JSONObject jsonResponse = null;
+        try {
+            jsonResponse = new JSONObject(response);
+            boolean userExist = jsonResponse.getBoolean("user_exist");
+            boolean phoneNoExist = jsonResponse.getBoolean("phone_no_exist");
+            if (userExist){
+                Toast.makeText(activity, R.string.warning_user_exist, Toast.LENGTH_LONG).show();
+            }else if (phoneNoExist){
+                Toast.makeText(activity, R.string.warning_user_phone_no, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(activity, R.string.error, Toast.LENGTH_LONG).show();
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
-            Toast.makeText(activity, R.string.error, Toast.LENGTH_LONG);
             signupBtn.setProgress(NORMAL);
             signupBtn.setEnabled(true);
             signupBtn.setClickable(true);
-        }, 1000);
+        }, DELAY);
 
     }
 
     private void successProcess() {
+
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
             signupBtn.setProgress(COMPLETE);
             activity.startActivity(new Intent(activity, LoginActivity.class));
             activity.finish();
-        }, 1000);
+        }, DELAY);
     }
 }

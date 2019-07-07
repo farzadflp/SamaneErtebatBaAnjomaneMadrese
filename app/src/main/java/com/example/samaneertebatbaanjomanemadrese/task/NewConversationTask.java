@@ -26,12 +26,13 @@ public class NewConversationTask extends AsyncTask<MyHttpManger.RequestData, Voi
     private NewConversationActivity activity ;
     @SuppressLint("StaticFieldLeak")
     private ActionProcessButton newConvBtn;
-    private final static int ERROR,NORMAL,PROCESS,COMPLETE;
+    private final static int ERROR,NORMAL,PROCESS,COMPLETE ,DELAY;
     static {
         ERROR = -1;
         NORMAL = 0;
         PROCESS = 50;
         COMPLETE = 100;
+        DELAY = 2000;
     }
 
 
@@ -83,7 +84,7 @@ public class NewConversationTask extends AsyncTask<MyHttpManger.RequestData, Voi
             newConvBtn.setProgress(NORMAL);
             newConvBtn.setEnabled(true);
             newConvBtn.setClickable(true);
-        }, 1500);
+        }, DELAY);
     }
     private void unsuccessProcess() {
         newConvBtn.setProgress(ERROR);
@@ -96,19 +97,19 @@ public class NewConversationTask extends AsyncTask<MyHttpManger.RequestData, Voi
             Intent intent = new Intent(activity.getApplicationContext(), LoginActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             activity.startActivity(intent);
-        }, 1000);
+        }, DELAY);
 
     }
 
     private void successProcess() {
+        newConvBtn.setProgress(COMPLETE);
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
-            newConvBtn.setProgress(COMPLETE);
             Intent  intent = new Intent(activity , InboxActivity.class);
             intent.putExtra("parent", activity.getMyParent() );
             activity.finish();
             activity.startActivity(intent);
-        }, 1000);
+        }, DELAY);
     }
 }
 

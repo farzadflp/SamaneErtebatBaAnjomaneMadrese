@@ -1,6 +1,7 @@
 package com.example.samaneertebatbaanjomanemadrese;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -35,14 +36,6 @@ public class GetCommunityActivity extends AppCompatActivity {
         GetCommunitiesRequest();
 
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        finish();
-        startActivity(getIntent());
-    }
-
     private void GetCommunitiesRequest() {
         GetCommunityDataTask task = new GetCommunityDataTask(this);
         task.execute(GetCommunitiesRequestData());

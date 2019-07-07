@@ -7,7 +7,7 @@
     <string name="name">نام</string>
     <string name="nid_no">شماره ملّی</string>
     <string name="st_no_child">شماره دانش آموزی فرزند</string>
-    <string name="name_Of_child">نام فرزند</string>
+    <string name="name_Of_child">نام و نام خانوادگی فرزند</string>
     <string name="phone_number">شماره تماس</string>
     <string name="username">نام کاربری</string>
     <string name="password">رمز عبور</string>
@@ -31,8 +31,7 @@
     <string name="no_internet_access">بدون دسترسی به اینترنت</string>
     <string name="warning_fistname_length">نام باید حداقل ۳ حرف باشد</string>
     <string name="warning_lastname_length">نام خانوادگی باید حداقل ۳ حرف باشد</string>
-    <string name="warning_phone_no_length">شماره تماس باید حداقل ۳ حرف باشد</string>
-    <string name="warning_nid_no_length">شملزیزیزی</string>
+    <string name="warning_phone_no_length">شماره تماس باید ۱۰ عدد باشد</string>
     <string name="visibility">مشاهده پذیری</string>
     <string name="category">دسته بندی</string>
     <string name="chat">چت</string>
@@ -87,4 +86,16 @@
     <string name="empty_community_list">لیست اعضای انجمن خالی است</string>
     <string name="contact">مخاطب</string>
     <string name="hashtag">#</string>
+    <string name="community_list">لیست اعضای انجمن</string>
+    <string name="warning_child_name_length">نام فرزند باید حداقل ۳ حرف باشد</string>
+    <string name="warning_st_no_child_length">شماره دانش آموزی فرزند باید ۱۰ عدد باشد</string>
+    <string name="warning_username_length">نام کاربری باید حداقل ۳ حرف باشد</string>
+    <string name="warning_password_length">رمز عبور باید حداقل ۶ حرف باشد</string>
+    <string name="warning_course_length">رشته تحصیلی باید حداقل ۳ حرف باشد</string>
+    <string name="warning_degree_length">مدرک تحصیلی باید حداقل ۳ حرف باشد</string>
+    <string name="warning_post_length">سِمت باید حداقل ۳ حرف باشد</string>
+    <string name="warning_tel_work_length">تلفن محل کار باید حداقل ۳ حرف باشد</string>
+    <string name="warning_address_work_length">آدرس محل کار باید حداقل ۵ حرف باشد</string>
+    <string name="warning_user_exist">نام کاربری موجود است</string>
+    <string name="warning_user_phone_no">این شماره تلفن موجود است</string>
 </resources>

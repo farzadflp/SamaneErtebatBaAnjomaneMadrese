@@ -30,13 +30,14 @@ import java.lang.ref.WeakReference;
 
 
 public class LoginTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
-    private final static int ERROR, NORMAL, PROCESS, COMPLETE;
+    private final static int ERROR, NORMAL, PROCESS, COMPLETE,DELAY;
 
     static {
         ERROR = -1;
         NORMAL = 0;
         PROCESS = 50;
         COMPLETE = 100;
+        DELAY = 2000;
     }
 
     private WeakReference<LoginActivity> activityReference;
@@ -110,39 +111,37 @@ public class LoginTask extends AsyncTask<MyHttpManger.RequestData, Void, String>
 
     private void LoginManagerProcess(String response) {
         Manager manager = new ManagerJsonParser().managerParseJson(response);
-        loginBtn.setProgress(COMPLETE);
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
-            loginBtn.setProgress(NORMAL);
+            loginBtn.setProgress(COMPLETE);
             Intent  intent = new Intent(activity, ManagerProfileActivity.class);
             intent.putExtra("manager" , manager);
             activity.startActivity(intent);
             activity.finish();
             loginBtn.setEnabled(true);
             loginBtn.setClickable(true);
-        }, 1500);
+        }, DELAY);
     }
 
     private void  LoginCommunityProcess(String response) {
         Community community = new CommunityJsonParser().CommunintyParseJson(response);
-        loginBtn.setProgress(COMPLETE);
+
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
-            loginBtn.setProgress(NORMAL);
+            loginBtn.setProgress(COMPLETE);
             Intent  intent = new Intent(activity, CommunityProfileActivity.class);
             intent.putExtra("community" , community);
             activity.startActivity(intent);
             activity.finish();
             loginBtn.setEnabled(true);
             loginBtn.setClickable(true);
-        }, 1500);
+        }, DELAY);
     }
 
 
 
     private void LoginParentProcess(String response) {
         Parent parent = new ParentJsonParser().parentParseJson(response);
-        loginBtn.setProgress(COMPLETE);
         switch (parent.getVerified_by_m()) {
             case "n":
                 notVerifiedByManager();
@@ -151,7 +150,6 @@ public class LoginTask extends AsyncTask<MyHttpManger.RequestData, Void, String>
                 unVerifiedByManager();
                 break;
             case "v":
-                //parent verified
                 if (parent.getVerified() == 1) {
                     parentCanLogin(parent);
                 } else {
@@ -163,32 +161,31 @@ public class LoginTask extends AsyncTask<MyHttpManger.RequestData, Void, String>
 
 
     private void parentCanLogin(Parent parent) {
-
-        loginBtn.setProgress(COMPLETE);
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
-            loginBtn.setProgress(NORMAL);
+            loginBtn.setProgress(COMPLETE);
             Intent  intent = new Intent(activity, ParentProfileActivity.class);
             intent.putExtra("parent" , parent);
             activity.startActivity(intent);
             activity.finish();
             loginBtn.setEnabled(true);
             loginBtn.setClickable(true);
-        }, 1500);
+        }, DELAY);
     }
 
     private void unVerifiedPhoneNo(Parent parent) {
-        loginBtn.setProgress(COMPLETE);
+
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
-            loginBtn.setProgress(NORMAL);
+            loginBtn.setProgress(COMPLETE);
             Intent  intent = new Intent(activity, VerificationActivity.class);
             intent.putExtra("parent" , parent);
             activity.startActivity(intent);
             activity.finish();
+            loginBtn.setProgress(NORMAL);
             loginBtn.setEnabled(true);
             loginBtn.setClickable(true);
-        }, 1500);
+        }, DELAY);
     }
 
     private void unVerifiedByManager() {
@@ -203,7 +200,7 @@ public class LoginTask extends AsyncTask<MyHttpManger.RequestData, Void, String>
                         loginBtn.setProgress(NORMAL);
                         loginBtn.setEnabled(true);
                         loginBtn.setClickable(true);
-                    }, 1500);
+                    }, DELAY);
                 }).show();
     }
 
@@ -220,7 +217,7 @@ public class LoginTask extends AsyncTask<MyHttpManger.RequestData, Void, String>
                         loginBtn.setProgress(NORMAL);
                         loginBtn.setEnabled(true);
                         loginBtn.setClickable(true);
-                    }, 1500);
+                    }, DELAY);
                 }).show();
     }
 
@@ -232,7 +229,7 @@ public class LoginTask extends AsyncTask<MyHttpManger.RequestData, Void, String>
             loginBtn.setProgress(NORMAL);
             loginBtn.setEnabled(true);
             loginBtn.setClickable(true);
-        }, 1500);
+        }, DELAY);
         loginBtn.setProgress(ERROR);
     }
 
@@ -244,7 +241,7 @@ public class LoginTask extends AsyncTask<MyHttpManger.RequestData, Void, String>
             loginBtn.setProgress(NORMAL);
             loginBtn.setEnabled(true);
             loginBtn.setClickable(true);
-        }, 1500);
+        }, DELAY);
     }
 
 

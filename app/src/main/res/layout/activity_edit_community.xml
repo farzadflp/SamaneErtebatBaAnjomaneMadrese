@@ -45,7 +45,7 @@
                     android:ems="10"
                     android:hint="@string/first_name"
                     android:inputType="textPersonName"
-                    android:maxLength="30" />
+                    android:maxLength="50" />
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/edit_community_et_lastname"
@@ -56,7 +56,7 @@
                     android:ems="10"
                     android:hint="@string/last_name"
                     android:inputType="textPersonName"
-                    android:maxLength="30" />
+                    android:maxLength="50" />
             </LinearLayout>
 
             <LinearLayout
@@ -176,7 +176,7 @@
                     android:ems="10"
                     android:hint="@string/post"
                     android:inputType="textPersonName"
-                    android:maxLength="50" />
+                    android:maxLength="30" />
             </LinearLayout>
 
             <View
@@ -198,7 +198,7 @@
                     android:ems="10"
                     android:hint="@string/tel_work"
                     android:inputType="number"
-                    android:maxLength="30" />
+                    android:maxLength="10" />
 
             </LinearLayout>
 
@@ -218,7 +218,7 @@
                     android:ems="10"
                     android:hint="@string/address_work"
                     android:inputType="textPersonName"
-                    android:maxLength="50" />
+                    android:maxLength="80" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"

@@ -37,8 +37,9 @@
                 android:background="@drawable/rec"
                 android:hint="@string/topic"
                 android:lines="2"
-                android:minLines="1"
+                android:maxLines="2"
                 android:padding="8dp"
+                android:gravity="right"
                 android:textColor="@color/primary"
                 android:textColorHint="@color/primary"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -152,8 +153,10 @@
                 android:background="@drawable/rec"
                 android:hint="@string/request_text"
                 android:lines="10"
-                android:minLines="1"
+                android:minLines="8"
+                android:maxLines="12"
                 android:padding="8dp"
+                android:gravity="right"
                 android:textColor="@color/primary"
                 android:textColorHint="@color/primary"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -172,8 +175,17 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/new_conv_et_msg" />
+            <Space
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                app:layout_constraintTop_toBottomOf="@id/new_conv_btn_send"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
         </android.support.constraint.ConstraintLayout>
+
     </ScrollView>
+
 
 </android.support.constraint.ConstraintLayout>

@@ -270,20 +270,20 @@ public class SignupActivity extends AppCompatActivity {
             Toast.makeText(SignupActivity.this, R.string.warning_lastname_length, Toast.LENGTH_SHORT).show();
             inputLastname.requestFocus();
             return false;
-        } else if (phoneNo.length() < 3) {
-            Toast.makeText(SignupActivity.this, R.string.phone_number, Toast.LENGTH_SHORT).show();
+        } else if (phoneNo.length() < 10) {
+            Toast.makeText(SignupActivity.this, R.string.warning_phone_no_length, Toast.LENGTH_SHORT).show();
             inputPhoneNo.requestFocus();
             return false;
         } else if (childName.length() < 3) {
-            Toast.makeText(SignupActivity.this, R.string.name_Of_child, Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignupActivity.this, R.string.warning_child_name_length, Toast.LENGTH_SHORT).show();
             inputChildName.requestFocus();
             return false;
-        } else if (stNoOfChild.length() < 3) {
-            Toast.makeText(SignupActivity.this, R.string.st_no_child, Toast.LENGTH_SHORT).show();
+        } else if (stNoOfChild.length() < 10) {
+            Toast.makeText(SignupActivity.this, R.string.warning_st_no_child_length, Toast.LENGTH_SHORT).show();
             inputStNoOfChild.requestFocus();
             return false;
         } else if (username.length() < 3) {
-            Toast.makeText(SignupActivity.this, R.string.username, Toast.LENGTH_SHORT).show();
+            Toast.makeText(SignupActivity.this, R.string.warning_username_length, Toast.LENGTH_SHORT).show();
             inputUsername.requestFocus();
             return false;
         } else if (password.length() < 6) {

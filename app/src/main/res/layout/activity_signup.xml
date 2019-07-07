@@ -64,7 +64,7 @@
                     android:ems="10"
                     android:hint="@string/first_name"
                     android:inputType="textPersonName"
-                    android:maxLength="30" />
+                    android:maxLength="50" />
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/signup_et_lastname"
@@ -75,7 +75,7 @@
                     android:ems="10"
                     android:hint="@string/last_name"
                     android:inputType="textPersonName"
-                    android:maxLength="30" />
+                    android:maxLength="50" />
             </LinearLayout>
 
             <LinearLayout
@@ -158,7 +158,7 @@
                     android:ems="10"
                     android:hint="@string/name_Of_child"
                     android:inputType="textPersonName"
-                    android:maxLength="30" />
+                    android:maxLength="50" />
 
             </LinearLayout>
 
@@ -175,6 +175,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:ems="10"
+                    android:maxLength="10"
                     android:hint="@string/st_no_child"
                     android:inputType="number" />
             </LinearLayout>
@@ -199,7 +200,7 @@
                     android:ems="10"
                     android:hint="@string/username"
                     android:inputType="textPersonName"
-                    android:maxLength="30" />
+                    android:maxLength="50" />
             </LinearLayout>
 
             <LinearLayout
@@ -218,7 +219,7 @@
                     android:gravity="right"
                     android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:maxLength="30" />
+                    android:maxLength="50" />
             </LinearLayout>
 
             <View
@@ -373,7 +374,7 @@
             </LinearLayout>
             <Space
                 android:layout_width="match_parent"
-                android:layout_height="40dp" />
+                android:layout_height="70dp" />
 
         </LinearLayout>
     </ScrollView>

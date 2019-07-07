@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.widget.Toast;
 
 import com.dd.processbutton.iml.ActionProcessButton;
+import com.example.samaneertebatbaanjomanemadrese.LoginActivity;
 import com.example.samaneertebatbaanjomanemadrese.ParentProfileActivity;
 import com.example.samaneertebatbaanjomanemadrese.R;
 import com.example.samaneertebatbaanjomanemadrese.VerificationActivity;
@@ -20,13 +21,14 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 
 public class VerificationTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
-    private final static int ERROR, NORMAL, PROCESS, COMPLETE;
+    private final static int ERROR, NORMAL, PROCESS, COMPLETE ,DELAY;
 
     static {
         ERROR = -1;
         NORMAL = 0;
         PROCESS = 50;
         COMPLETE = 100;
+        DELAY = 2000;
     }
 
     private WeakReference<VerificationActivity> activityReference;
@@ -78,7 +80,7 @@ public class VerificationTask extends AsyncTask<MyHttpManger.RequestData, Void, 
                     }
                     successProcess(parent);
                 } else {
-                    unsuccessProcess();
+                    unsuccessProcess(response);
                 }
 
             }
@@ -101,20 +103,41 @@ public class VerificationTask extends AsyncTask<MyHttpManger.RequestData, Void, 
             activity.finish();
             submitBtn.setEnabled(true);
             submitBtn.setClickable(true);
-        }, 1500);
+        }, DELAY);
 
     }
 
-    private void unsuccessProcess() {
+    private void unsuccessProcess(String response) {
         submitBtn.setProgress(ERROR);
-        final Handler handler = new Handler();
-        handler.postDelayed(() -> {
-            Toast.makeText(activity, R.string.wrong_verification_code, Toast.LENGTH_LONG).show();
-            submitBtn.setProgress(NORMAL);
-            submitBtn.setEnabled(true);
-            submitBtn.setClickable(true);
-        }, 1500);
-        submitBtn.setProgress(ERROR);
+        JSONObject jsonResponse = null;
+        try {
+            jsonResponse = new JSONObject(response);
+            boolean userLoginned = jsonResponse.getBoolean("user_loginned");
+            if (!userLoginned){
+                Toast.makeText(activity, R.string.error, Toast.LENGTH_LONG).show();
+                final Handler handler = new Handler();
+                handler.postDelayed(() -> {
+                    Intent intent = new Intent(activity.getApplicationContext(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    activity.finish();
+                    activity.startActivity(intent);
+                    submitBtn.setProgress(NORMAL);
+                    submitBtn.setEnabled(true);
+                    submitBtn.setClickable(true);
+                }, DELAY);
+            } else {
+                Toast.makeText(activity, R.string.wrong_verification_code, Toast.LENGTH_LONG).show();
+                final Handler handler = new Handler();
+                handler.postDelayed(() -> {
+                    submitBtn.setProgress(NORMAL);
+                    submitBtn.setEnabled(true);
+                    submitBtn.setClickable(true);
+                }, DELAY);
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
     }
     private void errorOccurred() {
         submitBtn.setProgress(ERROR);
@@ -124,6 +147,6 @@ public class VerificationTask extends AsyncTask<MyHttpManger.RequestData, Void, 
             submitBtn.setProgress(NORMAL);
             submitBtn.setEnabled(true);
             submitBtn.setClickable(true);
-        }, 1500);
+        }, DELAY);
     }
 }

@@ -46,7 +46,7 @@
                     android:ems="10"
                     android:hint="@string/first_name"
                     android:inputType="textPersonName"
-                    android:maxLength="30" />
+                    android:maxLength="50" />
 
                 <android.support.v7.widget.AppCompatEditText
                     android:id="@+id/add_community_et_lastname"
@@ -57,7 +57,7 @@
                     android:ems="10"
                     android:hint="@string/last_name"
                     android:inputType="textPersonName"
-                    android:maxLength="30" />
+                    android:maxLength="50" />
             </LinearLayout>
 
             <LinearLayout
@@ -81,7 +81,7 @@
                     style="@style/BaseEditText"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="4"
+                    android:layout_weight="0.4"
                     android:ems="10"
                     android:hint="@string/phone_number"
                     android:inputType="number"
@@ -89,32 +89,28 @@
 
                 <android.support.v7.widget.AppCompatTextView
                     style="@style/SignupPageTextView"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1.2"
                     android:text="@string/gender" />
 
                 <RadioGroup
                     android:id="@+id/add_community_rg_gender"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
                     android:orientation="horizontal">
 
                     <android.support.v7.widget.AppCompatRadioButton
                         android:id="@+id/add_community_rb_male"
                         style="@style/SignupPageTextView"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
                         android:text="@string/male" />
 
                     <android.support.v7.widget.AppCompatRadioButton
                         android:id="@+id/add_community_rb_female"
                         style="@style/SignupPageTextView"
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.3"
                         android:checked="true"
                         android:text="@string/female" />
                 </RadioGroup>
@@ -177,7 +173,7 @@
                     android:ems="10"
                     android:hint="@string/post"
                     android:inputType="textPersonName"
-                    android:maxLength="50" />
+                    android:maxLength="30" />
             </LinearLayout>
 
             <View
@@ -199,7 +195,7 @@
                     android:ems="10"
                     android:hint="@string/tel_work"
                     android:inputType="number"
-                    android:maxLength="30" />
+                    android:maxLength="10" />
 
             </LinearLayout>
 
@@ -219,7 +215,7 @@
                     android:ems="10"
                     android:hint="@string/address_work"
                     android:inputType="textPersonName"
-                    android:maxLength="50" />
+                    android:maxLength="80" />
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -241,7 +237,7 @@
                     android:ems="10"
                     android:hint="@string/username"
                     android:inputType="textPersonName"
-                    android:maxLength="30" />
+                    android:maxLength="50" />
             </LinearLayout>
 
             <LinearLayout
@@ -260,7 +256,7 @@
                     android:gravity="right"
                     android:hint="@string/password"
                     android:inputType="textPassword"
-                    android:maxLength="30" />
+                    android:maxLength="50" />
             </LinearLayout>
 
 
