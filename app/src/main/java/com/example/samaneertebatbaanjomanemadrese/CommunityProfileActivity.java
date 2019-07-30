@@ -26,6 +26,8 @@ public class CommunityProfileActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         init();
+        profileLayout.getButton1().setVisibility(View.GONE);
+        profileLayout.getButton2().setVisibility(View.GONE);
         profileLayout.getButton3().setOnClickListener(v -> {
             Intent intent = new Intent(CommunityProfileActivity.this , InboxActivity.class);
             startActivity(intent);

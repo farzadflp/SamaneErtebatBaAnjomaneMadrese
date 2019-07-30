@@ -38,7 +38,7 @@ public class InboxActivity extends AppCompatActivity {
         }
         MyHttpManger.initCooki();
         init();
-        if (!MyHttpManger.isOnline(InboxActivity.this)){
+        if (MyHttpManger.isOnline(InboxActivity.this)){
             MyIntentHelper.alertDialogIsOffline(InboxActivity.this);
         } else {
             InboxRequest();

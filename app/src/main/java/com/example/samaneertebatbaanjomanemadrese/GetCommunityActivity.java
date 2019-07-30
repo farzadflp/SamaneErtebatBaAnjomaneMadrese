@@ -1,6 +1,7 @@
 package com.example.samaneertebatbaanjomanemadrese;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -35,7 +36,6 @@ public class GetCommunityActivity extends AppCompatActivity {
         GetCommunitiesRequest();
 
     }
-
     private void GetCommunitiesRequest() {
         GetCommunityDataTask task = new GetCommunityDataTask(this);
         task.execute(GetCommunitiesRequestData());
@@ -54,5 +54,9 @@ public class GetCommunityActivity extends AppCompatActivity {
     private void init() {
         manager = getIntent().getParcelableExtra("manager");
 
+    }
+
+    public Manager getManager() {
+        return manager;
     }
 }

@@ -31,6 +31,7 @@ public class ManagerProfileActivity extends AppCompatActivity {
         init();
         profileLayout.getButton1().setText(R.string.add_community);
         profileLayout.getButton2().setText(R.string.verified_parent);
+        profileLayout.getButton3().setText(R.string.community_list);
         profileLayout.getButton1().setOnClickListener(v -> {
             Intent intent = new Intent(ManagerProfileActivity.this, ManagerAddCommunityActivity.class);
             intent.putExtra("manager", manager);

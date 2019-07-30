@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity {
             String username = inputUsername.getText().toString().trim();
             String password = inputPassword.getText().toString().trim();
             if (isValid(username, password)) {
-                if (!MyHttpManger.isOnline(LoginActivity.this)){
+                if (MyHttpManger.isOnline(LoginActivity.this)){
                     MyIntentHelper.alertDialogIsOffline(LoginActivity.this);
                 } else {
                     loginRequest(username, password);
@@ -127,26 +127,6 @@ public class LoginActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(R.string.signup).setOnMenuItemClickListener(item -> {
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
-            startActivity(intent);
-            return false;
-        });
-        menu.add(R.string.chat).setOnMenuItemClickListener(item -> {
-            Intent intent = new Intent(LoginActivity.this, ChatActivity.class);
-            startActivity(intent);
-            return false;
-        });
-        menu.add(R.string.inbox).setOnMenuItemClickListener(item -> {
-            Intent intent = new Intent(LoginActivity.this, InboxActivity.class);
-            startActivity(intent);
-            return false;
-        });
-        menu.add(R.string.profile).setOnMenuItemClickListener(item -> {
-            Intent intent = new Intent(LoginActivity.this, ParentProfileActivity.class);
-            startActivity(intent);
-            return false;
-        });
-        menu.add(verify).setOnMenuItemClickListener(item -> {
-            Intent intent = new Intent(LoginActivity.this, ManagerVerifyParentActivity.class);
             startActivity(intent);
             return false;
         });

@@ -19,7 +19,7 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 
 public class ManagerVerifyParentTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
-    private WeakReference<ManagerVerifyParentActivity> activityReference;
+    private final WeakReference<ManagerVerifyParentActivity> activityReference;
     @SuppressLint("StaticFieldLeak")
     private ManagerVerifyParentActivity activity ;
     @SuppressLint("StaticFieldLeak")

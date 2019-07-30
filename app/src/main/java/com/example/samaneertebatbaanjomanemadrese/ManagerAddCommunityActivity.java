@@ -27,9 +27,10 @@ public class ManagerAddCommunityActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private int gender = 0;
     private final static int ERROR , NORMAL,PROCESS,COMPLETE;
-    private static final String URL_Add_COMMUNITY;
+    private static final String URL_ADD_COMMUNITY;
+
     static {
-        URL_Add_COMMUNITY = MyIntentHelper.URL_BASE + "manager/add_community.php";
+        URL_ADD_COMMUNITY = MyIntentHelper.URL_BASE + "manager/add_community.php";
         ERROR = -1;
         NORMAL = 0;
         PROCESS = 50;
@@ -70,7 +71,7 @@ public class ManagerAddCommunityActivity extends AppCompatActivity {
                 user.setId_school(manager.getId_school());
                 user.setGender(gender);
                 initCommunity(user, course, degree, post , telWork , addressWork);
-                if (!MyHttpManger.isOnline(ManagerAddCommunityActivity.this)) {
+                if (MyHttpManger.isOnline(ManagerAddCommunityActivity.this)) {
                     MyIntentHelper.alertDialogIsOffline(ManagerAddCommunityActivity.this);
                 }
                 addCommunityRequest();
@@ -94,7 +95,7 @@ public class ManagerAddCommunityActivity extends AppCompatActivity {
 
     private MyHttpManger.RequestData addCommunityRequestData() {
         MyHttpManger.RequestData requestData = new MyHttpManger.RequestData();
-        requestData.setUri(URL_Add_COMMUNITY);
+        requestData.setUri(URL_ADD_COMMUNITY);
         requestData.setMethod("POST");
         Map<String, String> params = new HashMap<>();
         params.put("firstname", community.getFirstname());
@@ -138,7 +139,7 @@ public class ManagerAddCommunityActivity extends AppCompatActivity {
         inputCourse= findViewById(R.id.add_community_et_course);
         inputTelWork= findViewById(R.id.add_community_et_tel_work);
         inputAddressWork= findViewById(R.id.add_community_et_address_work);
-        addCommunityBtn = findViewById(R.id.add_communityـbtn_add);
+        addCommunityBtn = findViewById(R.id.add_community_btn_add);
         radioGroup = findViewById(R.id.add_community_rg_gender);
         manager = getIntent().getParcelableExtra("manager");
     }
@@ -153,37 +154,37 @@ public class ManagerAddCommunityActivity extends AppCompatActivity {
             inputLastname.requestFocus();
             return false;
         } else if (phoneNo.length() < 10) {
-            Toast.makeText(ManagerAddCommunityActivity.this, R.string.phone_number, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ManagerAddCommunityActivity.this, R.string.warning_phone_no_length, Toast.LENGTH_SHORT).show();
             inputPhoneNo.requestFocus();
             return false;
         } else if (course.length() < 3) {
-            Toast.makeText(ManagerAddCommunityActivity.this, R.string.course, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ManagerAddCommunityActivity.this, R.string.warning_course_length, Toast.LENGTH_SHORT).show();
             inputCourse.requestFocus();
             return false;
         } else if (degree.length() < 3) {
-            Toast.makeText(ManagerAddCommunityActivity.this, R.string.degree_of_education, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ManagerAddCommunityActivity.this, R.string.warning_degree_length, Toast.LENGTH_SHORT).show();
             inputDegree.requestFocus();
             return false;
         } else if (post.length() < 3) {
-            Toast.makeText(ManagerAddCommunityActivity.this, R.string.post, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ManagerAddCommunityActivity.this, R.string.warning_post_length, Toast.LENGTH_SHORT).show();
             inputPost.requestFocus();
             return false;
         } else if (password.length() < 6) {
-            Toast.makeText(ManagerAddCommunityActivity.this, R.string.password, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ManagerAddCommunityActivity.this, R.string.warning_password_length, Toast.LENGTH_SHORT).show();
             inputPassword.requestFocus();
             return false;
         } else if(username.length() < 4){
-            Toast.makeText(ManagerAddCommunityActivity.this, R.string.username, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ManagerAddCommunityActivity.this, R.string.warning_username_length, Toast.LENGTH_SHORT).show();
             inputUsername.requestFocus();
             return false;
 
         }else if(telWork.length() < 10){
-            Toast.makeText(ManagerAddCommunityActivity.this, R.string.tel_work, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ManagerAddCommunityActivity.this, R.string.warning_tel_work_length, Toast.LENGTH_SHORT).show();
             inputTelWork.requestFocus();
             return false;
 
         }else if(addressWork.length() < 5){
-            Toast.makeText(ManagerAddCommunityActivity.this, R.string.address_work, Toast.LENGTH_SHORT).show();
+            Toast.makeText(ManagerAddCommunityActivity.this, R.string.warning_address_work_length, Toast.LENGTH_SHORT).show();
             inputAddressWork.requestFocus();
             return false;
         }else {

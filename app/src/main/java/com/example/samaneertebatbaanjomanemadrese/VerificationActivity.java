@@ -49,7 +49,7 @@ public class VerificationActivity extends AppCompatActivity {
             submitBtn.setEnabled(false);
             submitBtn.setClickable(false);
             String verificationCode = inputVerfication.getText().toString().trim();
-            if (!MyHttpManger.isOnline(this)) {
+            if (MyHttpManger.isOnline(this)) {
                 MyIntentHelper.alertDialogIsOffline(this);
             } else {
                 sendVerficationRequest(myParent.getUsername(), verificationCode);

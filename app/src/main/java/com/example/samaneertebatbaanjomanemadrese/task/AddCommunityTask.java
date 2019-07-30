@@ -1,13 +1,10 @@
 package com.example.samaneertebatbaanjomanemadrese.task;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.widget.Toast;
-
 import com.dd.processbutton.iml.ActionProcessButton;
-import com.example.samaneertebatbaanjomanemadrese.LoginActivity;
 import com.example.samaneertebatbaanjomanemadrese.ManagerAddCommunityActivity;
 import com.example.samaneertebatbaanjomanemadrese.R;
 import com.example.samaneertebatbaanjomanemadrese.helper.MyIntentHelper;
@@ -19,13 +16,14 @@ import org.json.JSONObject;
 import java.lang.ref.WeakReference;
 
 public class AddCommunityTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
-    private final static int ERROR, NORMAL, PROCESS, COMPLETE;
+    private final static int ERROR, NORMAL, PROCESS, COMPLETE ,DELAY;
 
     static {
         ERROR = -1;
         NORMAL = 0;
         PROCESS = 50;
         COMPLETE = 100;
+        DELAY = 2000;
     }
     private WeakReference<ManagerAddCommunityActivity> activityReference;
     @SuppressLint("StaticFieldLeak")
@@ -58,7 +56,7 @@ public class AddCommunityTask extends AsyncTask<MyHttpManger.RequestData, Void, 
         try {
             activity = activityReference.get();
             if (activity == null || activity.isFinishing()) return;
-            addCommunityBtn = activity.findViewById(R.id.add_communityـbtn_add);
+            addCommunityBtn = activity.findViewById(R.id.add_community_btn_add);
             JSONObject jsonResponse = new JSONObject(response);
             boolean success = jsonResponse.getBoolean("success");
             if (jsonResponse.length() == 0){
@@ -78,12 +76,13 @@ public class AddCommunityTask extends AsyncTask<MyHttpManger.RequestData, Void, 
     private void errorOccurred() {
         addCommunityBtn.setProgress(ERROR);
         final Handler handler = new Handler();
+
         handler.postDelayed(() -> {
             Toast.makeText(activity, R.string.error, Toast.LENGTH_LONG).show();
             addCommunityBtn.setProgress(NORMAL);
             addCommunityBtn.setEnabled(true);
             addCommunityBtn.setClickable(true);
-        }, 1500);
+        }, DELAY);
     }
     private void unsuccessProcess() {
         addCommunityBtn.setProgress(ERROR);
@@ -93,7 +92,7 @@ public class AddCommunityTask extends AsyncTask<MyHttpManger.RequestData, Void, 
             addCommunityBtn.setProgress(NORMAL);
             addCommunityBtn.setEnabled(true);
             addCommunityBtn.setClickable(true);
-        }, 1000);
+        }, DELAY);
 
     }
 
@@ -101,10 +100,10 @@ public class AddCommunityTask extends AsyncTask<MyHttpManger.RequestData, Void, 
         final Handler handler = new Handler();
         handler.postDelayed(() -> {
             addCommunityBtn.setProgress(COMPLETE);
+            activity.finish();
             addCommunityBtn.setProgress(NORMAL);
             addCommunityBtn.setEnabled(true);
             addCommunityBtn.setClickable(true);
-            activity.finish();
-        }, 1000);
+        }, DELAY);
     }
 }

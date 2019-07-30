@@ -25,13 +25,12 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class GetNotVerfiedParentTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
-    private WeakReference<ManagerVerifyParentActivity> activityReference;
+    private final WeakReference<ManagerVerifyParentActivity> activityReference;
     @SuppressLint("StaticFieldLeak")
     private ManagerVerifyParentActivity activity;
     @SuppressLint("StaticFieldLeak")
    // private RecyclerView recyclerView;
     private RecyclerView recyclerView;
-    private AppCompatTextView emptyTv;
 
     public GetNotVerfiedParentTask(ManagerVerifyParentActivity context) {
         activityReference = new WeakReference<>(context);
@@ -92,7 +91,7 @@ public class GetNotVerfiedParentTask extends AsyncTask<MyHttpManger.RequestData,
 
     private void unsuccessProcess() {
         recyclerView.setVisibility(View.GONE);
-        emptyTv = activity.findViewById(R.id.get_community_tv);
+        AppCompatTextView emptyTv = activity.findViewById(R.id.get_community_tv);
         emptyTv.setVisibility(View.VISIBLE);
     }
 

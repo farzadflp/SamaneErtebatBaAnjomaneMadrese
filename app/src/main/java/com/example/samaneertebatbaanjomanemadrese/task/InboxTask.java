@@ -18,7 +18,7 @@ import java.lang.ref.WeakReference;
 import java.util.List;
 
 public class  InboxTask extends AsyncTask<MyHttpManger.RequestData,Void,String> {
-    private WeakReference<InboxActivity> activityReference;
+    private final WeakReference<InboxActivity> activityReference;
     @SuppressLint("StaticFieldLeak")
     private InboxActivity activity ;
     @SuppressLint("StaticFieldLeak")

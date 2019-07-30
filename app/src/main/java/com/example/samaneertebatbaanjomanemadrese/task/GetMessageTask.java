@@ -21,11 +21,9 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 public class GetMessageTask extends AsyncTask<MyHttpManger.RequestData, Void, String> {
-    private WeakReference<InboxActivity> activityReference;
+    private final WeakReference<InboxActivity> activityReference;
     @SuppressLint("StaticFieldLeak")
     private InboxActivity activity ;
-    @SuppressLint("StaticFieldLeak")
-    private String topicSelected;
     private InboxAdapter adapter;
     private int selectedPosition;
     public GetMessageTask(InboxActivity context) {
@@ -53,7 +51,7 @@ public class GetMessageTask extends AsyncTask<MyHttpManger.RequestData, Void, St
             activity = activityReference.get();
             if (activity == null || activity.isFinishing()) return;
             adapter = activity.getAdapter();
-            topicSelected = adapter.getTopicSelected();
+        String topicSelected = adapter.getTopicSelected();
             selectedPosition = adapter.getSelectedPosition();
         if (response == null) {
             errorOccurred();

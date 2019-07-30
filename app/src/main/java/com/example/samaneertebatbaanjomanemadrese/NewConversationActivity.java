@@ -71,7 +71,7 @@ public class NewConversationActivity extends AppCompatActivity {
                 newConvBtn.setEnabled(false);
                 conversation.setMsg(msg);
                 conversation.setTopic(topic);
-                if (!MyHttpManger.isOnline(NewConversationActivity.this)){
+                if (MyHttpManger.isOnline(NewConversationActivity.this)){
                     MyIntentHelper.alertDialogIsOffline(NewConversationActivity.this);
                 }else {
                 newConversationRequest();

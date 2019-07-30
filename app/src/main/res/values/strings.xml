@@ -31,8 +31,7 @@
     <string name="you_are_offline">You Are Offline</string>
     <string name="warning_lastname_length">lastname should be at least 3 characters</string>
     <string name="warning_fistname_length">fistname should be at least 3 characters</string>
-    <string name="warning_phone_no_length">phone number should be at least 3 characters</string>
-    <string name="warning_nid_no_length">nidno should be at least 3 characters</string>
+    <string name="warning_phone_no_length">phone number Call number must be 10</string>
     <string name="visibility">Visibility</string>
     <string name="category">Category</string>
     <string name="chat">Chat</string>
@@ -87,4 +86,16 @@
     <string name="empty_community_list">Empty Community List</string>
     <string name="contact">Contact</string>
     <string name="hashtag">#</string>
+    <string name="community_list">Community List</string>
+    <string name="warning_child_name_length">name of child should be at least 3 characters</string>
+    <string name="warning_username_length">username should be at least 3 characters</string>
+    <string name="warning_password_length">password should be at least 6 characters</string>
+    <string name="warning_st_no_child_length">Student No Of Child must be 10</string>
+    <string name="warning_course_length">course should be at least 3 characters</string>
+    <string name="warning_post_length">post should be at least 3 characters</string>
+    <string name="warning_degree_length">degree of education should be at least 3 characters</string>
+    <string name="warning_tel_work_length">office phone should be at least 3 characters</string>
+    <string name="warning_address_work_length">address office should be at least 5 characters</string>
+    <string name="warning_user_phone_no">phone number existed</string>
+    <string name="warning_user_exist">username existed</string>
 </resources>
